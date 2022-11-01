@@ -274,6 +274,7 @@ a:focus {
 }
 
 #title #haskell_logo {
+  /* animation: rotateLogoIn3d 120s 60s infinite linear; */
   float: right;
   height: 250px;
   margin-left: -150px;
@@ -691,3 +692,24 @@ a:focus {
     Thanks for reading. I hope you enjoyed it at least as much as I enjoyed writing it
     for you.
 */
+
+@keyframes rotateLogoIn3d {
+  0% {
+    transform: rotateY( 0deg ) rotateZ( 0deg );
+  }
+  20% {
+    transform: rotateY( -72deg ) rotateZ( 144deg );
+  }
+  40% {
+    transform: rotateY( -144deg ) rotateZ( 288deg );
+  }
+  60% {
+    transform: rotateY( -216deg ) rotateZ( 432deg );
+  }
+  80% {
+    transform: rotateY( -288deg ) rotateZ( 576deg );
+  }
+  100% {
+    transform: rotateY( -360deg ) rotateZ( 740deg );
+  }
+};
