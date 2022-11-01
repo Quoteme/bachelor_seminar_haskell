@@ -17,6 +17,8 @@
 
     <link rel="shortcut icon" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="css/prism.css">
   </head>
 
   <body class="impress-not-supported">
@@ -46,15 +48,70 @@
 
       <div id="autor" class="step" data-x="1000" data-y="10" data-z="-800" data-scale="0.5">
         Ein Seminar von:
-        <span>Luca Leon Happel</span>
+        <br>
+        <a href="https://quoteme.github.io/about" style="margin-left: 4em">Luca Leon Happel</a>
       </div>
 
-      <div id="bored" class="step slide" data-x="-1000" data-y="-1500">
-        <q>Aren’t you just <b>bored</b> with all those slides-based presentations?</q>
+      <div id="was_ist_haskell" class="step" data-x="-2500" data-y="-1500" data-z="00" data-scale="1.5">
+        <h1>Was ist Haskell?</h1>
       </div>
 
-      <div class="step slide" data-x="0" data-y="-1500">
-        <q>Don’t you think that presentations given <strong>in modern browsers</strong> shouldn’t <strong>copy the limits</strong> of ‘classic’ slide decks?</q>
+      <div id="introduction" class="step slide" data-x="-1000" data-y="-1500" data-z="0">
+        <p>
+        <figure>
+          <q>
+          Haskell is a computer programming language.
+          In particular, it is a
+          <b style="color: var(--color1)">polymorphically</b>
+          <b style="color: var(--color3)">statically typed</b>,
+          <b style="color: var(--color1)">lazy</b>,
+          <b style="color: var(--color3)">purely</b>
+          <b style="color: var(--color1)">functional language</b>,
+          quite different from most other programming languages
+          </q>
+          <br>
+          <figcaption>
+            — <cite>
+              <a href="http://wiki.haskell.org/Introduction">wiki.haskell.org/Introduction</a>
+            </cite>
+          </figcaption>
+        </figure>
+        </p>
+      </div>
+
+      <div id="functional0" class="step slide" data-x="0" data-y="-1500">
+        <h1>
+          Was heißt „<span style="color: var(--color1)">functional language</span>“?
+        </h1>
+        <ul>
+          <li>
+            Programme werden durch komponierte Funktionen beschrieben
+          </li>
+          <li>
+            Ausführen bedeutet, dass die resultierende „Funktion ausgeführt“ wird
+          </li>
+        </ul>
+      </div>
+
+      <div id="functional1" class="step slide" data-x="0" data-y="-2300">
+        <h1>
+          Beispiel:
+        </h1>
+        
+      </div>
+
+      <div class="step slide" data-x="0" data-y="-4500">
+        <h1>
+          Was heißt „<span style="color: var(--color1)">polymorphically typed</span>“?
+        </h1>
+        <ul>
+          <li>
+            Werte haben immer einen Typ
+          </li>
+          <li>
+            Ein Wert kann mehrere Typen annehmen. 
+          </li>
+        </ul>
       </div>
 
       <div class="step slide" data-x="1000" data-y="-1500">
@@ -107,5 +164,6 @@
     <script src="js/impress.js"></script>
     <script>impress().init();</script>
 
+    <script src="js/prism.js"></script>
   </body>
 </html>
