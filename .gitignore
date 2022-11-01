@@ -1,3 +1,14 @@
+.circleci
+.direnv
+.eslintrc.js
+.jscsrc
+.npmignore
+.nvimrc
+.gitattributes
+.gitmodules
+.jshintrc
+Session.vim
+
 /js/impress.min.js.map
 /js/impress.min.js
 /node_modules
