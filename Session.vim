@@ -13,9 +13,8 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +62 index.html
-badd +315 css/impress-demo.css
-badd +60 ./notizen.md
+badd +196 index.html
+badd +210 css/impress-demo.css
 argglobal
 %argdel
 $argadd index.html
@@ -37,10 +36,9 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 47 + 38) / 77)
-exe '2resize ' . ((&lines * 26 + 38) / 77)
+exe '1resize ' . ((&lines * 40 + 32) / 65)
+exe '2resize ' . ((&lines * 21 + 32) / 65)
 argglobal
-balt ./notizen.md
 setlocal fdm=expr
 setlocal fde=nvim_treesitter#foldexpr()
 setlocal fmr={{{,}}}
@@ -51,58 +49,146 @@ setlocal fdn=20
 setlocal fen
 3
 normal! zo
-22
+4
 normal! zo
-29
+24
 normal! zo
-38
+31
 normal! zo
 40
 normal! zo
 42
 normal! zo
-47
+44
 normal! zo
 49
 normal! zo
-53
+51
 normal! zo
-57
-normal! zo
-59
+55
 normal! zo
 59
+normal! zo
+61
+normal! zo
+61
 normal! zo
 62
 normal! zo
-67
-normal! zo
-75
+72
 normal! zo
 73
 normal! zo
 74
 normal! zo
-75
-normal! zo
-80
-normal! zo
 82
+normal! zo
+83
 normal! zo
 86
 normal! zo
-90
+87
+normal! zo
+88
 normal! zo
 91
 normal! zo
-96
+92
 normal! zo
-let s:l = 62 - ((30 * winheight(0) + 23) / 47)
+93
+normal! zo
+99
+normal! zo
+100
+normal! zo
+101
+normal! zo
+110
+normal! zo
+111
+normal! zo
+111
+normal! zo
+112
+normal! zo
+116
+normal! zo
+123
+normal! zo
+124
+normal! zo
+125
+normal! zo
+136
+normal! zo
+138
+normal! zo
+139
+normal! zo
+143
+normal! zo
+150
+normal! zo
+151
+normal! zo
+154
+normal! zo
+154
+normal! zo
+155
+normal! zo
+158
+normal! zo
+164
+normal! zo
+167
+normal! zo
+172
+normal! zo
+172
+normal! zo
+172
+normal! zo
+178
+normal! zo
+180
+normal! zo
+182
+normal! zo
+183
+normal! zo
+187
+normal! zo
+193
+normal! zo
+194
+normal! zo
+200
+normal! zo
+204
+normal! zo
+208
+normal! zo
+212
+normal! zo
+217
+normal! zo
+221
+normal! zo
+226
+normal! zo
+229
+normal! zo
+235
+normal! zo
+238
+normal! zo
+let s:l = 196 - ((28 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 62
-normal! 016|
+keepjumps 196
+normal! 034|
 wincmd w
 argglobal
 if bufexists(fnamemodify("css/impress-demo.css", ":p")) | buffer css/impress-demo.css | else | edit css/impress-demo.css | endif
@@ -118,27 +204,55 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-31
+1
 normal! zo
-310
+144
 normal! zo
-315
+171
 normal! zo
-let s:l = 315 - ((58 * winheight(0) + 13) / 26)
+188
+normal! zo
+192
+normal! zo
+198
+normal! zo
+199
+normal! zo
+210
+normal! zo
+215
+normal! zo
+219
+normal! zo
+226
+normal! zo
+252
+normal! zo
+273
+normal! zo
+283
+normal! zo
+286
+normal! zo
+367
+normal! zo
+491
+normal! zo
+let s:l = 188 - ((2 * winheight(0) + 10) / 21)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 315
-normal! 024|
+keepjumps 188
+normal! 02|
 wincmd w
-exe '1resize ' . ((&lines * 47 + 38) / 77)
-exe '2resize ' . ((&lines * 26 + 38) / 77)
+exe '1resize ' . ((&lines * 40 + 32) / 65)
+exe '2resize ' . ((&lines * 21 + 32) / 65)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
-set winheight=47 winwidth=68
+set winheight=40 winwidth=68
 let &shortmess = s:shortmess_save
 let &winminheight = s:save_winminheight
 let &winminwidth = s:save_winminwidth

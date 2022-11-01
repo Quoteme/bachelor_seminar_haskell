@@ -83,44 +83,161 @@
         <h1>
           Was heißt „<span style="color: var(--color1)">functional language</span>“?
         </h1>
+        <br>
         <ul>
           <li>
-            Programme werden durch komponierte Funktionen beschrieben
+            Programme sind (verschachtelte) Funktionen
           </li>
+          <br>
+          <br>
           <li>
-            Ausführen bedeutet, dass die resultierende „Funktion ausgeführt“ wird
+            Programm ausführen \(\Leftrightarrow\) Funktion auswerten
           </li>
         </ul>
       </div>
 
-      <div id="functional1" class="step" data-x="0" data-y="-2300">
+      <div id="functional1" class="step codebeispiel" data-x="0" data-y="-2300">
         <pre>
           <code class="language-haskell">
-            -- Beispiel
+            -- Beispiel Hello world Programm
+            module Main where
 
-            list :: [Int] -> Int
-            list [] = 0
-            list (x:xs) = x + list xs
+            main :: IO ()
+            main = putStrLn "Hello, World!"
           </code>
         </pre>
       </div>
 
-      <div class="step slide" data-x="0" data-y="-4500">
+      <div id="functional2" class="step codebeispiel" data-x="0" data-y="-2250" data-z="-200" data-rotate-x="-40">
+        <pre class="command-line language-bash codeoutput"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-bash">
+          ./Main
+          (out) Hello, World!
+          </code>
+        </pre>
+      </div>
+
+      <div id="functional3" class="step codebeispiel" data-x="0" data-y="-3000" data-z="300">
+        <pre>
+          <code class="language-haskell">
+            module Main where
+
+            test :: String -> String
+            test s = s ++ " Haskell ist Cool!"
+
+            -- Hier können wir nun Funktionen komponieren
+            main :: IO ()
+            main = putStrLn (test "Hello, World!")
+          </code>
+        </pre>
+      </div>
+
+      <div id="functional4" class="step codebeispiel" data-x="0" data-y="-3000" data-z="0" data-rotate-x="-40">
+        <pre class="command-line language-bash codeoutput"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-bash">
+          ./Main
+          (out) Hello, World! Haskell ist Cool!
+          </code>
+        </pre>
+      </div>
+
+      <!-- <div class="step slide" data-x="0" data-y="-4500"> -->
+      <!--   <h1> -->
+      <!--     Was heißt „<span style="color: var(--color1)">polymorphically typed</span>“? -->
+      <!--   </h1> -->
+      <!--   <ul> -->
+      <!--     <li> -->
+      <!--       Werte haben immer einen Typ -->
+      <!--     </li> -->
+      <!--     <li> -->
+      <!--       Ein Wert kann mehrere Typen annehmen. --> 
+      <!--     </li> -->
+      <!--   </ul> -->
+      <!-- </div> -->
+
+      <div id="pure0" class="step slide" data-x="1200" data-y="-1500">
         <h1>
-          Was heißt „<span style="color: var(--color1)">polymorphically typed</span>“?
+          Was heißt „<span style="color: var(--color3)">pure</span>“?
         </h1>
         <ul>
           <li>
-            Werte haben immer einen Typ
+            Funktionen haben keine Seiteneffekte (keine Mutation, Variablen, I/O)
           </li>
           <li>
-            Ein Wert kann mehrere Typen annehmen. 
+            Funktionen geben das gleiche Ergebnis für die gleichen Eingaben zurück
           </li>
         </ul>
       </div>
 
-      <div class="step slide" data-x="1000" data-y="-1500">
-        <q>Would you like to <strong>impress your audience</strong> with <strong>stunning visualization</strong> of your talk?</q>
+      <div id="pure_meme" class="step" data-x="1200" data-y="-2300">
+          <img src="img/memes/haskell_joke.png" alt="Joke from XKCD about haskell">
+      </div>
+
+      <div id="impure_python" class="step codebeispiel" data-x="1200" data-y="-3000">
+        <pre class="language-python"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-python">
+          #!/usr/bin/env python3
+          def unrein(x):
+              x = 1
+
+          if __name__ == "__main__":
+              x = 0
+              unrein(x)
+              print(x)
+          </code>
+        </pre>
+      </div>
+
+      <div id="pure_haskell" class="step codebeispiel" data-x="1200" data-y="-3500">
+        <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          module Main where
+
+          main :: IO ()
+          main = <mark>putStrLn "Hello, World!"</mark> -- unrein?
+          </code>
+        </pre>
+        <pre class="command-line language-bash codeoutput"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-bash">
+          ./Main
+          (out) Hello, World!
+          </code>
+        </pre>
+      </div>
+
+      <div id="pure1" class="step" data-x="1200" data-y="-4000" data-z="200">
+        <blockquote>„Haskell is [...] quite different from most other programming languages“</blockquote>
+      </div>
+
+      <div id="pure2" class="step slide" data-x="1200" data-y="-4800" data-z="200">
+        <div class="codebeispiel">
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          module Main where
+
+          main :: <mark>IO ()</mark> -- Monoid
+          main = putStrLn "Hello, World!"
+          </code>
+          </pre>
+        </div>
       </div>
 
       <div id="its" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
@@ -170,5 +287,7 @@
     <script>impress().init();</script>
 
     <script src="js/prism.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="./js/tex-mml-chtml.js"></script>
   </body>
 </html>
