@@ -17,7 +17,7 @@
         rec {
           devShells.default = pkgs.mkShell {
             buildInputs = [ 
-              (haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
+              (pkgs.haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
                 # No packages added yet
               ])) 
             ];
