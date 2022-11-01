@@ -93,11 +93,16 @@
         </ul>
       </div>
 
-      <div id="functional1" class="step slide" data-x="0" data-y="-2300">
-        <h1>
-          Beispiel:
-        </h1>
-        
+      <div id="functional1" class="step" data-x="0" data-y="-2300">
+        <pre>
+          <code class="language-haskell">
+            -- Beispiel
+
+            list :: [Int] -> Int
+            list [] = 0
+            list (x:xs) = x + list xs
+          </code>
+        </pre>
       </div>
 
       <div class="step slide" data-x="0" data-y="-4500">
