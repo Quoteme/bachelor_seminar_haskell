@@ -191,6 +191,10 @@ a:focus {
   font-size: 24px;
 }
 
+.firacode *{
+  font-family: Fira Code;
+}
+
 .step h1 {
     font-size: 1.3em;
     line-height: 1.3;
@@ -351,9 +355,20 @@ a:focus {
     font-size: 32px;
 }
 
-#was_ist_haskell h1 {
+#was_ist_haskell h1, #warum_haskell_lernen h1 {
+  line-height: 120px;
   text-align: center;
   font-size: 100px;
+}
+
+#shortInfo ul ul li{
+  margin-left: 40px;
+  list-style-type: circle
+}
+
+#shortInfo ul li{
+  font-size: 40px;
+  line-height: 40px;
 }
 
 #introduction figure {

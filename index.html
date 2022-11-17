@@ -37,7 +37,7 @@
       data-min-scale="0"
       data-perspective="1000">
 
-      <div id="title" class="step" data-x="0" data-y="0" data-scale="4">
+      <div id="title" class="step" data-x="-2000" data-y="-8000" data-scale="4" data-rotate-z="-60">
         <span class="pretitle">Bachelor-Seminar:</span>
         <div>
           <h1>Haskell</h1>
@@ -46,17 +46,61 @@
         <span class="footnote">— Angewandter „abstract nonsense“ —</span>
       </div>
 
-      <div id="autor" class="step" data-x="1000" data-y="10" data-z="-800" data-scale="0.5">
-        Ein Seminar von:
+      <div id="subtitle" class="step" data-x="-1500" data-y="-5500" data-scale="1" data-rotate-z="-30">
+        <q style="text-align: justify;">
+          „Du programmierst nicht Haskell —
+          <br>
+          Haskell programmiert dich.“
+        </q>
         <br>
-        <a href="https://quoteme.github.io/about" style="margin-left: 4em">Luca Leon Happel</a>
+        <!-- <span style="float: right" class="footnote">— Ich</span> -->
+        <!-- Infos zu mir und meiner Geschichte mit haskell-->
       </div>
 
-      <div id="was_ist_haskell" class="step" data-x="-2500" data-y="-1500" data-z="00" data-scale="1.5">
+      <!-- <div id="autor" class="step" data-x="1000" data-y="10" data-z="-800" data-scale="0.5"> -->
+      <!--   Ein Seminar von: -->
+      <!--   <br> -->
+      <!--   <a href="https://quoteme.github.io/about" style="margin-left: 4em">Luca Leon Happel</a> -->
+      <!-- </div> -->
+
+      <div id="warum_haskell_lernen" class="step" data-x="-3500" data-y="-2500" data-z="00" data-scale="1.5">
+        <h1>Warum Haskell lernen?</h1>
+      </div>
+
+      <div id="shortInfo" class="step slide" data-x="-1500" data-y="-2500" data-z="0">
+        <ul>
+          <li>Funktionale Programmierung lernen</li>
+          <li>
+            immutability
+            <ul>
+              <li>weniger bugs</li>
+              <li>Parallelität</li>
+            </ul>
+          </li>
+          <li>arbeiten mit unendlichen Datenstrukturen</li>
+          <li>algebraisches Typensystem</li>
+          <li>besser Programmieren / Probleme lösen</li>
+          <li>high-level mit Performance von low-level</li>
+        </ul>
+      </div>
+
+      <div id="influenceOfHaskell1" class="step" data-x="-1800" data-y="-3300" data-z="0">
+        <iframe src="https://programminglanguages.info/influence-network/#language=Haskell" frameborder="0" width="150%" style="margin-left: -25%" height="680px"></iframe>
+      </div>
+
+      <!-- <div id="influenceOfHaskell2" class="step" data-x="-1000" data-y="-4100" data-z="0"> -->
+      <!--   <iframe src="https://programminglanguages.info/influence-ranking/" frameborder="0" width="150%" style="margin-left: -25%" height="680px"></iframe> -->
+      <!-- </div> -->
+
+      <div id="haskell_learn_math_meme" class="step" data-x="-1500" data-y="-4100" data-z="0">
+        <img src="./img/537fk6.jpg" alt="meme about haskell and learning math">
+      </div>
+
+      <div id="was_ist_haskell" class="step" data-x="-3000" data-y="-1500" data-z="00" data-scale="1.5">
         <h1>Was ist Haskell?</h1>
       </div>
 
-      <div id="introduction" class="step slide" data-x="-1000" data-y="-1500" data-z="0">
+      <div id="introduction" class="step slide" data-x="-1500" data-y="-1500" data-z="0">
         <p>
         <figure>
           <q>
@@ -99,8 +143,8 @@
       <div id="functional1" class="step codebeispiel" data-x="0" data-y="-2300">
         <pre>
           <code class="language-haskell">
+            -- Main.hs
             -- Beispiel Hello world Programm
-            module Main where
 
             main :: IO ()
             main = putStrLn "Hello, World!"
@@ -123,8 +167,6 @@
       <div id="functional3" class="step codebeispiel" data-x="0" data-y="-3000" data-z="300">
         <pre>
           <code class="language-haskell">
-            module Main where
-
             test :: String -> String
             test s = s ++ " Haskell ist Cool!"
 
@@ -147,21 +189,19 @@
         </pre>
       </div>
 
-      <!-- <div class="step slide" data-x="0" data-y="-4500"> -->
-      <!--   <h1> -->
-      <!--     Was heißt „<span style="color: var(--color1)">polymorphically typed</span>“? -->
-      <!--   </h1> -->
-      <!--   <ul> -->
-      <!--     <li> -->
-      <!--       Werte haben immer einen Typ -->
-      <!--     </li> -->
-      <!--     <li> -->
-      <!--       Ein Wert kann mehrere Typen annehmen. --> 
-      <!--     </li> -->
-      <!--   </ul> -->
-      <!-- </div> -->
+      <div id="functional5" class="step codebeispiel" data-x="0" data-y="-3700" data-z="300">
+        <pre>
+          <code class="language-haskell">
+          (f . g) x = f (g x)
+          -- (.) :: (b -> c) -> (a -> b) -> a -> c
 
-      <div id="pure0" class="step slide" data-x="1200" data-y="-1500">
+          f $ g $ x = f (g x)
+          -- ($) :: (a -> b) -> a -> b
+          </code>
+        </pre>
+      </div>
+
+      <div id="pure0" class="step slide" data-x="1500" data-y="-1500">
         <h1>
           Was heißt „<span style="color: var(--color3)">pure</span>“?
         </h1>
@@ -175,11 +215,11 @@
         </ul>
       </div>
 
-      <div id="pure_meme" class="step" data-x="1200" data-y="-2300">
+      <div id="pure_meme" class="step" data-x="1500" data-y="-2300">
           <img src="img/memes/haskell_joke.png" alt="Joke from XKCD about haskell">
       </div>
 
-      <div id="impure_python" class="step codebeispiel" data-x="1200" data-y="-3000">
+      <div id="impure_python" class="step codebeispiel" data-x="1500" data-y="-3000">
         <pre class="language-python"
           data-filter-output="(out)"
           data-user="haskell"
@@ -197,7 +237,7 @@
         </pre>
       </div>
 
-      <div id="pure_haskell" class="step codebeispiel" data-x="1200" data-y="-3500">
+      <div id="pure_haskell" class="step codebeispiel" data-x="1500" data-y="-3500">
         <pre class="language-haskell"
           data-filter-output="(out)"
           data-user="haskell"
@@ -220,11 +260,11 @@
         </pre>
       </div>
 
-      <div id="pure1" class="step" data-x="1200" data-y="-4000" data-z="200">
+      <div id="pure1" class="step" data-x="1500" data-y="-4000" data-z="200">
         <blockquote>„Haskell is [...] quite different from most other programming languages“</blockquote>
       </div>
 
-      <div id="pure2" class="step slide" data-x="1200" data-y="-4800" data-z="200">
+      <div id="pure2" class="step" data-x="1500" data-y="-3500" data-z="-1400">
         <div class="codebeispiel">
           <pre class="language-haskell"
           data-filter-output="(out)"
@@ -233,50 +273,516 @@
           <code class="language-haskell">
           module Main where
 
-          main :: <mark>IO ()</mark> -- Monoid
+          main :: <mark>IO ()</mark> -- ← Monade
           main = putStrLn "Hello, World!"
           </code>
           </pre>
         </div>
       </div>
 
-      <div id="its" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
-        <p>It’s a <strong>presentation tool</strong> <br/>
-        inspired by the idea behind <a href="http://prezi.com">prezi.com</a> <br/>
-        and based on the <strong>power of CSS3 transforms and transitions</strong> in modern browsers.</p>
+      <div id="pure2_wikidef" class="step" data-x="1500" data-y="-3500" data-z="-3000">
+        <img src="img/2022-11-17-13-24-40.png" alt="">
       </div>
 
-      <div id="big" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="6">
-        <p>visualize your <b>big</b> <span class="thoughts">thoughts</span></p>
+      <div id="pure3" class="step" data-x="1500" data-y="-3500" data-z="-4500">
+        <div class="codebeispiel">
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          -- :t putStrLn
+          putStrLn :: String -> IO ()
+          -- :t "Hello, World!"
+          "Hello, World!" :: String
+          </code>
+          </pre>
+          $$\text{putStrLn} : \text{String} \longrightarrow \text{IO } ()$$
+          $$\text{putStrLn}(\text{"Hello, World!"}) = ???$$
+        </div>
       </div>
 
-      <div id="tiny" class="step" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
-        <p>and <b>tiny</b> ideas</p>
+      <div id="pure4" class="step" data-x="1500" data-y="-3700" data-z="-6000" data-scale="0.5">
+        $$\text{putStrLn} : \text{String} \longrightarrow \text{IO } ()$$
+        <a href="https://www.youtube.com/watch?v=fCoQb-zqYDI&t=519s"><img width="100%" src="img/2022-11-17-13-33-12.png" alt="thumbnail of tsoding video"></a>
       </div>
 
-      <div id="ing" class="step" data-x="3500" data-y="-850" data-z="0" data-rotate="270" data-scale="6">
-        <p>by <b class="positioning">positioning</b>, <b class="rotating">rotating</b> and <b class="scaling">scaling</b> them on an infinite canvas</p>
+      <div id="pure5" class="step" data-x="1500" data-y="-3700" data-z="-7300" data-scale="0.5">
+        <img width="100%" src="./img/memes/io-monad.jpg" alt="trapped in io-monad meme">
       </div>
 
-      <div id="imagination" class="step" data-x="6700" data-y="-300" data-scale="6">
-        <p>the only <b>limit</b> is your <b class="imagination">imagination</b></p>
+      <div id="pure6" class="step codebeispiel" data-x="1500" data-y="-3700" data-z="-8300" data-scale="0.5">
+        <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          -- Haskell logo
+          (>>=) :: Monad m => m a -> (a -> m b) -> m b
+          </code>
+        </pre>
       </div>
 
-      <div id="source" class="step" data-x="6300" data-y="2000" data-rotate="20" data-scale="4">
-        <p>want to know more?</p>
-        <q><a href="http://github.com/impress/impress.js">use the source</a>, Luke!</q>
+      <div id="lazy0" class="step slide" data-x="3000" data-y="-1500" data-z="0">
+        <h1>
+          Was heißt „<span style="color: var(--color1)">lazy</span>“?
+        </h1>
+        <ul>
+          <li>
+            Nichts berechnen, was nicht gerade gebraucht wird
+          </li>
+          <li>
+            Erlaubt u.A., unendliche Datenstrukturen zu definieren
+          </li>
+        </ul>
       </div>
 
-      <div id="one-more-thing" class="step" data-x="6000" data-y="4000" data-scale="2">
-        <p>one more thing...</p>
+      <div id="lazy1" class="step" data-x="3000" data-y="-2500" data-z="0">
+        <div class="codebeispiel">
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          r = [1..] -- Analog zu {1,...}
+          s = take 10 t
+          t = [":) " | _ <- s] -- Analog zu (x for x in y)
+          </code>
+          </pre>
+          \[\begin{align*}
+          r &= [1, 2, 3, 4, \ldots] \\
+          s &= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] \\
+          t &= [":) ", ":) ", ":) ", ":) ", ":) ", ":) ", ":) ", ":) ", ":) ", ":) "] \\
+          \end{align*}\]
+        </div>
       </div>
 
-      <div id="its-in-3d" class="step" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2">
-        <p><span class="have">have</span> <span class="you">you</span> <span class="noticed">noticed</span> <span class="its">it’s</span> <span class="in">in</span> <b>3D<sup>*</sup></b>?</p>
-        <span class="footnote">* beat that, prezi ;)</span>
+      <div id="lazy2primes" class="step" data-x="3000" data-y="-3500" data-z="0">
+        <div class="codebeispiel">
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          p = [t | t <- [1..], isPrime t]
+            where
+              isPrime :: Integer -> Bool
+              isPrime 1 = False
+              isPrime n = all (\x -> n `mod` x /= 0) [2..n-1]
+          </code>
+          </pre>
+          \[\begin{align*}
+          p = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, \ldots] \\
+          \end{align*}\]
+        </div>
       </div>
 
-      <div id="overview" class="step" data-x="3000" data-y="1500" data-z="0" data-scale="10">
+      <div id="lazy3" class="step" data-x="3000" data-y="-4500" data-z="0">
+        <ul>
+          <li>\(\lambda\)-Funktion mit Param. \(x\)</li>
+          <li>schicke \(x\) auf \(n \text{ mod } x\) </li>
+          <li>teste ob \(n \text{ mod } x \neq 0\) </li>
+        </ul>
+        <div class="codebeispiel">
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          p = [t | t <- [1..], isPrime t]
+            where
+              isPrime :: Integer -> Bool
+              isPrime 1 = False
+              isPrime n = all <mark>(\x -> n `mod` x /= 0)</mark> [2..n-1]
+          </code>
+          </pre>
+        </div>
+      </div>
+
+      <!-- <div id="lazyFont" class="step" data-x="3000" data-y="-5300" data-z="0"> -->
+      <!--   <div class="codebeispiel"> -->
+      <!--     <pre class="language-haskell" -->
+      <!--     data-filter-output="(out)" -->
+      <!--     data-user="haskell" -->
+      <!--     data-host="curry"> -->
+      <!--     <code class="language-haskell firacode"> -->
+      <!--     p = [t | t <- [1..], isPrime t] -->
+      <!--       where -->
+      <!--         isPrime :: Integer -> Bool -->
+      <!--         isPrime 1 = False -->
+      <!--         isPrime n = all <mark>(\x -> n `mod` x /= 0)</mark> [2..n-1] -->
+      <!--     </code> -->
+      <!--     </pre> -->
+      <!--     <pre class="language-haskell" -->
+      <!--     data-filter-output="(out)" -->
+      <!--     data-user="haskell" -->
+      <!--     data-host="curry"> -->
+      <!--     <code class="language-haskell"> -->
+      <!--     p = [t | t <- [1..], isPrime t] -->
+      <!--       where -->
+      <!--         isPrime :: Integer -> Bool -->
+      <!--         isPrime 1 = False -->
+      <!--         isPrime n = all <mark>(\x -> n `mod` x /= 0)</mark> [2..n-1] -->
+      <!--     </code> -->
+      <!--     </pre> -->
+      <!--   </div> -->
+      <!-- </div> -->
+
+      <div id="lazy4" class="step" data-x="3000" data-y="-5300" data-z="0">
+        <div class="codebeispiel">
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          p = [t | t <- [1..], isPrime t]
+            where
+              isPrime :: Integer -> Bool
+              isPrime 1 = False
+              --                       Infix
+              isPrime n = all (\x -> n <mark>`mod`</mark> x /= 0) [2..n-1]
+          </code>
+          </pre>
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          p = [t | t <- [1..], isPrime t]
+            where
+              isPrime :: Integer -> Bool
+              isPrime 1 = False
+              --                     Prefix
+              isPrime n = all (\x -> <mark>mod (n x)</mark> /= 0) [2..n-1]
+          </code>
+          </pre>
+        </div>
+      </div>
+
+      <div id="lazy5" class="step" data-x="3000" data-y="-6300" data-z="0">
+        <div class="codebeispiel">
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          p = [t | t <- [1..], isPrime t]
+            where
+              isPrime :: Integer -> Bool
+              isPrime 1 = False
+              isPrime n = <mark>all</mark> (\x -> n `mod` x /= 0) [2..n-1]
+          </code>
+          </pre>
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          p = [t | t <- [1..], isPrime t]
+            where
+              isPrime :: Integer -> Bool
+              isPrime 1 = False
+              isPrime n = (\x -> n `mod` x /= 0) <mark>`all`</mark> [2..n-1]
+          </code>
+          </pre>
+          <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          -- :t all
+          all :: Foldable t => (a -> Bool) -> t a -> Bool
+          </code>
+          </pre>
+        </div>
+      </div>
+
+      <div id="staticallyTyped0" class="step slide" data-x="4200" data-y="-1500" data-z="0">
+        <h1>
+          Was heißt „<span style="color: var(--color1)">statically typed</span>“?
+        </h1>
+        <ul>
+          <li>Werte haben immer einen Typen <span style="color: var(--color2);">(typed)</span></li>
+          <li>Alle Typen jedes Wertes sind beim Kompilieren bekannt <span style="color: var(--color3);">(statically)</span></li>
+        </ul>
+      </div>
+
+      <div id="staticallyTyped1" class="step codebeispiel" data-x="4200" data-y="-2500" data-z="0">
+        <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          module Types where
+
+          s :: String
+          s = "Hallo :)"
+
+          i :: Int
+          i = 5
+
+          f :: Float
+          f = 3.141592
+
+          todouble :: Float -> Double
+          todouble x = realToFrac x
+
+          proj :: a -> String
+          proj etwas = "😎"
+          </code>
+        </pre>
+      </div>
+
+      <div id="staticallyTyped2" class="step codebeispiel" data-x="4200" data-y="-3300" data-z="0">
+        <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          module Datatypes where
+
+          data Liste a = LeereListe | Listenelement (Liste a)  a
+
+          data Arbeiter = Angestellter
+                        | Manager
+                        | Hilfspersonal
+          </code>
+        </pre>
+      </div>
+
+      <div id="staticallyTyped3" class="step codebeispiel" data-x="4200" data-y="-4300" data-z="0">
+        <pre class="language-haskell"
+          data-filter-output="(out)"
+          data-user="haskell"
+          data-host="curry">
+          <code class="language-haskell">
+          data Liste a = LeereListe | Listenelement (Liste a)  a
+
+          data Arbeiter = Angestellter
+                        | Manager
+                        | Hilfspersonal
+
+          listeErzeugen :: Arbeiter -> Liste Arbeiter
+          listeErzeugen Angestellter  = Listenelement LeereListe Angestellter
+          listeErzeugen Manager       = Listenelement LeereListe Manager
+          listeErzeugen Hilfspersonal = Listenelement LeereListe Hilfspersonal
+
+          elementHinzufuegen :: Liste Arbeiter
+                             -> Arbeiter
+                             -> Liste Arbeiter
+          elementHinzufuegen x y = Listenelement x y
+          </code>
+        </pre>
+      </div>
+
+      <div id="staticallyTyped4" class="step " data-x="4200" data-y="-5300" data-z="0">
+        Wir erkennen, dass
+          <pre class="language-haskell" style="font-size: 24px">
+          <code class="language-haskell">
+          data Liste a = LeereListe | Listenelement (Liste a)  a
+          </code>
+          </pre>
+        eine Monoidstruktur hat!
+      </div>
+
+      <div id="staticallyTyped5" class="step " data-x="4200" data-y="-6300" data-z="0">
+        Monoidstruktur:
+        <ul>
+          <li>Es gibt eine binäre Operation (Listen Konkatenieren) (Magmastruktur)</li>
+          <li>Die Operation ist Assoziativ (Halbgruppenstruktur)</li>
+          <li>Es gibt ein Neutrales Element (leere Liste) (Monoidstruktur)</li>
+        </ul>
+      </div>
+      
+      <div id="staticallyTyped6" class="step " data-x="4200" data-y="-7300" data-z="0">
+        <pre class="language-haskell" style="font-size: 24px">
+          <code class="language-haskell">
+          instance Semigroup (Liste a) where
+            (<>) LeereListe LeereListe = LeereListe
+            (<>) LeereListe v = v
+            (<>) v LeereListe = v
+            (<>) v (Listenelement w z) = Listenelement (v <> w) z
+
+          instance Monoid (Liste a) where
+            mempty = LeereListe
+          </code>
+        </pre>
+        Jetzt gehört unser Listendatentyp zur Klasse aller Typen, welche
+        eine Monoidstruktur haben!
+      </div>
+
+      <div id="staticallyTyped_deriving" class="step " data-x="4200" data-y="-8300" data-z="0">
+        Triviale Instanzen können automatisch abgeleitet werden
+        <pre class="language-haskell" style="font-size: 24px">
+        <code class="language-haskell">
+          data Liste a = LeereListe | Listenelement (Liste a)  a
+            <mark>deriving (Show)</mark>
+
+          data Arbeiter = Angestellter
+                        | Manager
+                        | Hilfspersonal
+                          deriving (Show)
+        </code>
+        </pre>
+        <pre class="language-haskell" style="font-size: 24px">
+        <code class="language-haskell">
+          show ( Listenelement LeereListe "hallo" )
+          -- Ausgabe: Listenelement LeereListe "hallo" :: String
+        </code>
+        </pre>
+      </div>
+
+      <div id="staticallyTyped7" class="step " data-x="4200" data-y="-7300" data-z="0" data-rotate-x="-90">
+        Und warum so „umständlich“?
+      </div>
+
+      <div id="staticallyTyped8" class="step " data-x="4200" data-y="-3000" data-z="500" data-rotate-x="-56">
+        Wir können nun <b>alle</b> Funktionen, welche für Monoide geschrieben wurden verwenden
+        <!-- TODO: Hier hoogle einfügen -->
+      </div>
+
+      <div id="staticallyTyped9" class="step " data-x="4200" data-y="-3700" data-z="1500" data-rotate-x="-56">
+        Es gibt eine kanonische Monoidstruktur auf Abbildungen in Monoide.
+        <pre class="language-haskell" style="font-size: 24px; width: 140%; margin-left: -20%;">
+          <code class="language-haskell">
+          f :: a -> Liste a
+          f x = Listenelement LeereListe x
+          g :: a -> Liste a
+          g x =  Listenelement LeereListe x
+              <> Listenelement LeereListe  x
+
+          f ":)" -- Wird zu ...
+          Listenelement LeereListe ":)"
+          g ":)" -- Wird zu ...
+          Listenelement (Listenelement LeereListe ":)") ":)"
+          (f <> g) ":)" -- Wird zu ...
+          Listenelement (Listenelement (Listenelement LeereListe ":)") ":)") ":)"
+          </code>
+        </pre>
+      </div>
+
+      <div id="staticallyTyped10" class="step " data-x="4200" data-y="-4000" data-z="2200" data-rotate-x="-56">
+        <pre class="language-haskell" style="font-size: 24px; width: 140%; margin-left: -20%;">
+          <code class="language-haskell">
+          module ListBeispiel where
+
+          import Data.List
+          import Data.Ord
+
+          test :: [String] -> [String]
+          -- Allgemeiner: test :: (Foldable t, Ord (t a)) => [t a] -> [t a]
+          test = sortBy (comparing length <> compare)
+          </code>
+        </pre>
+      </div>
+
+      <div id="staticallyTyped10resultat" class="step " data-x="4200" data-y="-4600" data-z="2200" data-rotate-x="-135">
+        <pre class="language-haskell" style="font-size: 24px; width: 140%; margin-left: -20%;">
+          <code class="language-haskell">
+          test = sortBy (comparing length <> compare)
+
+          test ["hallo", "wie", "geht", "es", "dir", "?"] -- Wird zu...
+          -- => ["?","es","dir","wie","geht","hallo"]
+          </code>
+        </pre>
+      </div>
+
+      <div id="staticallyTyped11" class="step " data-x="4200" data-y="-4500" data-z="2700" data-rotate-x="-56">
+        <pre class="language-haskell" style="font-size: 24px; width: 140%; margin-left: -20%;">
+          <code class="language-haskell">
+          test = sortBy (comparing length <> compare)
+               -- Umformung
+               = sortBy (comparing length) <> sortBy compare
+
+          -- Hilfe zu den Typen
+          sortBy    :: (a -> a -> Ordering) -> [a] -> [a]      -- <a href="https://hoogle.haskell.org/?hoogle=sortby">Documentation</a>
+          comparing :: Ord a => (b -> a) -> b -> b -> Ordering -- <a href="https://hoogle.haskell.org/?hoogle=comparing">Documentation</a>
+          length    :: Foldable t => t a -> Int                -- <a href="https://hoogle.haskell.org/?hoogle=length">Documentation</a>
+          compare   :: Ord a => a -> a -> Ordering             -- <a href="https://hoogle.haskell.org/?hoogle=compare">Documentation</a>
+
+          -- Typen von Kompositionen
+          comparing length :: Foldable t => t a -> t a -> Ordering
+          </code>
+        </pre>
+        </a>
+      </div>
+
+      <div class="step slide" data-x="5500" data-y="-1500" data-z="0">
+        <h1>
+          Was heißt „<span style="color: var(--color1)">polymorphically typed</span>“?
+        </h1>
+        <ul>
+          <li>
+            Ein Wert: mehrere Typen
+          </li>
+          <li>
+            Viele verschiedene Arten in Haskell:
+            <ul style="margin-left: 50px;">
+              <li style="list-style-type: circle;">
+                Parametrisch
+              </li>
+              <li style="list-style-type: circle;">
+                Ad-hoc, ...
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="step" data-x="5500" data-y="-2500" data-z="0">
+        <pre class="language-haskell" style="font-size: 24px; width: 140%; margin-left: -20%;">
+          <code class="language-haskell">
+          -- parametrisch
+          -- funktioniert für jede Funktion * -> *
+          id :: a -> a
+          map :: (a -> b) -> [a] -> [b]
+          [] :: [a]
+
+          -- ad-hoc
+          -- eigene implementation für jeden Typ
+          (==) :: Eq a => a -> a -> Bool
+          elem :: (Eq a) => a -> [a] -> Bool
+          </code>
+        </pre>
+      </div>
+
+      <!-- <div id="its" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5"> -->
+      <!--   <p>It’s a <strong>presentation tool</strong> <br/> -->
+      <!--   inspired by the idea behind <a href="http://prezi.com">prezi.com</a> <br/> -->
+      <!--   and based on the <strong>power of CSS3 transforms and transitions</strong> in modern browsers.</p> -->
+      <!-- </div> -->
+
+      <!-- <div id="big" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="6"> -->
+      <!--   <p>visualize your <b>big</b> <span class="thoughts">thoughts</span></p> -->
+      <!-- </div> -->
+
+      <!-- <div id="tiny" class="step" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1"> -->
+      <!--   <p>and <b>tiny</b> ideas</p> -->
+      <!-- </div> -->
+
+      <!-- <div id="ing" class="step" data-x="3500" data-y="-850" data-z="0" data-rotate="270" data-scale="6"> -->
+      <!--   <p>by <b class="positioning">positioning</b>, <b class="rotating">rotating</b> and <b class="scaling">scaling</b> them on an infinite canvas</p> -->
+      <!-- </div> -->
+
+      <!-- <div id="imagination" class="step" data-x="6700" data-y="-300" data-scale="6"> -->
+      <!--   <p>the only <b>limit</b> is your <b class="imagination">imagination</b></p> -->
+      <!-- </div> -->
+
+      <!-- <div id="source" class="step" data-x="6300" data-y="2000" data-rotate="20" data-scale="4"> -->
+      <!--   <p>want to know more?</p> -->
+      <!--   <q><a href="http://github.com/impress/impress.js">use the source</a>, Luke!</q> -->
+      <!-- </div> -->
+
+      <!-- <div id="one-more-thing" class="step" data-x="6000" data-y="4000" data-scale="2"> -->
+      <!--   <p>one more thing...</p> -->
+      <!-- </div> -->
+
+      <!-- <div id="its-in-3d" class="step" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2"> -->
+      <!--   <p><span class="have">have</span> <span class="you">you</span> <span class="noticed">noticed</span> <span class="its">it’s</span> <span class="in">in</span> <b>3D<sup>*</sup></b>?</p> -->
+      <!--   <span class="footnote">* beat that, prezi ;)</span> -->
+      <!-- </div> -->
+
+      <div id="overview" class="step" data-x="1500" data-y="-2000" data-z="0" data-scale="10" data-rotate-x="-50">
       </div>
 
     </div>

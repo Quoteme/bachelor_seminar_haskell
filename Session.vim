@@ -13,8 +13,8 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +196 index.html
-badd +210 css/impress-demo.css
+badd +87 index.html
+badd +101 css/impress-demo.css
 argglobal
 %argdel
 $argadd index.html
@@ -36,9 +36,10 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 40 + 32) / 65)
-exe '2resize ' . ((&lines * 21 + 32) / 65)
+exe '1resize ' . ((&lines * 32 + 38) / 77)
+exe '2resize ' . ((&lines * 41 + 38) / 77)
 argglobal
+balt css/impress-demo.css
 setlocal fdm=expr
 setlocal fde=nvim_treesitter#foldexpr()
 setlocal fmr={{{,}}}
@@ -51,7 +52,11 @@ setlocal fen
 normal! zo
 4
 normal! zo
+21
+normal! zo
 24
+normal! zo
+26
 normal! zo
 31
 normal! zo
@@ -63,132 +68,312 @@ normal! zo
 normal! zo
 49
 normal! zo
-51
+50
+normal! zo
+52
 normal! zo
 55
 normal! zo
-59
+66
 normal! zo
-61
+70
 normal! zo
-61
-normal! zo
-62
-normal! zo
-72
+71
 normal! zo
 73
 normal! zo
-74
+75
 normal! zo
 82
 normal! zo
 83
 normal! zo
-86
-normal! zo
-87
-normal! zo
-88
-normal! zo
-91
-normal! zo
 92
-normal! zo
-93
-normal! zo
-99
 normal! zo
 100
 normal! zo
 101
 normal! zo
+104
+normal! zo
+108
+normal! zo
+109
+normal! zo
 110
 normal! zo
 111
 normal! zo
-111
+121
 normal! zo
-112
-normal! zo
-116
+122
 normal! zo
 123
 normal! zo
-124
+131
 normal! zo
-125
+132
+normal! zo
+135
 normal! zo
 136
 normal! zo
-138
+137
 normal! zo
-139
+140
 normal! zo
-143
+141
+normal! zo
+142
+normal! zo
+148
+normal! zo
+149
 normal! zo
 150
 normal! zo
-151
+160
 normal! zo
-154
+161
 normal! zo
-154
-normal! zo
-155
-normal! zo
-158
-normal! zo
-164
-normal! zo
-167
+165
 normal! zo
 172
 normal! zo
-172
+173
 normal! zo
-172
+174
 normal! zo
-178
+185
 normal! zo
-180
+186
 normal! zo
-182
+190
 normal! zo
-183
+197
 normal! zo
-187
+198
 normal! zo
-193
+201
 normal! zo
-194
+202
 normal! zo
-200
+205
 normal! zo
-204
-normal! zo
-208
+211
 normal! zo
 212
 normal! zo
-217
+215
 normal! zo
-221
+216
 normal! zo
-226
+220
 normal! zo
-229
+233
 normal! zo
-235
+234
 normal! zo
 238
 normal! zo
-let s:l = 196 - ((28 * winheight(0) + 20) / 40)
+245
+normal! zo
+249
+normal! zo
+256
+normal! zo
+260
+normal! zo
+261
+normal! zo
+262
+normal! zo
+266
+normal! zo
+276
+normal! zo
+277
+normal! zo
+278
+normal! zo
+282
+normal! zo
+294
+normal! zo
+295
+normal! zo
+298
+normal! zo
+299
+normal! zo
+302
+normal! zo
+308
+normal! zo
+309
+normal! zo
+310
+normal! zo
+314
+normal! zo
+317
+normal! zo
+328
+normal! zo
+329
+normal! zo
+330
+normal! zo
+334
+normal! zo
+335
+normal! zo
+348
+normal! zo
+349
+normal! zo
+350
+normal! zo
+354
+normal! zo
+355
+normal! zo
+363
+normal! zo
+399
+normal! zo
+400
+normal! zo
+401
+normal! zo
+405
+normal! zo
+406
+normal! zo
+414
+normal! zo
+418
+normal! zo
+419
+normal! zo
+430
+normal! zo
+431
+normal! zo
+432
+normal! zo
+436
+normal! zo
+437
+normal! zo
+444
+normal! zo
+448
+normal! zo
+449
+normal! zo
+456
+normal! zo
+460
+normal! zo
+468
+normal! zo
+469
+normal! zo
+472
+normal! zo
+478
+normal! zo
+479
+normal! zo
+483
+normal! zo
+504
+normal! zo
+505
+normal! zo
+509
+normal! zo
+521
+normal! zo
+522
+normal! zo
+526
+normal! zo
+546
+normal! zo
+548
+normal! zo
+549
+normal! zo
+556
+normal! zo
+558
+normal! zo
+565
+normal! zo
+566
+normal! zo
+567
+normal! zo
+582
+normal! zo
+584
+normal! zo
+585
+normal! zo
+595
+normal! zo
+596
+normal! zo
+603
+normal! zo
+607
+normal! zo
+612
+normal! zo
+614
+normal! zo
+615
+normal! zo
+632
+normal! zo
+633
+normal! zo
+634
+normal! zo
+647
+normal! zo
+648
+normal! zo
+649
+normal! zo
+658
+normal! zo
+659
+normal! zo
+660
+normal! zo
+678
+normal! zo
+679
+normal! zo
+682
+normal! zo
+682
+normal! zo
+683
+normal! zo
+686
+normal! zo
+728
+normal! zo
+let s:l = 87 - ((23 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 196
-normal! 034|
+keepjumps 87
+normal! 039|
 wincmd w
 argglobal
 if bufexists(fnamemodify("css/impress-demo.css", ":p")) | buffer css/impress-demo.css | else | edit css/impress-demo.css | endif
@@ -206,53 +391,51 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-144
+36
 normal! zo
-171
+62
 normal! zo
-188
+89
 normal! zo
-192
+146
+normal! zo
+173
+normal! zo
+190
+normal! zo
+194
 normal! zo
 198
 normal! zo
-199
+205
 normal! zo
-210
+231
 normal! zo
-215
+258
 normal! zo
-219
+279
 normal! zo
-226
+287
 normal! zo
-252
+292
 normal! zo
-273
+631
 normal! zo
-283
-normal! zo
-286
-normal! zo
-367
-normal! zo
-491
-normal! zo
-let s:l = 188 - ((2 * winheight(0) + 10) / 21)
+let s:l = 101 - ((20 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 188
-normal! 02|
+keepjumps 101
+normal! 016|
 wincmd w
-exe '1resize ' . ((&lines * 40 + 32) / 65)
-exe '2resize ' . ((&lines * 21 + 32) / 65)
+exe '1resize ' . ((&lines * 32 + 38) / 77)
+exe '2resize ' . ((&lines * 41 + 38) / 77)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
-set winheight=40 winwidth=68
+set winheight=44 winwidth=65
 let &shortmess = s:shortmess_save
 let &winminheight = s:save_winminheight
 let &winminwidth = s:save_winminwidth
