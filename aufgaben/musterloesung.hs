@@ -62,3 +62,21 @@ main'' = putStrLn . show . add =<< getVector3s
 -- alternativ
 main''' :: IO ()
 main''' = getVector3s >>= \v ->  putStrLn (show (add v))
+
+-- alternative mit der "do"-Notation (evil)
+main'''' :: IO ()
+main'''' = do
+  v <- getVector3s
+  putStrLn (show (add v))
+
+-- alternative mit der "do"-Notation (evil)
+-- Probleme hieran können auf https://wiki.haskell.org/Do_notation_considered_harmful
+-- gefunden werden
+main''''' :: IO ()
+main''''' = do
+  putStrLn "Geben Sie den ersten Vektor ein:"
+  v <- (\x -> read x :: Vector3) <$> getLine
+  putStrLn "Geben Sie den zeiten Vektor ein:"
+  w <- (\x -> read x :: Vector3) <$> getLine
+  putStrLn "Das Ergebnis ist"
+  print $ add (v,w)
