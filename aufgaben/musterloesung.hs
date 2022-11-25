@@ -2,17 +2,26 @@ import Data.List
 
 -- Aufgabe 2
 
+-- Super einfaches Beispiel
 myMap :: (a -> b) -> [a] -> [b]
-myMap f []   = []
-myMap f (x:xs) = [f x] <> myMap f xs
+myMap f x = [f y | y <- x]
 
--- alternaiv
 myMap' :: (a -> b) -> [a] -> [b]
-myMap' f xs = foldr (\ x -> (<>) [f x]) [] xs
+myMap' f []   = []
+myMap' f (x:xs) = f x : myMap f xs
+
+
+myMap'' :: (a -> b) -> [a] -> [b]
+myMap'' f []   = []
+myMap'' f (x:xs) = [f x] <> myMap f xs
 
 -- alternaiv
-myMap'' :: (a -> b) -> [a] -> [b]
-myMap'' f = foldr (\ x -> (<>) [f x]) []
+myMap''' :: (a -> b) -> [a] -> [b]
+myMap''' f xs = foldr (\ x -> (<>) [f x]) [] xs
+
+-- alternaiv
+myMap'''' :: (a -> b) -> [a] -> [b]
+myMap'''' f = foldr (\ x -> (<>) [f x]) []
 
 
 
