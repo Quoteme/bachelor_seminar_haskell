@@ -223,7 +223,7 @@
           data-host="curry">
           <code class="language-haskell">
           r = [1..] -- Analog zu {1,...}
-          s = take 10 t
+          s = take 10 r
           t = [":) " | _ <- s] -- Analog zu (x for x in y)
           </code>
           </pre>
@@ -245,7 +245,7 @@
           p = [t | t <- [1..], isPrime t]
             where
               isPrime :: Integer -> Bool
-              isPrime 1 = False
+              isPrime 1 = False -- steht oben => wird zuerst ausgeführt
               isPrime n = all (\x -> n `mod` x /= 0) [2..n-1]
           </code>
           </pre>
@@ -460,13 +460,10 @@
           data-host="curry">
           <code class="language-python">
           #!/usr/bin/env python3
-          def unrein(x):
-              x = 1
-
           if __name__ == "__main__":
               x = 0
-              unrein(x)
-              print(x)
+              x = 1    # überschreiben
+              print(x) # nebeneffekt
           </code>
         </pre>
       </div>
