@@ -23,6 +23,8 @@ myMap''' f xs = foldr (\ x -> (<>) [f x]) [] xs
 myMap'''' :: (a -> b) -> [a] -> [b]
 myMap'''' f = foldr (\ x -> (<>) [f x]) []
 
+myMap''''' :: (a -> b) -> [a] -> [b]
+myMap''''' f x = f <$> x
 
 
 
