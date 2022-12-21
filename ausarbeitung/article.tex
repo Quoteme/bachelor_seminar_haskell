@@ -1,0 +1,290 @@
+\documentclass{hhuarticle}
+% \usepackage[ngerman,english]{babel} % English
+\usepackage[english,ngerman]{babel} % Deutsch
+
+\title{Gestalten der schriftlichen Ausarbeitung}
+
+% Vorlange von Jannik Dunkelau und Joshua Schmid
+\author{John Witulski} % keine Matrikelnummer eintragen
+
+\subject{Bachelorseminar: Programmiersprachen} % Optional.
+\semester{Wintersemester 2022}
+
+% \printblackwhitetrue % Vereinfacht Schwarzweißdruck (Logo, Plots, ...).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX Packages in Nutzung                                                  %%
+%%                                                                            %%
+%% Im folgenden können Sie für die Niederschrift benötigte LaTeX-Pakete       %%
+%% einbinden.                                                                 %%
+%% Diese Vorlage kommt bereits mit einigen nützlichen inkludierten Paketen.   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Häufig benutzte mathematische Packages.
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{enumitem} % Leichter konfigurierbare enumerate-Umgebungen.
+\usepackage{subcaption} % Unterteilung von Figures in Subfigures.
+\usepackage[colorlinks]{hyperref} % Klickbare Links (z.B. Inhaltsverzeichnis).
+\sethyperrefhhucolors{} % Setzt den Farbsatz der HHU für hyperref.
+\usepackage{url} % \url Kommando für Darstellung von Links
+\usepackage{csquotes} % Improved quoting.
+
+%% Tabellen
+\usepackage{tabularx} % tabularx Umgebung für mehr Kontrolle über Tabellen.
+\usepackage{booktabs} % \toprule, \midrule, \bottomrule
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{longtable} % Große Tabellen gehen über mehrere Seiten.
+
+%% Quellcode
+\usepackage{listings} % Einbindung von Code.
+\setlstlistingstyle{} % Kosmetische Einstellungen
+% Sprachabhängige Bezeichnung.
+\iflanguage{ngerman}{\renewcommand{\lstlistingname}{Quellcode}}{}
+
+%% Algorithmen in Pseudocode
+\usepackage{algorithm} % Float-Umgebung für angegebene Algorithmen.
+\usepackage{algorithmicx} % Angabe von Algorithmen in Pseudocode.
+\usepackage{algpseudocode} % Standart Pseudocode-Elemente für Algorithmen.
+\algsmallfont{}
+% Sprachabhängige Bezeichnung.
+\iflanguage{ngerman}{\floatname{algorithm}{Algorithmus}}{}
+
+%% Intelligenteres Referenzieren mittels \cref.
+\usepackage[capitalize,noabbrev,ngerman]{cleveref}
+%\pagenumbering{gobble}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+\begin{document}
+
+  \maketitle
+
+  \begin{abstract}
+    Haskell ist eine Sprache, welche vor mehr als 30 Jahren zuerst erschien
+    und dennoch heutzutage immer noch ihrer Zeit voraus ist.
+    Trotz dessen ist sie in der Industrie wenig verbreitet, da nur
+    wenige Programmierer mit ihr Erfahrung haben.
+    Warum sich dies ändern sollte und warum nicht nur Haskell, sondern
+    auch andere Sprachen, sowie Programmierer davon profitieren können,
+    wird in dieser Arbeit erläutert.
+  \end{abstract}
+
+\tableofcontents
+
+
+  \section{Einleitung}
+
+  Im September 1987 wurde die
+  ''Conference on Functional Programming Languages and Computer Architecture``
+  in Portland, Oregon, USA, abgehalten. Ziel war es, die zersplitterte
+  funktionale Programmiersprachen-Community zu vereinen und eine
+  gemeinsame Standardsprache zu entwickeln.
+  Die Sprache sollte alle Vorteile der bis dahin existierenden
+  funktionalen Sprachen vereinen und gleichzeitig die Nachteile
+  beseitigen.
+  Die Sprache welche dabei entstand, ist Haskell.
+
+  Während ihrer Entwicklung wurde Haskell stark von Akademikern beeinflusst,
+  wobei insbesondere Themen wie Typtheorie, Kategorientheorie und das Lambda-Kalkül
+  eine große Rolle spielten. Daraus resultierte, dass Haskell
+  einige Besonderheiten aufweist, welche es von anderen Sprachen unterscheidet.
+  Kurzgesagt ist Haskell eine polymorphe, funktionale, statisch-typisierte Programmiersprache mit
+  lazy-evaluation, wobei diese Begriffe im Folgenden erläutert werden.
+
+  Diese Eigenschaften machen Haskell zu einer sehr mächtigen Sprache, welche
+  es ermöglicht, elegante und effiziente Lösungen für viele Probleme zu finden.
+  Durch ihren starken mathematisch, theoretischen Grundaufbau besitzt Haskell
+  Strukturen tief in sich verankert, welche noch heutzutage
+  von anderen Programmiersprachen teilweise übernommen werden. Beispiele
+  dafür sind algebraische Datentypen, welche nun auch in Rust vorkommen,
+  oder die lazy-evaluation, welche in Java mittels Streams eingeführt wurde.
+
+  Jede Ausarbeitung beginnt mit einer guten Einleitung.
+  Hier liegt der Fokus auf den Grundlagen,
+  sodass klar ist, worum es geht, was das Thema behandelt und
+  wieso dies in erster Linie interessant ist.
+  Detaillierte Informationen folgen in den späteren Abschnitten.
+
+  Diese grundlegende Einleitung erlaubt auch,
+  dass spätere Informationen hierauf aufbauen können.
+  Dadurch lässt sich verhindern,
+  dass zwei unterschiedliche Abschnitte die gleichen Grundlagen definieren
+  und somit im Dokument doppeln.
+
+
+  \section{Struktureller Aufbau}
+
+  Es ist ein zusammenhängender Text von 15--20 Seiten (+ Referenzen) zu verfassen,
+  der das gegebene Thema und die Lernziele abdeckt.
+  Achten Sie hierbei auf eine sinnvolle Gliederung der Unterthemen.
+
+  \subsection{Unterthemen}
+  Unterthemen geben bereits eine Aufteilung in Abschnitte vor und jedes
+  Unterthema sollte nicht mehr als einen Abschnitt umfassen.
+  Dabei sollte nach dem Titel des Abschnitts je ein
+  kurzer, einführender Text stehen, bevor der Abschnitt in weitere,
+  sinnvolle Unterabschnitte aufgeteilt wird.
+  Dieser einführende Text steht direkt hinter dem jeweiligen Titel und
+  nicht in einem etwaigen Unterabschnitt.
+
+
+  \section{Abbildungen, Tabellen und Beispiele}
+
+  Sie werden in Ihren Zusammenfassungen nicht darum herum kommen,
+  Abbildungen, Tabellen und Beispiele zur besseren Anschaulichkeit zu nutzen.
+  Diese Abbildungen müssen im Text referenziert und besprochen werden
+  und sollten nicht alleine stehen.
+  Ebenfalls sollten Abbildungen und Tabellen zentriert dargestellt werden
+  (mit \texttt{\textbackslash centering}).
+
+  Mit \cref{fig:initial-draft} wird beispielhaft die Referenzierung einer Grafik
+  demonstriert.
+  Auf \LaTeX-Seite geschieht dies durch das Setzen eines Labels
+  (\texttt{\textbackslash label}) für die Grafik
+  und durch die Nutzung der Befehle
+  \texttt{\textbackslash ref} oder \texttt{\textbackslash cref}.
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=4cm]{fig/hhulogo.pdf}
+    \caption{Das neue HHU-Logo.}%
+    \label{fig:initial-draft}
+  \end{figure}
+
+  Der \texttt{\textbackslash cref}-Befehl entstammt hierbei dem
+  \texttt{cleveref}-Paket und setzt automatisch den korrekten Bezeichner
+  vor die Referenz, in diesem Beispiel ``Abbildung''.
+  Zum Vergleich: \texttt{\textbackslash ref} setzt nur die
+  Nummer \ref{fig:initial-draft}, die der Abbildung zugeteilt wurde.
+
+  \subsection{Beispiele}
+  Viele Themen profitieren von einem guten Beispiel,
+  um Konzepte oder Eigenschaften klarer zu präsentieren.
+  Achten Sie bei Beispielen darauf,
+  dass diese nicht unnötig komplex sind und nur auf das nötige reduziert sind.
+  Sollte es sich anbieten, ist es hilfreich ein Running Example zu nutzen,
+  welches von allen Unterthemen aufgegriffen wird.
+  So ist der Leser bereits mit den Gegebenheiten des Beispiels vertraut
+  und kann Unterschiede zwischen den verschiedenen Szenarien genauer
+  differenzieren.
+
+
+  \subsection{Code}
+
+  \begin{figure}[h]
+
+\begin{lstlisting}
+public class HelloWorld 
+{
+ 
+       public static void main (String[] args)
+       {
+             // Ausgabe Hello World!
+             System.out.println("Hello World!");
+       }
+}
+\end{lstlisting}
+ \caption{So binden Sie Code ein}%
+  \label{fig:codeBlock}
+\end{figure}
+
+  \subsection{Tabellen}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ Sprache & Jahr & Version \\ 
+\hline
+ Java & 1997 & JSE 19.0 \\ 
+ C & 1972 & C17 \\ 
+ \hline
+\end{tabular}
+\caption{Eine sinnfreie Tabelle}
+\label{table:1}
+\end{table}
+
+  \section{Literaturverweise}
+
+  Die Angabe von Quellen und Verweisliteratur ist essentiell in Ihrer
+  Ausarbeitung,
+  als auch später in Ihrer Bachelorarbeit.
+
+  Literaturverweise werden in \LaTeX{} mittels
+  \texttt{\textbackslash cite} getätigt.
+  Verweise stehen hinter der Aussage, die sie stützen sollen,
+  oder hinter dem Namen eines referenzierten Konzepts oder Eigenschaft
+  und gehören in den Satz hinein.
+  Beachten Sie folgendes Beispiel:
+  \begin{itemize}
+    \item In ``Artificial Intelligence: A Modern Approach''~\cite{russell2002artificial}
+      werden moderne Ansätze und Techniken
+      der künstlichen Intelligenz vorgestellt.
+    \item bei direkten Zitationen wir zusätzlich die Seite angegeben wo das Zitat zu finden ist, z.B. ``...''~\cite[p.1]{russell2002artificial}
+  \end{itemize}
+
+  Am Ende der Ausarbeitung werden die referenzierten Quellen automatisch
+  aufgelistet.
+
+  \subsection{Bibtex-Einträge und \texttt{references.bib}}
+
+  Um mit \texttt{\textbackslash cite} referenzieren zu können,
+  müssen die entsprechenden Einträge in der Datei \texttt{references.bib}
+  stehen.
+  Sie finden in der Vorlage bereits den beispielhaften Eintrag für
+  ``Artificial Intelligence: A Modern Approach''~\cite{russell2002artificial}.
+
+  Für Literaturquellen empfiehlt es sich in aller Regel
+  \url{https://scholar.google.com} zu nutzen.
+  Hier kann man sich direkt den Bibtex-Eintrag einer Quelle
+  angeben lassen und muss diesen so nicht selbst zusammenstellen.
+
+  Beachten Sie auch den Artikel
+  ``Common Errors in Bibliographies''
+  von John Owens.\footnote{%
+    \url{https://www.ece.ucdavis.edu/~jowens/biberrors.html}}
+  Des Weiteren ist der Vortrag von Simon Peyton Jones \href{https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/}{``How to write a great research paper''} zu empfehlen.
+
+  \appendix
+  \section{Beispielhafter Anhang}
+  Der Anhang wird mit dem \texttt{\textbackslash{}appendix}-Befehl eingeleitet.
+  Alle folgenden Sektionen werden als Anhang formatiert.
+
+\backmatter
+\listoffigures
+\listoftables
+\bibliography{references}
+\bibliographystyle{plaindin}
+
+\end{document}
+
+% Quellen
+%
+% Why You’ll Probably Never Use Haskell in Production
+% https://henrydangprg.com/2019/05/27/why-youll-probably-never-use-haskell-in-production/
+%
+% Choosing Haskell isn’t a stand-in for good software design
+% https://ozataman.medium.com/choosing-haskell-isnt-a-stand-in-for-good-software-design-7d893882f963
+%
+% A History of Haskell: Being Lazy With Class
+% https://dl.acm.org/doi/10.1145/1238844.1238856
