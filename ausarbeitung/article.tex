@@ -80,13 +80,27 @@
   \maketitle
 
   \begin{abstract}
+    % Was ist das Thema
     Haskell ist eine Sprache, welche vor mehr als 30 Jahren zuerst erschien
-    und dennoch heutzutage immer noch ihrer Zeit voraus ist.
-    Trotz dessen ist sie in der Industrie wenig verbreitet, da nur
-    wenige Programmierer mit ihr Erfahrung haben.
-    Warum sich dies ändern sollte und warum nicht nur Haskell, sondern
-    auch andere Sprachen, sowie Programmierer davon profitieren können,
-    wird in dieser Arbeit erläutert.
+    und dennoch selbst heutzutage ihrer Zeit in manchen Bereichen voraus ist.
+    % Warum ist das Thema interessant
+    Trotz dessen ist sie in der Industrie wenig verbreitet, obwohl
+    Programmierer viel von ihr lernen können.
+    % Wie wurde es umgesetzt
+    Inwiefern Programmierer davon profitieren können,
+    wird in dieser Arbeit untersucht, indem
+    Parallelen zwischen Haskell und anderen Sprachen gezogen werden.
+    % Welche Ergebnisse wurden erzielt
+    Wir erkennen dabei, dass Haskell mächtige Strukturen besitzt, welche
+    in anderen Sprachen nicht oder nur teilweise existieren, da Haskell
+    Datenstrukturen auf einem viel abstrakteren Level behandelt,
+    wodurch Probleme mit Haskell weitaus effizienter und eleganter
+    gelöst werden können.
+    % Welche Gründe dies hat und warum sich dies ändern sollte, insbesondere
+    % mit Blick auf Programmierer 
+    % nicht nur Haskell, sondern
+    % auch andere Sprachen, sowie Programmierer davon profitieren können,
+    % wird in dieser Arbeit erläutert.
   \end{abstract}
 
 \tableofcontents
@@ -100,36 +114,108 @@
   funktionale Programmiersprachen-Community zu vereinen und eine
   gemeinsame Standardsprache zu entwickeln.
   Die Sprache sollte alle Vorteile der bis dahin existierenden
-  funktionalen Sprachen vereinen und gleichzeitig die Nachteile
-  beseitigen.
-  Die Sprache welche dabei entstand, ist Haskell.
+  funktionalen Sprachen, insbesondere der zu der Zeit populären Sprache
+  ''Miranda``, vereinen und gleichzeitig die Nachteile beseitigen.
+  Die Sprache, welche dabei entstand, ist Haskell.
 
   Während ihrer Entwicklung wurde Haskell stark von Akademikern beeinflusst,
-  wobei insbesondere Themen wie Typtheorie, Kategorientheorie und das Lambda-Kalkül
+  wobei insbesondere Themen wie Typentheorie, Kategorientheorie und das Lambda-Kalkül
   eine große Rolle spielten. Daraus resultierte, dass Haskell
   einige Besonderheiten aufweist, welche es von anderen Sprachen unterscheidet.
-  Kurzgesagt ist Haskell eine polymorphe, funktionale, statisch-typisierte Programmiersprache mit
+  Diese Besonderheiten sind es, welche Haskell zu einer so interessanten
+  Sprache machen, da somit Haskell eine der wenigen reinen
+  Programmiersprachen ist, also keine Seiteneffekte vorhanden sind.
+  Eine unintuitive Konsequenz daraus ist, dass Haskell keine Variablen besitzt,
+  welche verändert werden können, da es keine Zuweisung gibt,
+  da Zuweisungen in Haskell Seiteneffekte erzeugen würden. Somit
+  existieren in Haskell nur Konstanten, welche nicht verändert werden können.
+  Dies wiederum führt dazu, dass klassische Schleifen in Haskell nicht existieren,
+  da diese durch Seiteneffekte, insbesondere dem Inkrementieren einer
+  Laufvariable, implementiert werden. Stattdessen werden in Haskell
+  Funktionen verwendet, welche rekursiv aufgerufen werden, um
+  die gewünschte Schleifenfunktionalität zu erreichen.
+
+  Statt der Objektorientierung, verwendet Haskell die funktionale
+  Programmierung, was durch die Reinheit bedeutet, dass Haskell
+  durch allein kategorientheoretische Konzepte definiert ist.
+  ``Kategorientheoretische Konzepte`` beziehen sich auf die
+  Kategorientheorie, welche eine Theorie ist, welche
+  eine alternative Grundlage für die Mathematik darstellt, im Gegensatz
+  zu der klassischen Mengenlehre.
+  Diese besagt, dass es Kategorien gibt, in welchen es sogenannte Objekt
+  gibt, welche durch Morphismen verbunden sind. Existieren
+  Objekte $A$, $B$ und $C$ in einer Kategorie $\mathcal{C}$,
+  sowie Morphismen $f: A \to B$ und $g: B \to C$, so gibt es einen
+  Morphismus $g \circ f: A \to C$ und außerdem muss es für jedes
+  Objekt $A$ einen Morphismus $id_A: A \to A$ geben, welcher
+  das Objekt $A$ nicht verändert. In dem Fall von Haskell sind die
+  Objekte die Typen und die Morphismen die Funktionen, wobei dies noch
+  weitreichende Konsequenzen hat, welche im Folgenden noch aufgefasst werden.
+  Funktionale Programmierung bedeutet, dass Programme durch Funktionen
+  definiert werden, welche Daten als Eingabe erhalten und Daten als
+  Ausgabe liefern. Geschickte Komposition von Funktionen ermöglicht
+  es, komplexe Probleme durch hintereinander aufrufende einfache
+  Funktionen zu lösen.
+  Dies hat zur Folge, dass Programmierer, welche Haskell lernen,
+  automatisch besser in abstrakter Mathematik werden. Außer der Reinheit
+  und der funktionalen Programmierung, ist Haskell eine
+  polymorphe, statisch-typisierte Programmiersprache mit
   lazy-evaluation, wobei diese Begriffe im Folgenden erläutert werden.
+
+  Polymorphie bedeutet, dass Funktionen und Datenstrukturen
+  generisch sind, was bedeutet, dass sie mit verschiedenen Typen verwendet werden können.
+  Statische Typisierung bedeutet, dass der Typ einer Variable
+  zur Kompilierzeit festgelegt wird, wodurch Fehler, welche durch
+  dynamische Typisierung entstehen, vermieden werden. Durch das
+  algebraische Typensystem von Haskell, was bedeutet, dass Typen $A$ und
+  $B$ zu Produkttypen $A \times B$ und Summentypen $A | B$ kombiniert werden können,
+  ist es möglich, Funktionen und Datenstrukturen mit verschiedenen
+  Typen zu kombinieren. Hier sehen wir wieder, dass ein starker Fokus
+  auf dem Kombinieren von einfacheren Strukturen liegt, wodurch komplexere
+  Strukturen entstehen. Da Haskell auch eine funktionale Programmiersprache ist,
+  haben auch Funktionen einen Typen, wodurch Funktionen, Konstanten und Variablen
+  alle durch die starke Typisierung von Haskell definiert werden können
+  und somit eine Typenstruktur aufweisen. Da wir bereits wissen, dass
+  Haskell eine stark-typisierte Programmiersprache ist, bedeutet dies,
+  dass Programmierfehler in Haskell fast immer von dem Compiler erkannt werden.
+  Sollte eine Funktion mit einem falschen Typen aufgerufen werden, oder
+  einen falschen Typen zurückgeben, so wird dies vom Compiler erkannt.
+  Diese Eigenschaft von Haskell ist sehr nützlich, da es so möglich ist,
+  sicherheitskritische Programme zu schreiben, welche mit erhöhter
+  Wahrscheinlichkeit korrekt sind als Programme in anderen Sprachen.
+
+  Die lazy-evaluation von Haskell bedeutet, dass Ausdrücke erst dann
+  ausgewertet werden, wenn sie benötigt werden. Dies hat zur Folge,
+  dass Ausdrücke, welche nie benötigt werden, nicht ausgewertet werden.
+  Dies ist sehr nützlich, da es so möglich ist, unendliche Datenstrukturen
+  zu definieren, welche nur dann ausgewertet werden, wenn sie benötigt werden.
+  Beispielsweise kann eine Liste von allen Primzahlen definiert werden,
+  wobei man nun die $n$-te Primzahl aus dieser Liste erhalten kann,
+  ohne dass die Liste vollständig ausgewertet werden muss.
+  Auch wird Code somit idiomatischer, da man analog zur natürlichen
+  Sprache ''die $n$-te Primzahl`` verwenden kann, statt diese
+  durch eine Funktion zu erhalten, welche die $n$-te Primzahl zurückgibt.
 
   Diese Eigenschaften machen Haskell zu einer sehr mächtigen Sprache, welche
   es ermöglicht, elegante und effiziente Lösungen für viele Probleme zu finden.
   Durch ihren starken mathematisch, theoretischen Grundaufbau besitzt Haskell
   Strukturen tief in sich verankert, welche noch heutzutage
-  von anderen Programmiersprachen teilweise übernommen werden. Beispiele
-  dafür sind algebraische Datentypen, welche nun auch in Rust vorkommen,
-  oder die lazy-evaluation, welche in Java mittels Streams eingeführt wurde.
+  von anderen Programmiersprachen teilweise übernommen werden.
+  Wie genau diese Strukturen in Haskell implementiert sind, wird im Folgenden
+  erläutert. Außerdem werden wir sehen, wie Spezialisierungen 
 
-  Jede Ausarbeitung beginnt mit einer guten Einleitung.
-  Hier liegt der Fokus auf den Grundlagen,
-  sodass klar ist, worum es geht, was das Thema behandelt und
-  wieso dies in erster Linie interessant ist.
-  Detaillierte Informationen folgen in den späteren Abschnitten.
 
-  Diese grundlegende Einleitung erlaubt auch,
-  dass spätere Informationen hierauf aufbauen können.
-  Dadurch lässt sich verhindern,
-  dass zwei unterschiedliche Abschnitte die gleichen Grundlagen definieren
-  und somit im Dokument doppeln.
+  % Jede Ausarbeitung beginnt mit einer guten Einleitung.
+  % Hier liegt der Fokus auf den Grundlagen,
+  % sodass klar ist, worum es geht, was das Thema behandelt und
+  % wieso dies in erster Linie interessant ist.
+  % Detaillierte Informationen folgen in den späteren Abschnitten.
+
+  % Diese grundlegende Einleitung erlaubt auch,
+  % dass spätere Informationen hierauf aufbauen können.
+  % Dadurch lässt sich verhindern,
+  % dass zwei unterschiedliche Abschnitte die gleichen Grundlagen definieren
+  % und somit im Dokument doppeln.
 
 
   \section{Struktureller Aufbau}
