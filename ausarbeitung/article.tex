@@ -221,11 +221,13 @@
   nicht darin geschult sind, sehr schwer zu verstehen ist. Hier werden
   wir auch sehen, dass andere Programmiersprachen, welche die
   Konzepte von Haskell übernommen haben, diese Konzepte nicht
-  so abstrakt und rigoros implementiert haben wir Haskell, wodurch
+  so abstrakt und rigoros implementiert haben wie Haskell, wodurch
   die Konzepte dort auf bestimmte Anwendungen spezialisiert sind,
-  jedoch nicht so allgemein sind wie in Haskell. Als beispiel dafür
-  werden wir den IO-Monad in Haskell und die Stateful-Widgets in
-  dem Flutter Framework von Dart betrachten.
+  und in ihrem Umfang eingeschränkt sind.
+  Als Beispiel dafür werden wir den Typen \verb|Option<u32>| in
+  Rust betrachten, welcher ähnlich dem Typen \verb|Maybe Int| in Haskell
+  ist, jedoch aufgrund seiner fehlenden Funktor Struktur unhandlicher
+  ist und mehr Fallunterscheidungen erfordert.
 
   % Diese Eigenschaften machen Haskell zu einer sehr mächtigen Sprache, welche
   % es ermöglicht, elegante und effiziente Lösungen für viele Probleme zu finden.
@@ -1029,8 +1031,33 @@
   neben sich in seinem ''\verb|IO| Gefängnis`` noch weitere Sachen sitzen haben.
   Das einzige was unser ''\verb|IO| Gefängnis`` garantieren muss ist, dass
   der Binding-Operator \verb|>>=| und der \verb|return| Operator
-  ihre Rechenregeln beibehalten.
+  ihre Rechenregeln beibehalten müssen. An dem Beispiel von Hello World
+  in \cref{fig:helloworld} können wir uns dies gut vorstellen. Lässt man
+  dieses Programm laufen, so wird die Ausgabe \verb|Hello World| auf
+  dem Bildschirm erscheinen. Wir haben somit einen Seiteneffekt beim
+  ausführend unseres Programmes, also beim ''Aufrufen des Wertes \verb|main|`` erzeugt.
 
+  Nun gibt es verschiedene philosophische Herangehensweisen, wie wir
+  dies Interpretieren können. Wir können uns beispielsweise vorstellen,
+  dass in unserem ''\verb|IO| Gefängnis`` der Wert \verb|()| nun zusammen mit
+  dem Seiteneffekt, welcher ''\verb|Hello World|`` auf dem
+  Bildschirm ausgibt, sitzt.
+  Dies bedeutet, wenn der Wert \verb|main| aufgerufen wird, so wird
+  das gesamte ''\verb|IO| Gefängnis`` betrachtet, was den Seiteneffekt
+  anzeigt.
+
+  Das wichtige hierbei ist jedoch, dass wir nun eine rigorose Theorie
+  für Seiteneffekte haben, welche wir in Haskell nun nutzen können
+  um mit Seiteneffekten, wie Beispielsweise der Ausgabe auf dem Bildschirm,
+  umzugehen.
+
+  Möchte man Beispielsweise mehrere Seiteneffekte in seinem Programm
+  haben, so können wir den uns bekannten Binding-Operator \verb|>>=|
+  verwenden. In \cref{fig:ioexamples} sehen wir ein Beispiel, welches zwei
+  Seiteneffekte in den Wert \verb|main| einbindet. Lässt man dieses
+  Programm nun laufen, so wird zuerst \verb|Hello| auf dem Bildschirm
+  ausgegeben und anschließend \verb|World|.
+  
   \begin{figure}[h]
     \begin{lstlisting}
     main :: IO ()
@@ -1040,91 +1067,154 @@
     \label{fig:ioexamples}
   \end{figure}
 
-  \subsection{Unterthemen}.
-  Unterthemen geben bereits eine Aufteilung in Abschnitte vor und jedes
-  Unterthema sollte nicht mehr als einen Abschnitt umfassen.
-  Dabei sollte nach dem Titel des Abschnitts je ein
-  kurzer, einführender Text stehen, bevor der Abschnitt in weitere,
-  sinnvolle Unterabschnitte aufgeteilt wird.
-  Dieser einführende Text steht direkt hinter dem jeweiligen Titel und
-  nicht in einem etwaigen Unterabschnitt.
+  Zuallerletzt können wir auch den \verb|return| Operator nutzen, um
+  unser Programm nichts machen zu lassen. In \cref{fig:ioexamples2} sehen
+  wir ein Beispiel dafür. Das Kontatinieren von Seiteneffekten 
+  zu neuen Seiteneffekten und die Existenz eines Seiteneffekts,
+  welcher nichts macht, also der ''nichts-machende Seiteneffekt'' \verb|return ()|
+  vom Typen \verb|IO ()|, sind die Eigenschaften, welche
+  intuitiv für Seiteneffekte klar sind und Seiteneffekte ausmachen.
+  Und diese sind genau die Eigenschaften, welche wir mit der Monadenstruktur
+  erfassen.
+
+  Eine interessante Folgerung, welche aus dem vorherigen Paragraphen
+  klar erkenntlich ist, ist hierbei dass Monaden ein Monoidobjekt
+  in der Kategorie der Endofunktoren sind. Wir werden diesen Satz nicht
+  beweisen, jedoch in den Zusammenhang mit der Kategorie \textbf{Hask}
+  und der Monade \verb|IO| bringen.
+  Ein Objekt besitzt eine Monoidstruktur,
+  wenn man je zwei Elemente daraus zu einem dritten Element daraus
+  verknüpfen kann.
+  Für die Monade \verb|IO| übernimmt diese Rolle der Verknüpfung der Binding-Operator.
+  Dieser muss zudem noch assoziativ sein, was intuitiv für den Binding-Operator
+  klar ist, da es das selbe ist, wenn $a, b, c$ drei Seiteneffekte sind,
+  ob man zuerst $a$ gefolgt von $b$ mit $c$ ausführt oder zuerst $a$ mit $b$
+  gefolgt von $c$ ausführt. Die letzte Eigenschaft welche für eine Monoidstruktur
+  benötigt wird ist die Existenz eines neutralen Elements, welches
+  also nichts macht. Dieses haben wir bereits im vorherigen Paragraphen
+  konstruiert, nämlich den Wert \verb|return ()| vom Typen \verb|IO ()|.
+
+  \subsection{Warum Monaden?}
+
+  Schlussendlich stellt sich jedoch die Frage, warum wir einen solchen 
+  Aufwand betreiben, um beispielsweise mit Seiteneffekten umzugehen.
+  Die Antwort ist jedoch ganz einfach. Wir haben am Anfang damit begonnen,
+  einfache Typen zu erstellen. Stets waren wir bemüht, die Theorie, welche
+  wir aufbauen rigoros und wohldefiniert zu halten. Haben wir eine
+  Struktur gefunden, so haben wir versucht dieser einen Namen zu geben und
+  diese zu verallgemeinern. Speziell haben wir dies bei der \verb|Functor|
+  Typenklasse gesehen, welche das Konzept ''Abbildungen zwischen Strukturen
+  können auf ähnliche Abbildungen auf ähnlichen Strukturen geschickt werden''
+  darstellt. Nun war es am Ende eigentlich nur ein glücklicher
+  Zufall, dass unsere Struktur der Monaden genau die Eigenschaften,
+  welche Seiteneffekte ausmachen, besitzt.
+
+  Die Bedeutung letztendlich ist, dass wir in Haskell genau wissen möchten,
+  womit wir arbeiten.
+  Während man sich in anderen Programmiersprachen
+  wie Python oder Java damit begnügt, dass Seiteneffekte existieren
+  und immer auftreten können,
+  selbst wenn wir explizit angeben,
+  dass unsere Funktion einen Wert von Typ $a$ einnimmt und einen Wert
+  von Typ $b$ zurückgibt,
+  kann es immer noch passieren, dass die Funktion plötzlich als Seiteneffekt
+  etwas anderes macht.
+  In Haskell wissen wir jedoch, dass wenn
+  wir eine Typensignatur angeben, die Funktion auch genau diesen Typ
+  hat\footnote{außer bei partiellen Funktionen, welche Definitionslückene aufweisen, oder nicht-terminierenden Funktionen}.
+
+  Genau so, wie man sagen könnte ''mir ist egal was ein 'Körper` ist,
+  hauptsache ich weiß was 1,2,3, \dots sind'', kann man auch sagen
+  ''mir ist egal was eine Monade ist, hauptsache ich weiß dass es
+  Seiteneffekte gibt''. Man kann auch ohne das nötige Hintergrundwissen
+  Programmieren, jedoch kann man deutlich besser und effizienter
+  mit diesen Konzepten Umgehen, wenn man sie versteht.
+
+%   \subsection{Unterthemen}.
+%   Unterthemen geben bereits eine Aufteilung in Abschnitte vor und jedes
+%   Unterthema sollte nicht mehr als einen Abschnitt umfassen.
+%   Dabei sollte nach dem Titel des Abschnitts je ein
+%   kurzer, einführender Text stehen, bevor der Abschnitt in weitere,
+%   sinnvolle Unterabschnitte aufgeteilt wird.
+%   Dieser einführende Text steht direkt hinter dem jeweiligen Titel und
+%   nicht in einem etwaigen Unterabschnitt.
 
 
-  \section{Abbildungen, Tabellen und Beispiele}
+  % \section{Abbildungen, Tabellen und Beispiele}
 
-  Sie werden in Ihren Zusammenfassungen nicht darum herum kommen,
-  Abbildungen, Tabellen und Beispiele zur besseren Anschaulichkeit zu nutzen.
-  Diese Abbildungen müssen im Text referenziert und besprochen werden
-  und sollten nicht alleine stehen.
-  Ebenfalls sollten Abbildungen und Tabellen zentriert dargestellt werden
-  (mit \texttt{\textbackslash centering}).
+  % Sie werden in Ihren Zusammenfassungen nicht darum herum kommen,
+  % Abbildungen, Tabellen und Beispiele zur besseren Anschaulichkeit zu nutzen.
+  % Diese Abbildungen müssen im Text referenziert und besprochen werden
+  % und sollten nicht alleine stehen.
+  % Ebenfalls sollten Abbildungen und Tabellen zentriert dargestellt werden
+  % (mit \texttt{\textbackslash centering}).
 
-  Mit \cref{fig:initial-draft} wird beispielhaft die Referenzierung einer Grafik
-  demonstriert.
-  Auf \LaTeX-Seite geschieht dies durch das Setzen eines Labels
-  (\texttt{\textbackslash label}) für die Grafik
-  und durch die Nutzung der Befehle
-  \texttt{\textbackslash ref} oder \texttt{\textbackslash cref}.
+  % Mit \cref{fig:initial-draft} wird beispielhaft die Referenzierung einer Grafik
+  % demonstriert.
+  % Auf \LaTeX-Seite geschieht dies durch das Setzen eines Labels
+  % (\texttt{\textbackslash label}) für die Grafik
+  % und durch die Nutzung der Befehle
+  % \texttt{\textbackslash ref} oder \texttt{\textbackslash cref}.
 
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=4cm]{fig/hhulogo.pdf}
-    \caption{Das neue HHU-Logo.}%
-    \label{fig:initial-draft}
-  \end{figure}
+  % \begin{figure}[h]
+  %   \centering
+  %   \includegraphics[width=4cm]{fig/hhulogo.pdf}
+  %   \caption{Das neue HHU-Logo.}%
+  %   \label{fig:initial-draft}
+  % \end{figure}
 
-  Der \texttt{\textbackslash cref}-Befehl entstammt hierbei dem
-  \texttt{cleveref}-Paket und setzt automatisch den korrekten Bezeichner
-  vor die Referenz, in diesem Beispiel ``Abbildung''.
-  Zum Vergleich: \texttt{\textbackslash ref} setzt nur die
-  Nummer \ref{fig:initial-draft}, die der Abbildung zugeteilt wurde.
+  % Der \texttt{\textbackslash cref}-Befehl entstammt hierbei dem
+  % \texttt{cleveref}-Paket und setzt automatisch den korrekten Bezeichner
+  % vor die Referenz, in diesem Beispiel ``Abbildung''.
+  % Zum Vergleich: \texttt{\textbackslash ref} setzt nur die
+  % Nummer \ref{fig:initial-draft}, die der Abbildung zugeteilt wurde.
 
-  \subsection{Beispiele}
-  Viele Themen profitieren von einem guten Beispiel,
-  um Konzepte oder Eigenschaften klarer zu präsentieren.
-  Achten Sie bei Beispielen darauf,
-  dass diese nicht unnötig komplex sind und nur auf das nötige reduziert sind.
-  Sollte es sich anbieten, ist es hilfreich ein Running Example zu nutzen,
-  welches von allen Unterthemen aufgegriffen wird.
-  So ist der Leser bereits mit den Gegebenheiten des Beispiels vertraut
-  und kann Unterschiede zwischen den verschiedenen Szenarien genauer
-  differenzieren.
+%   \subsection{Beispiele}
+%   Viele Themen profitieren von einem guten Beispiel,
+%   um Konzepte oder Eigenschaften klarer zu präsentieren.
+%   Achten Sie bei Beispielen darauf,
+%   dass diese nicht unnötig komplex sind und nur auf das nötige reduziert sind.
+%   Sollte es sich anbieten, ist es hilfreich ein Running Example zu nutzen,
+%   welches von allen Unterthemen aufgegriffen wird.
+%   So ist der Leser bereits mit den Gegebenheiten des Beispiels vertraut
+%   und kann Unterschiede zwischen den verschiedenen Szenarien genauer
+%   differenzieren.
 
 
-  \subsection{Code}
+  % \subsection{Code}
 
-  \begin{figure}[h]
+  % \begin{figure}[h]
 
-\begin{lstlisting}
-public class HelloWorld 
-{
+% \begin{lstlisting}
+% public class HelloWorld 
+% {
  
-       public static void main (String[] args)
-       {
-             // Ausgabe Hello World!
-             System.out.println("Hello World!");
-       }
-}
-\end{lstlisting}
- \caption{So binden Sie Code ein}%
-  \label{fig:codeBlock}
-\end{figure}
+  %      public static void main (String[] args)
+  %      {
+  %            // Ausgabe Hello World!
+  %            System.out.println("Hello World!");
+  %      }
+% }
+% \end{lstlisting}
+ % \caption{So binden Sie Code ein}%
+  % \label{fig:codeBlock}
+% \end{figure}
 
-  \subsection{Tabellen}
+  % \subsection{Tabellen}
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{ |c|c|c| } 
- \hline
- Sprache & Jahr & Version \\ 
-\hline
- Java & 1997 & JSE 19.0 \\ 
- C & 1972 & C17 \\ 
- \hline
-\end{tabular}
-\caption{Eine sinnfreie Tabelle}
-\label{table:1}
-\end{table}
+% \begin{table}[h!]
+% \centering
+% \begin{tabular}{ |c|c|c| } 
+ % \hline
+ % Sprache & Jahr & Version \\ 
+% \hline
+ % Java & 1997 & JSE 19.0 \\ 
+ % C & 1972 & C17 \\ 
+ % \hline
+% \end{tabular}
+% \caption{Eine sinnfreie Tabelle}
+% \label{table:1}
+% \end{table}
 
   \section{Literaturverweise}
 
