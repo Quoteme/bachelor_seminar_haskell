@@ -216,7 +216,7 @@
   Anwendung in anderen Programmiersprachen übernommen wurden.
   Der tiefe mathematische Hintergrund von Haskell ist jedoch
   immer noch außergewöhnlich und erlaubt durch die abstrakten
-  Strukturen darin Probleme sehr elegant zu lösen, wobei dies auch
+  Strukturen darin, Probleme sehr elegant zu lösen, wobei dies auch
   ein zweiseitiges Schwert ist, da es für Programmierer, welche
   nicht darin geschult sind, sehr schwer zu verstehen ist. Hier werden
   wir auch sehen, dass andere Programmiersprachen, welche die
@@ -659,11 +659,11 @@
     erhoeheMaybe Nothing = Nothing
     erhoeheMaybe (Just x) = Just (x + 1)
     \end{lstlisting}
-    \caption{}%
+    \caption{Naive Definition von ''erhoeheMaybe``}%
     \label{fig:maybeTypeAnwenden1}
   \end{figure}
 
-  Wir können nun die Funktion \verb|erhoeheMaybe| definieren, welche
+  Wir können nun die Funktion \verb|erhoeheMaybe| wie in \cref{fig:maybeTypeAnwenden1} definieren, welche
   eine Funktion vom Typ \verb|Maybe Int -> Maybe Int| ist. Diese
   Funktion erhöht den Wert eines Wertes von Typ \verb|Maybe Int| um eins, falls
   dieser nicht \verb|Nothing| ist, also \verb|Just Int| ist und somit
@@ -684,7 +684,7 @@
     \begin{lstlisting}
     erhoeheMaybe = fmap (+ 1)
     \end{lstlisting}
-    \caption{}%
+    \caption{Durchdachtere Definition von ''erhoeheMaybe``}%
     \label{fig:maybeTypeAnwenden2}
   \end{figure}
 
@@ -860,7 +860,7 @@
   dazu bei, generell besser Strukturen zu erkennen, was im Endeffekt
   auch zu einem besseren Programmieren führt.
 
-  \section{Monaden}
+  \section{Monaden und unser erstes Haskell Programm}
 
   \epigraph{
     If you're approaching Haskell monads a little nervously, that's understandable. You've probably heard that monads are a very powerful code-structuring technique, but ... sometimes, with great power comes great (apparent) nonsensicality.
@@ -869,7 +869,9 @@
   Ein sehr Populäres Konzept in Haskell, woran viele Programmierer beim
   Erlernen der Sprache scheitern, sind Monaden. Monaden sind ein
   weiteres Konzept aus der Kategorientheorie, welches in Haskell
-  allgegenwärtig ist.
+  allgegenwärtig ist. Fürwahr, wir sind nicht in der Lage ein laufendes
+  Programm in Haskell zu schreiben, ohne ein zumindest grundlegendes
+  Verständnis von Monaden vorzuweisen.
   Monaden in Haskell sind ein weiterer Datentyp
   $\verb|type Monad :: (* -> *) -> Constraint|$, welche eine Funktor-Instanz
   besitzen, also auch Funktoren sind, und
@@ -994,7 +996,7 @@
     \label{fig:listget}
   \end{figure}
 
-  \subsection{Die IO Monade}
+  \subsection{Die IO Monade und Hello World in Haskell}
 
   Die wohl wichtigste Monade ist die \verb|IO| Monade. Diese Monade
   erlaubt es uns, Eingaben und Ausgaben zu machen, woher auch der
@@ -1094,7 +1096,7 @@
   also nichts macht. Dieses haben wir bereits im vorherigen Paragraphen
   konstruiert, nämlich den Wert \verb|return ()| vom Typen \verb|IO ()|.
 
-  \subsection{Warum Monaden?}
+  \subsection{Warum Monaden? Oder: Warum Haskell?}
 
   Schlussendlich stellt sich jedoch die Frage, warum wir einen solchen 
   Aufwand betreiben, um beispielsweise mit Seiteneffekten umzugehen.
@@ -1102,7 +1104,10 @@
   einfache Typen zu erstellen. Stets waren wir bemüht, die Theorie, welche
   wir aufbauen rigoros und wohldefiniert zu halten. Haben wir eine
   Struktur gefunden, so haben wir versucht dieser einen Namen zu geben und
-  diese zu verallgemeinern. Speziell haben wir dies bei der \verb|Functor|
+  diese zu verallgemeinern, ganz im Sinne der ''Modularität`` und
+  ''Ausdrucksfähigkeit``, so wie es in \cite{abelson1996StructureAndInterpretationOfComputerPrograms}
+  empfohlen wird.
+  Speziell haben wir dies bei der \verb|Functor|
   Typenklasse gesehen, welche das Konzept ''Abbildungen zwischen Strukturen
   können auf ähnliche Abbildungen auf ähnlichen Strukturen geschickt werden''
   darstellt. Nun war es am Ende eigentlich nur ein glücklicher
@@ -1123,12 +1128,28 @@
   wir eine Typensignatur angeben, die Funktion auch genau diesen Typ
   hat\footnote{außer bei partiellen Funktionen, welche Definitionslückene aufweisen, oder nicht-terminierenden Funktionen}.
 
-  Genau so, wie man sagen könnte ''mir ist egal was ein 'Körper` ist,
-  hauptsache ich weiß was 1,2,3, \dots sind'', kann man auch sagen
-  ''mir ist egal was eine Monade ist, hauptsache ich weiß dass es
-  Seiteneffekte gibt''. Man kann auch ohne das nötige Hintergrundwissen
-  Programmieren, jedoch kann man deutlich besser und effizienter
-  mit diesen Konzepten Umgehen, wenn man sie versteht.
+  Genau so, wie wir sagen könnten ''uns ist egal was ein 'Körper` ist,
+  hauptsache wir wissen was 1,2,3, \dots sind'', könnten wir auch sagen
+  ''uns ist egal was eine Monade ist, hauptsache wir wissen dass es
+  Seiteneffekte gibt''. Wir können auch ohne das nötige Hintergrundwissen
+  Programmieren, jedoch können wir deutlich eleganteren und präziseren Code
+  schreiben, wenn wir die den Problemen grundlegenden Strukturen kennen.
+
+  Haskell hilft uns dadurch besser zu programmieren, indem
+  es uns dazu zwingt diese Konzepte zu verstehen und umzusetzen.
+  Hier können wir nun auch sehen, warum Haskell zwar sehr eleganten
+  und effizienten Code erzeugen kann, jedoch in der Industrie nicht
+  weit verbreitet ist. Oft ist es einfacher und schneller, eine
+  ''quick and dirty`` Lösung zu finden welche ''einfach funktioniert``,
+  als sich mit den Grundlagen seiner Probleme auseinanderzusetzen.
+  Insbesondere ist die Hürde für die Einarbeitung in Haskell sehr hoch,
+  was bei anderen populären Sprachen wie Python oder JavaScript nicht der Fall ist.
+
+  Schlussendlich ist es für jeden Programmierer ratsam in seinem
+  Abenteuer durch die Welt der Programmiersprachen auch einen Zwischenhalt
+  bei Haskell einzulegen. Die Konzepte welche in Haskell behandelt
+  werden, können den Programmierstil in anderen Sprachen, welche
+  der Programmierer verwendet, positiv beeinflussen.
 
 %   \subsection{Unterthemen}.
 %   Unterthemen geben bereits eine Aufteilung in Abschnitte vor und jedes
@@ -1216,51 +1237,51 @@
 % \label{table:1}
 % \end{table}
 
-  \section{Literaturverweise}
+  % \section{Literaturverweise}
 
-  Die Angabe von Quellen und Verweisliteratur ist essentiell in Ihrer
-  Ausarbeitung,
-  als auch später in Ihrer Bachelorarbeit.
+  % Die Angabe von Quellen und Verweisliteratur ist essentiell in Ihrer
+  % Ausarbeitung,
+  % als auch später in Ihrer Bachelorarbeit.
 
-  Literaturverweise werden in \LaTeX{} mittels
-  \texttt{\textbackslash cite} getätigt.
-  Verweise stehen hinter der Aussage, die sie stützen sollen,
-  oder hinter dem Namen eines referenzierten Konzepts oder Eigenschaft
-  und gehören in den Satz hinein.
-  Beachten Sie folgendes Beispiel:
-  \begin{itemize}
-    \item In ``Artificial Intelligence: A Modern Approach''~\cite{russell2002artificial}
-      werden moderne Ansätze und Techniken
-      der künstlichen Intelligenz vorgestellt.
-    \item bei direkten Zitationen wir zusätzlich die Seite angegeben wo das Zitat zu finden ist, z.B. ``...''~\cite[p.1]{russell2002artificial}
-  \end{itemize}
+  % Literaturverweise werden in \LaTeX{} mittels
+  % \texttt{\textbackslash cite} getätigt.
+  % Verweise stehen hinter der Aussage, die sie stützen sollen,
+  % oder hinter dem Namen eines referenzierten Konzepts oder Eigenschaft
+  % und gehören in den Satz hinein.
+  % Beachten Sie folgendes Beispiel:
+  % \begin{itemize}
+  %   \item In ``Artificial Intelligence: A Modern Approach''~\cite{russell2002artificial}
+  %     werden moderne Ansätze und Techniken
+  %     der künstlichen Intelligenz vorgestellt.
+  %   \item bei direkten Zitationen wir zusätzlich die Seite angegeben wo das Zitat zu finden ist, z.B. ``...''~\cite[p.1]{russell2002artificial}
+  % \end{itemize}
 
-  Am Ende der Ausarbeitung werden die referenzierten Quellen automatisch
-  aufgelistet.
+  % Am Ende der Ausarbeitung werden die referenzierten Quellen automatisch
+  % aufgelistet.
 
-  \subsection{Bibtex-Einträge und \texttt{references.bib}}
+  % \subsection{Bibtex-Einträge und \texttt{references.bib}}
 
-  Um mit \texttt{\textbackslash cite} referenzieren zu können,
-  müssen die entsprechenden Einträge in der Datei \texttt{references.bib}
-  stehen.
-  Sie finden in der Vorlage bereits den beispielhaften Eintrag für
-  ``Artificial Intelligence: A Modern Approach''~\cite{russell2002artificial}.
+  % Um mit \texttt{\textbackslash cite} referenzieren zu können,
+  % müssen die entsprechenden Einträge in der Datei \texttt{references.bib}
+  % stehen.
+  % Sie finden in der Vorlage bereits den beispielhaften Eintrag für
+  % ``Artificial Intelligence: A Modern Approach''~\cite{russell2002artificial}.
 
-  Für Literaturquellen empfiehlt es sich in aller Regel
-  \url{https://scholar.google.com} zu nutzen.
-  Hier kann man sich direkt den Bibtex-Eintrag einer Quelle
-  angeben lassen und muss diesen so nicht selbst zusammenstellen.
+  % Für Literaturquellen empfiehlt es sich in aller Regel
+  % \url{https://scholar.google.com} zu nutzen.
+  % Hier kann man sich direkt den Bibtex-Eintrag einer Quelle
+  % angeben lassen und muss diesen so nicht selbst zusammenstellen.
 
-  Beachten Sie auch den Artikel
-  ``Common Errors in Bibliographies''
-  von John Owens.\footnote{%
-    \url{https://www.ece.ucdavis.edu/~jowens/biberrors.html}}
-  Des Weiteren ist der Vortrag von Simon Peyton Jones \href{https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/}{``How to write a great research paper''} zu empfehlen.
+  % Beachten Sie auch den Artikel
+  % ``Common Errors in Bibliographies''
+  % von John Owens.\footnote{%
+  %   \url{https://www.ece.ucdavis.edu/~jowens/biberrors.html}}
+  % Des Weiteren ist der Vortrag von Simon Peyton Jones \href{https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/}{``How to write a great research paper''} zu empfehlen.
 
   \appendix
-  \section{Beispielhafter Anhang}
-  Der Anhang wird mit dem \texttt{\textbackslash{}appendix}-Befehl eingeleitet.
-  Alle folgenden Sektionen werden als Anhang formatiert.
+  % \section{Beispielhafter Anhang}
+  % Der Anhang wird mit dem \texttt{\textbackslash{}appendix}-Befehl eingeleitet.
+  % Alle folgenden Sektionen werden als Anhang formatiert.
 
 \backmatter
 \listoffigures
