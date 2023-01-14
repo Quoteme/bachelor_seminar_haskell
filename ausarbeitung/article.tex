@@ -2,6 +2,7 @@
 % \usepackage[ngerman,english]{babel} % English
 \usepackage[english,ngerman]{babel} % Deutsch
 \usetikzlibrary{babel}
+\usepackage{minted}
 
 \title{Gestalten der schriftlichen Ausarbeitung}
 
@@ -44,6 +45,7 @@
 \usepackage{tikz-cd}
 \usepackage{blindtext} %This package generates automatic text
 \usepackage{epigraph}
+
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -303,18 +305,18 @@
   und die zweite Zeile \verb|f (MyConstruktor b i) = b| als ''Definition`` der Funktion.
   
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     data MyType = MyConstruktor Bool Int
-    \end{lstlisting}
-    \caption{Definition eines Typens genannt ''MyType`` mit Konstruktor ''MyConstruktor``, welcher einen ''Bool`` und einen ''Int`` speichert}%
+    \end{minted}
+    \caption{Definition eines Typens genannt ''MyType`` mit Konstruktor ''MyConstruktor``, welcher einen ''Bool`` und einen ''Int`` speichert \cite{constructorHaskellWiki}}%
     \label{fig:mytype}
   \end{figure}
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     f :: MyType -> Bool
     f (MyConstruktor b i) = b
-    \end{lstlisting}
+    \end{minted}
     \caption{Definition einer Abbildung, welche einen Wert von Typ ''MyType`` auf einen Wert von Typ ''Bool`` schickt.}%
     \label{fig:myfunction}
   \end{figure}
@@ -335,19 +337,19 @@
   entsprechenden Typensignatur zustimmt, in der Instanziierung gegeben.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     class MyTypeClass a where
       myFunction :: a -> Bool
-    \end{lstlisting}
+    \end{minted}
     \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
     \label{fig:mytypeclass}
   \end{figure}
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     instance MyTypeClass MyType where
       myFunction (MyConstruktor b i) = b
-    \end{lstlisting}
+    \end{minted}
     \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
     \label{fig:mytypeinstance}
   \end{figure}
@@ -361,24 +363,24 @@
   für Funktionen vornehmen müssen.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     class Trivial a
-    \end{lstlisting}
+    \end{minted}
     \caption{Definition einer pathologischen Typenklasse, welche für jeden Typen ''a`` als Parameter ohne Einschränkung implementiert werden kann.}%
     \label{fig:trivialTypeClass}
   \end{figure}
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     instance Trivial MyType
-    \end{lstlisting}
+    \end{minted}
     \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
     \label{fig:trivialTypeClassInstance}
   \end{figure}
 
   \subsection{Funktoren}
 
-  Als besondere Typenklasse ist die \verb|Functor| Typenklasse zu
+  Als besondere Typenklasse ist die \verb|Functor| Typenklasse \cite{functorHaskellWiki} zu
   erwähnen. Die \verb|Functor| Typenklasse ist eine Typenklasse, welche
   im ''Prelude`` von Haskell
   \footnote{der Prelude ist gewissermaßen die Standartbibliothek von
@@ -388,7 +390,7 @@
   Die erste Zeile ist ein ''Type-Constraint`` und besagt, dass
   nur Typen der Art \verb|*->*| in die \verb|Functor| Typenklasse
   implementiert werden können. Die ''Art`` ist ein Konzept
-  aus der Typentheorie, welches wir hier nicht näher betrachten.
+  aus der Typentheorie \cite{kindHaskellWiki}, welches wir hier nicht näher betrachten.
   Das einzige wichtige für uns ist, dass die Art \verb|*->*|
   besagt, dass der Typenparameter $a$ ein Typenkonstruktor ist,
   welcher einen Typen rein nimmt und einen Typen zurückgibt.
@@ -399,14 +401,14 @@
   Art \verb|*->*->*| ist, da er zwei freie Typenparameter hat.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     type Functor :: (* -> *) -> Constraint
     class Functor f where
       fmap :: (a -> b) -> f a -> f b
       (<$) :: a -> f b -> f a
       {-# MINIMAL fmap #-}
         -- Defined in 'GHC.Base'
-    \end{lstlisting}
+    \end{minted}
     \caption{Definition der ''Functor`` Typenklasse.}%
     \label{fig:functorTypeClass}
   \end{figure}
@@ -497,6 +499,7 @@
   Wir können noch viel mehr über diese Abbildung $\phi$ sagen, jedoch
   beschränken wir uns darauf, dass dies als Implikation bedeutet, dass
   die Funktionen in \cref{eq:currying1} praktisch identisch sind.
+  Für den interessierten Leser bietet sich hierbei \cite[S. 53, Proposition 3.3.2]{CATEGORIES_TYPES_AND_STRUCTURES} an.
   Man kann also \verb|f| und \verb|g| als die gleiche Funktion
   betrachten, da man durch Anwenden von $\phi$ auf \verb|f| die Funktion
   \verb|g| erhält und umgekehrt durch Anwenden von $\phi^{-1}$ auf \verb|g|
@@ -507,11 +510,11 @@
   und \verb|f| auf \verb|(x, y)| angewandt ausgibt.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     f :: (a, b) -> c
     g :: a -> (b -> c)
     g x = \y -> f (x, y)
-    \end{lstlisting}
+    \end{minted}
     \caption{Typensignaturen von Funktionen, welche äquivalent bezüglich curryings sind}%
     \label{fig:currying1}
   \end{figure}
@@ -524,27 +527,27 @@
   von \verb|h| in \cref{fig:curryingg} gegeben.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     f :: (a, b) -> c
     g :: a -> (b -> c)
     g x = \y -> f (x, y)
 
     h :: a -> b -> c
     h x y = f (x, y)
-    \end{lstlisting}
+    \end{minted}
     \caption{Kurzschreibweise resultierend aus dem Currying basierend basierend auf der Definition von f}%
     \label{fig:curryingf}
   \end{figure}
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     f :: (a, b) -> c
     g :: a -> (b -> c)
     g x = \y -> f (x, y)
 
     h :: a -> b -> c
     h x y = (g x) y
-    \end{lstlisting}
+    \end{minted}
     \caption{Kurzschreibweise resultierend aus dem Currying basierend basierend auf der Definition von g}%
     \label{fig:curryingg}
   \end{figure}
@@ -560,7 +563,7 @@
 
   \begin{figure}[h]
 
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     callServer :: String -> String -> String
     callServer url header = ...
 
@@ -569,7 +572,7 @@
 
     apiCallWithHeader :: String
     apiCallWithHeader = apiCall "example header"
-    \end{lstlisting}
+    \end{minted}
     \caption{So binden Sie Code ein}%
     \label{fig:curryingExample}
   \end{figure}
@@ -588,10 +591,10 @@
 
   \begin{figure}[h]
 
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     increaseByOne :: [Int] -> [Int]
     increaseByOne = map (+ 1)
-    \end{lstlisting}
+    \end{minted}
     \caption{Wir komponieren die map Funktion geschickt mit einer partiellen Anwendung der gecurryten Funktion + um eine Funktion zu erhalten, welche alle Elemente einer Liste von Zahlen um 1 zu erhöhen.}%
     \label{fig:currying1}
   \end{figure}
@@ -604,9 +607,9 @@
   beschäftigen und herausfinden, warum diese so wichtig ist.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     fmap (\x -> x+1) [1..10]
-    \end{lstlisting}
+    \end{minted}
     \caption{Anwendung der kanonischen Funktor Instanz auf der Liste von ganzen Zahlen $z$ mit $0\le z < 10$, wobei jede Zahl in der Liste um eins erhöht wird.}%
     \label{fig:fmapExample}
   \end{figure}
@@ -625,15 +628,15 @@
   Um dieses Konzept zu festigen, betrachten wir einen Weiteren Typen in
   Haskell, welcher durch seine Nützlichkeit auch in der Programmiersprache
   Rust anzutreffen ist. Dieser Typ wird in Haskell \verb|Maybe| genannt
-  und in Rust \verb|Option|.
+  und in Rust \verb|Option| \cite{rustOption}.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
       data Maybe a = Nothing | Just a
 
       meineDivision :: Int -> Int -> Maybe Int
       meineDivision x y = if y == 0 then Nothing else Just (x `div` y)
-    \end{lstlisting}
+    \end{minted}
     \caption{Der Maybe Datentyp und wie man eine einfachere Funktion mit diesem schreibt.}%
     \label{fig:maybeType}
   \end{figure}
@@ -654,11 +657,11 @@
   wenn man durch $0$ teilt``.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     erhoeheMaybe :: Maybe Int -> Maybe Int
     erhoeheMaybe Nothing = Nothing
     erhoeheMaybe (Just x) = Just (x + 1)
-    \end{lstlisting}
+    \end{minted}
     \caption{Naive Definition von ''erhoeheMaybe``}%
     \label{fig:maybeTypeAnwenden1}
   \end{figure}
@@ -681,9 +684,9 @@
   sehen.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     erhoeheMaybe = fmap (+ 1)
-    \end{lstlisting}
+    \end{minted}
     \caption{Durchdachtere Definition von ''erhoeheMaybe``}%
     \label{fig:maybeTypeAnwenden2}
   \end{figure}
@@ -700,10 +703,10 @@
   zu sehen ist.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     erhoeheMaybe :: (Functor f, Num b) => f b -> f b
     erhoeheMaybe = fmap (+ 1)
-    \end{lstlisting}
+    \end{minted}
     \caption{Typensignatur von ''erhoeheMaybe`` nach einem Refactoring. ''erhoeheMaybe`` ist nun auf allen ''f`` anwendbar, welche Funktoren sind und einen Typen ''b``, welcher eine Zahl ist, im ersten Parameter haben. }%
     \label{fig:maybeTypeAnwenden3}
   \end{figure}
@@ -717,10 +720,10 @@
   Wir können dies in \cref{fig:maybeTypeAnwenden4} sehen.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     erhoeheMaybe [1, 2, 3] = [2, 3, 4]
     erhoeheMaybe Just 1 = Just 2
-    \end{lstlisting}
+    \end{minted}
     \caption{Anwendung von ''erhoeheMaybe`` auf Listen von Zahlen und auf ''Maybe Int``.}%
     \label{fig:maybeTypeAnwenden4}
   \end{figure}
@@ -768,10 +771,10 @@
 
   \begin{figure}[h]
 
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     fmap (+ 1) (Just 1) = Just 2
     Just ((+ 1) 1) = Just 2
-    \end{lstlisting}
+    \end{minted}
     \caption{Beispiel der grundlegenden Rechenregel für die Funktor-Instanz von ''Maybe``.}%
     \label{fig:kommutativitaetFunktor}
   \end{figure}
@@ -834,13 +837,13 @@
   dargestellt.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     // result ist ein Option<u32>
     match result {
       Some(x) => F(h(x)),
       None    => None
       }
-    \end{lstlisting}
+    \end{minted}
     \caption{Implementation von $F(\text{g} :: \text{Maybe Int} \to \text{a})$, wobei h die eindeutig von f induzierte Funktion $\text{h} :: \text{Just Int} \to a$ ist.}%
     \label{fig:OptionFunktor}
   \end{figure}
@@ -910,7 +913,7 @@
   in \cref{fig:MonadeDef} dargestellt ist.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     type Monad :: (* -> *) -> Constraint
     class Applicative m => Monad m where
       (>>=) :: m a -> (a -> m b) -> m b
@@ -918,7 +921,7 @@
       return :: a -> m a
       {-# MINIMAL (>>=) #-}
       -- Defined in 'GHC.Base'
-    \end{lstlisting}
+    \end{minted}
     \caption{Definition der ''Monaden`` Typenklasse.}%
     \label{fig:MonadeDef}
   \end{figure}
@@ -941,7 +944,7 @@
   für das Verständnis von Monaden für den Rest dieses Abschnittes ist.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     class Functor f => Applicative f where
       pure :: a -> f a
       (<*>) :: f (a -> b) -> f a -> f b
@@ -950,7 +953,7 @@
       (<*) :: f a -> f b -> f a
       {-# MINIMAL pure, ((<*>) | liftA2) #-}
         -- Defined in 'GHC.Base'
-    \end{lstlisting}
+    \end{minted}
     \caption{Definition der ''Applicative`` Typenklasse.}%
     \label{fig:ApplicativeDef}
   \end{figure}
@@ -988,10 +991,10 @@
   einem Element übergeben, so wird eine Laufzeitfehler auftreten.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     get :: [a] -> a
     get [x] = x
-    \end{lstlisting}
+    \end{minted}
     \caption{Eine Funktion, welche einen Wert aus einer Liste und somit aus einem Objekt, welches eine Monadenstruktur besitzt, herausnimmt.}%
     \label{fig:listget}
   \end{figure}
@@ -1009,10 +1012,10 @@
   ein leeres Tupel der Länge 0 darstellt.
 
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     main :: IO ()
     main = putStrLn "Hello World"
-    \end{lstlisting}
+    \end{minted}
     \caption{Hello World in Haskell}%
     \label{fig:helloworld}
   \end{figure}
@@ -1061,10 +1064,10 @@
   ausgegeben und anschließend \verb|World|.
   
   \begin{figure}[h]
-    \begin{lstlisting}
+    \begin{minted}[frame=single]{haskell}
     main :: IO ()
     main = print "Hello" >>= \x -> print "World"
-    \end{lstlisting}
+    \end{minted}
     \caption{Hello World in Haskell, indem wir die Monadenstruktur durch den Binding-Operator ausnutzen.}%
     \label{fig:ioexamples}
   \end{figure}
