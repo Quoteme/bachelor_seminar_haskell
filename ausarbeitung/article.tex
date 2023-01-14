@@ -1,6 +1,7 @@
 \documentclass{hhuarticle}
 % \usepackage[ngerman,english]{babel} % English
 \usepackage[english,ngerman]{babel} % Deutsch
+\usetikzlibrary{babel}
 
 \title{Gestalten der schriftlichen Ausarbeitung}
 
@@ -38,6 +39,17 @@
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage{longtable} % Große Tabellen gehen über mehrere Seiten.
+
+\usepackage{amsthm}
+\usepackage{tikz-cd}
+\usepackage{blindtext} %This package generates automatic text
+\usepackage{epigraph}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
 
 %% Quellcode
 \usepackage{listings} % Einbindung von Code.
@@ -137,7 +149,7 @@
 
   Statt der Objektorientierung, verwendet Haskell die funktionale
   Programmierung, was durch die Reinheit bedeutet, dass Haskell
-  durch allein kategorientheoretische Konzepte definiert ist.
+  sehr gut durch kategorientheoretische Konzepte betrachtbar ist.
   ``Kategorientheoretische Konzepte`` beziehen sich auf die
   Kategorientheorie, welche eine Theorie ist, welche
   eine alternative Grundlage für die Mathematik darstellt, im Gegensatz
@@ -196,13 +208,32 @@
   Sprache ''die $n$-te Primzahl`` verwenden kann, statt diese
   durch eine Funktion zu erhalten, welche die $n$-te Primzahl zurückgibt.
 
-  Diese Eigenschaften machen Haskell zu einer sehr mächtigen Sprache, welche
-  es ermöglicht, elegante und effiziente Lösungen für viele Probleme zu finden.
-  Durch ihren starken mathematisch, theoretischen Grundaufbau besitzt Haskell
-  Strukturen tief in sich verankert, welche noch heutzutage
-  von anderen Programmiersprachen teilweise übernommen werden.
-  Wie genau diese Strukturen in Haskell implementiert sind, wird im Folgenden
-  erläutert. Außerdem werden wir sehen, wie Spezialisierungen 
+  Diese Eigenschaften von Haskell machen es zu einer sehr ungewöhnlichen
+  Programmiersprache, welche sich von anderen Programmiersprachen
+  wie C, Java oder Python unterscheidet. Diese Unterschiede werden
+  im Folgenden noch näher erläutert, wobei wir sehen werden,
+  dass viele Konzepte von Haskell über die Jahre durch ihre praktische
+  Anwendung in anderen Programmiersprachen übernommen wurden.
+  Der tiefe mathematische Hintergrund von Haskell ist jedoch
+  immer noch außergewöhnlich und erlaubt durch die abstrakten
+  Strukturen darin Probleme sehr elegant zu lösen, wobei dies auch
+  ein zweiseitiges Schwert ist, da es für Programmierer, welche
+  nicht darin geschult sind, sehr schwer zu verstehen ist. Hier werden
+  wir auch sehen, dass andere Programmiersprachen, welche die
+  Konzepte von Haskell übernommen haben, diese Konzepte nicht
+  so abstrakt und rigoros implementiert haben wir Haskell, wodurch
+  die Konzepte dort auf bestimmte Anwendungen spezialisiert sind,
+  jedoch nicht so allgemein sind wie in Haskell. Als beispiel dafür
+  werden wir den IO-Monad in Haskell und die Stateful-Widgets in
+  dem Flutter Framework von Dart betrachten.
+
+  % Diese Eigenschaften machen Haskell zu einer sehr mächtigen Sprache, welche
+  % es ermöglicht, elegante und effiziente Lösungen für viele Probleme zu finden.
+  % Durch ihren starken mathematisch, theoretischen Grundaufbau besitzt Haskell
+  % Strukturen tief in sich verankert, welche noch heutzutage
+  % von anderen Programmiersprachen teilweise übernommen werden.
+  % Wie genau diese Strukturen in Haskell implementiert sind, wird im Folgenden
+  % erläutert. Außerdem werden wir sehen, wie Spezialisierungen 
 
 
   % Jede Ausarbeitung beginnt mit einer guten Einleitung.
@@ -218,13 +249,798 @@
   % und somit im Dokument doppeln.
 
 
-  \section{Struktureller Aufbau}
+  \section{Grundlagen von Haskell}
+  
+  Wir möchten Haskell mit anderen Programmiersprachen vergleichen.
+  Interessant ist, dass wir Konzepte, welche in Haskell verwendet werden
+  und aus der Kategorientheorie stammen dazu verwenden können, um dieses
+  Ziel zu verwirklichen.
 
-  Es ist ein zusammenhängender Text von 15--20 Seiten (+ Referenzen) zu verfassen,
-  der das gegebene Thema und die Lernziele abdeckt.
-  Achten Sie hierbei auf eine sinnvolle Gliederung der Unterthemen.
+  \subsection{Typen und Typklassen}
 
-  \subsection{Unterthemen}
+  Betrachten wir zuerst eine Typenklasse, welche in Haskell definiert ist.
+  Dazu müssen wir jedoch zuerst definieren, was eine Typenklasse ist.
+
+  \begin{definition}
+    Eine Typenklasse ist eine Sammlung von Typen, welche eine bestimmte
+    Eigenschaft besitzen.
+  \end{definition}
+
+  Nach der Einleitung wissen wir bereits, was ein Typ ist. Diese kommen
+  aus der Typentheorie und ordnen Werten in unserer Programmiersprache
+  eine Eigenschaft genannt ''Typ`` zu. Allgemeiner bezeichnen wir als
+  ein ''Typensystem`` eine konsistente Theorie $T$, für welche zu jeder Aussage $\phi$
+  der Form ''$x$ hat den Typ $y$``, mit $x$ ein Wert und $y$ ein Typ,
+  entweder $\phi$ gilt in $T$, oder $\neg \phi$ gilt in $T$, wobei ''$\neg$``
+  die logische Negierung ist, gilt. Dabei bedeutet ''konsistente``, dass
+  es keine Kontradiktion in dieser Theorie gibt, also keine Aussage $\phi$
+  existiert, für welche sowohl $\phi$ in $T$ als auch in $\neg \phi$ in $T$ gilt.
+  Ein Beispiel für einen Typ ist der Typ $Bool$ welcher
+  den Werten $True$ und $False$ in Haskell zugeordnet ist. Ein weiterer Typ wäre
+  der Typ $Int$, welcher den ganzen Zahlen zugeordnet ist.
+  Ein Beispiel für eine Typentheorie ist die Typentheorie von Haskell,
+  welche unter anderem die Typen $Bool$ und $Int$ enthält. Inkonsistent,
+  also nicht konsistent, wäre die Typentheorie von Haskell, wenn
+  beispielsweise die Aussage ''$True$ hat den Typ $Int$`` in dieser Theorie
+  und die Aussage ''$True$ hat nicht den Typ $Int$`` gelten würde, was
+  jedoch nicht gilt.
+
+  Die Definition einer Typenklasse als Sammlung von Typen ist jedoch auf
+  den ersten Blick nicht sonderlich Aufschlussreich. Der Begriff ''Sammlung``
+  bezieht sich in dem Kontext von Haskell auf eine Menge von Typen im
+  Sinne der Mengenlehre. Wir können sogar weiter eingrenzen und stark davon
+  ausgehen, dass die Menge von Typen, welche eine Typenklasse definiert,
+  endlich in Haskell ist, da ein Programm in Haskell nur endlich viele
+  Typen definieren kann.
+
+  Wir können nun die Implementation von Typen und Typenklassen in Haskell
+  genauer betrachten. Wir können in \cref{fig:mytype} sehen, wie ein
+  einfacher Typ in Haskell definiert wird und in \cref{fig:myfunction} eine
+  Funktion, welche einen Typen als Parameter verwendet. Insbesondere
+  bezeichnen wir die erste Zeile \verb|f :: MyType -> Bool| als ''Typsignatur``
+  und die zweite Zeile \verb|f (MyConstruktor b i) = b| als ''Definition`` der Funktion.
+  
+  \begin{figure}[h]
+    \begin{lstlisting}
+    data MyType = MyConstruktor Bool Int
+    \end{lstlisting}
+    \caption{Definition eines Typens genannt ''MyType`` mit Konstruktor ''MyConstruktor``, welcher einen ''Bool`` und einen ''Int`` speichert}%
+    \label{fig:mytype}
+  \end{figure}
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    f :: MyType -> Bool
+    f (MyConstruktor b i) = b
+    \end{lstlisting}
+    \caption{Definition einer Abbildung, welche einen Wert von Typ ''MyType`` auf einen Wert von Typ ''Bool`` schickt.}%
+    \label{fig:myfunction}
+  \end{figure}
+
+  Eine Typenklasse wird nun wie in \cref{fig:mytypeclass} definiert. Wir
+  können sehen, dass eine Typenklasse eine Sammlung von Typen
+  parametrisiert durch einen Typenvariablen $a$ ist, wobei
+  eine Funktion \verb|myFunction :: a -> Bool| existieren muss.
+  Diese Typenklasse ist jedoch bisher nur eine Definition, wobei kein
+  Typ ein Teil dieser Typenklasse ist. Damit wir einen Typen in diese
+  Typenklasse hinzufügen können, müssen wir beweisen, dass ein gegebener
+  Typ die Eigenschaften der Typenklasse erfüllt. Dies wird in \cref{fig:mytypeinstance}
+  gezeigt. Wir können sehen, dass wir die Typenklasse \verb|MyTypeClass| mit dem Typen
+  \verb|MyType| verbinden, indem wir den Typen \verb|MyType| als
+  Instanz der Typenklasse \verb|MyTypeClass| definieren.
+  Insbesondere haben wir für alle Typensignaturen, welche nach dem \verb|where|
+  in \cref{fig:mytypeclass} stehen, eine Definition, welcher der
+  entsprechenden Typensignatur zustimmt, in der Instanziierung gegeben.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    class MyTypeClass a where
+      myFunction :: a -> Bool
+    \end{lstlisting}
+    \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
+    \label{fig:mytypeclass}
+  \end{figure}
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    instance MyTypeClass MyType where
+      myFunction (MyConstruktor b i) = b
+    \end{lstlisting}
+    \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
+    \label{fig:mytypeinstance}
+  \end{figure}
+
+  Als ein pathologisches Beispiel für eine Typenklasse, welche von jedem
+  Typen $a$ implementiert werden kann, wobei ''implementiert`` gleichzusetzen
+  mit ''$a$ ist ein Typ in der entsprechenden Typenklasse`` ist, ist die
+  Typenklasse \verb|Trivial|, welche in \cref{fig:trivialTypeClass} definiert ist.
+  Die entsprechende Implementation für den Typen \verb|MyType| ist in \cref{fig:trivialTypeClassInstance},
+  wobei wir sehen, dass wir keine Implementationen
+  für Funktionen vornehmen müssen.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    class Trivial a
+    \end{lstlisting}
+    \caption{Definition einer pathologischen Typenklasse, welche für jeden Typen ''a`` als Parameter ohne Einschränkung implementiert werden kann.}%
+    \label{fig:trivialTypeClass}
+  \end{figure}
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    instance Trivial MyType
+    \end{lstlisting}
+    \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
+    \label{fig:trivialTypeClassInstance}
+  \end{figure}
+
+  \subsection{Funktoren}
+
+  Als besondere Typenklasse ist die \verb|Functor| Typenklasse zu
+  erwähnen. Die \verb|Functor| Typenklasse ist eine Typenklasse, welche
+  im ''Prelude`` von Haskell
+  \footnote{der Prelude ist gewissermaßen die Standartbibliothek von
+  Haskell, welche automatisch in jedem Haskellprogramm eingebunden wird}
+  definiert ist. Diese Definition können wir in
+  \cref{fig:functorTypeClass} genauer betrachten.
+  Die erste Zeile ist ein ''Type-Constraint`` und besagt, dass
+  nur Typen der Art \verb|*->*| in die \verb|Functor| Typenklasse
+  implementiert werden können. Die ''Art`` ist ein Konzept
+  aus der Typentheorie, welches wir hier nicht näher betrachten.
+  Das einzige wichtige für uns ist, dass die Art \verb|*->*|
+  besagt, dass der Typenparameter $a$ ein Typenkonstruktor ist,
+  welcher einen Typen rein nimmt und einen Typen zurückgibt.
+  Hierbei sind Typenkonstruktoren bereits aus \cref{fig:mytype} bekannt,
+  wobei dort der Typenkonstruktor \verb|MyConstruktor| war. Dieser
+  hätte die Art \verb|*|, da er keine freien Typenparameter gibt,
+  wohingegen \verb|data MyType a b = MyConstruktor a b| von der
+  Art \verb|*->*->*| ist, da er zwei freie Typenparameter hat.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    type Functor :: (* -> *) -> Constraint
+    class Functor f where
+      fmap :: (a -> b) -> f a -> f b
+      (<$) :: a -> f b -> f a
+      {-# MINIMAL fmap #-}
+        -- Defined in 'GHC.Base'
+    \end{lstlisting}
+    \caption{Definition der ''Functor`` Typenklasse.}%
+    \label{fig:functorTypeClass}
+  \end{figure}
+
+  In der Definition der \verb|Functor| Typenklasse sehen wir, dass
+  nach dem \verb|where| eine Typensignatur \verb|fmap| und eine
+  Typensignatur \verb|<$| definiert sind. Diese Typensignaturen
+  sind die Funktionen, welche die Instanzen der \verb|Functor| Typenklasse
+  implementieren müssen.
+  Die Typensignatur \verb|fmap| besagt, dass
+  wir eine Funktion \verb|fmap| definieren müssen, welche eine Funktion
+  vom Typen \verb|(a -> b)| und einen Wert vom Typen \verb|f a| einnimmt
+  und einen Wert vom Typen \verb|f b| zurückgibt. Wichtig für das
+  Verständnis dieser Typensignaturen, welche mehr als einen Pfeil besitzen,
+  ist das sogenannte Konzept des Curryings
+  \footnote{Auch ''Schönfinkeln`` in dem Bereich der Linguistik gennant}.
+
+  \subsubsection{Currying}
+
+  Das Konzept des Curryings ist ein Konzept aus der Mathematik, welches
+  in der Programmierung verwendet wird, um Funktionen mit mehreren
+  Argumenten mittels einer natürlichen Bijektion zwischen $\text{Hom}$-Mengen
+  elegant zu definieren. Was wir damit meinen, möchten wir in diesem
+  Unterabschnitt näher erläutern, genauso wie, welche Konsequenzen
+  das Curryings für die Typensignaturen der \verb|Functor| Typenklasse
+  hat.
+
+  Nach der Einleitung dieser Arbeit wissen wir bereits, was eine
+  Kategorie $\mathcal{C}$ ist. Wir wissen, dass diese Kategorie
+  Objekte $A, B$ beinhalten kann, sowie Morphismen $f:A\rightarrow B$.
+  Wir einigen uns auf die Konvention, dass wir $A\in \text{ob}(\mathcal{C})$
+  für ein Objekt $A$ in der Kategorie $\mathcal{C}$ schreiben und
+  $f:A\rightarrow B \in \text{Hom}_\mathcal{C}(A, B)$ für
+  einen Morphismus von $A$ nach $B$ in der Kategorie $\mathcal{C}$.
+  Allgemein sind $\text{ob}(\mathcal{C})$ und $\text{Hom}_\mathcal{C}(A, B)$
+  echte Klassen, also keine Mengen im Sinne der Mathematik.
+  Wir werden jedoch nicht näher auf den Unterschied zwischen
+  Mengen und Klassen eingehen, da dies nicht relevant für die
+  Kategorie \textbf{Hask} ist, welche die Kategorie der Typen und 
+  Funktionen in Haskell ist\footnote{Per Konvention nehmen wir an,
+  dass Funktionen in Haskell terminieren, also endliche Laufzeit haben}.
+  Die genaue Konstruktion der Kategorie \textbf{Hask}
+  lässt sich in der offiziellen Dokumentation von Haskell
+  \footnote{\path{https://wiki.haskell.org/Hask#\%22Platonic\%22_Hask}}
+  nachlesen. Wichtig ist nur, dass Typen in Haskell Objekte in der
+  Kategorie \textbf{Hask} sind und Funktionen zu Morphismen in der
+  Kategorie \textbf{Hask} unter bestimmten Voraussetzungen korrespondieren.
+  In der Kategorie \textbf{Hask} gilt, dass $\text{ob}(\textbf{Hask})$
+  und $\text{Hom}_\textbf{Hask}(A, B)$ Mengen für alle $A, B \in \text{ob}(\textbf{Hask})$ sind.
+
+  \begin{definition}
+    Wir definieren den Exponenten $Z^Y$ von Objekten $Z, Y\in \text{ob}(\textbf{Hask})$
+    als die Menge aller Morphismen $h: Z \to Y$ vom Objekt $Z$ nach $Y$.
+  \end{definition}
+
+  Wir können nun das Konzept des Curryings in der Kategorie \textbf{Hask}
+  definieren. Dazu betrachten wir uns folgende Eigenschaft der Kategorie
+  \textbf{Hask}:
+
+  \begin{theorem}
+    Für alle Objekte $X, Y, Z \in \text{ob}(\textbf{Hask})$ gilt:
+    \begin{equation}
+      \text{Hom}_\textbf{Hask}(X \times Y, Z) \cong \text{Hom}_\textbf{Hask}(X, Y^Z)
+    \end{equation}
+  \end{theorem}
+
+  \begin{proof}
+    Sei $f: X \times Y \to Z$ ein Morphismus in der Kategorie \textbf{Hask}.
+    Dieser korrespondiert zu einer Funktion $f: X \times Y \to Z$ in Haskell,
+    also eine Funktion, welche ein Tupel aus $X$ und $Y$ einnimmt und etwas
+    vom Typ $Z$ zurückgibt. Wir definieren nun eine Funktion
+    $g: X \to Y^Z$ als $g(x) = f(x, \cdot)$, wobei $\cdot$ ein Platzhalter
+    für ein Argument vom Typ $Y$ ist, also
+    $f(x, \cdot) = (y \mapsto f(x, y))$.
+
+    Es ist klar, dass $g$ eine Funktion vom Typ $X \to Y^Z$ ist, da
+    $g$ einen Wert vom Typ $X$ einnimmt und eine Funktion von $Y$ nach $Z$
+    zurückgibt. Dies sind aber genau die Werte vom Typ $Y^Z$.
+
+    Allgemein können wir eine Abbildung
+    $\text{Hom}_\textbf{Hask}(X \times Y, Z) \tilde\to \text{Hom}_\textbf{Hask}(X, Y^Z)$
+    konstruieren, indem wir für jeden Morphismus $f: X \times Y \to Z \in \text{Hom}_\textbf{Hask}(X \times Y, Z)$
+    die Abbildung $\phi(f) = g$ definieren, wobei $g$ die Funktion
+    $g: X \to Y^Z, \> g(x) = (y \mapsto f(x,y)$ ist. Die Bijektivität
+    ist nach Konstruktion gegeben, was wir durch $\tilde \to$ symbolisieren.
+  \end{proof}
+
+  Wir können noch viel mehr über diese Abbildung $\phi$ sagen, jedoch
+  beschränken wir uns darauf, dass dies als Implikation bedeutet, dass
+  die Funktionen in \cref{eq:currying1} praktisch identisch sind.
+  Man kann also \verb|f| und \verb|g| als die gleiche Funktion
+  betrachten, da man durch Anwenden von $\phi$ auf \verb|f| die Funktion
+  \verb|g| erhält und umgekehrt durch Anwenden von $\phi^{-1}$ auf \verb|g|
+  die Funktion \verb|f| erhält. Wichtig ist hierbei,
+  dass wir \verb|g x|, also die Funktion \verb|g| angewandt auf
+  den Parameter \verb|x|, durch eine Lambda-Funktion
+  \verb|(\y -> f (x y))| definiert haben, welche also ein \verb|y| nimmt
+  und \verb|f| auf \verb|(x, y)| angewandt ausgibt.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    f :: (a, b) -> c
+    g :: a -> (b -> c)
+    g x = \y -> f (x, y)
+    \end{lstlisting}
+    \caption{Typensignaturen von Funktionen, welche äquivalent bezüglich curryings sind}%
+    \label{fig:currying1}
+  \end{figure}
+
+  Wir erkennen aus dieser Tatsache, dass es effizienter ist, die Funktionen
+  \verb|f| und \verb|g| direkt ohne Klammern zu schreiben. So erhalten wir
+  eine Kurzschreibweise für die Funktionen \verb|f| und \verb|g|, welche
+  wir in \cref{fig:curryingf} als Funktion \verb|h| sehen können.
+  Dem Verständnis geschuldet, haben wir auch eine äquivalente Definition
+  von \verb|h| in \cref{fig:curryingg} gegeben.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    f :: (a, b) -> c
+    g :: a -> (b -> c)
+    g x = \y -> f (x, y)
+
+    h :: a -> b -> c
+    h x y = f (x, y)
+    \end{lstlisting}
+    \caption{Kurzschreibweise resultierend aus dem Currying basierend basierend auf der Definition von f}%
+    \label{fig:curryingf}
+  \end{figure}
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    f :: (a, b) -> c
+    g :: a -> (b -> c)
+    g x = \y -> f (x, y)
+
+    h :: a -> b -> c
+    h x y = (g x) y
+    \end{lstlisting}
+    \caption{Kurzschreibweise resultierend aus dem Currying basierend basierend auf der Definition von g}%
+    \label{fig:curryingg}
+  \end{figure}
+
+  Die Vorteile hierbei sind vielfältig. Ein offensichtlicher Vorteil ist,
+  dass Funktionen effizienter und lesbarer dargestellt werden können,
+  wie wir in \cref{fig:curryingExample} sehen können. Hier nehmen wir
+  ans, dass die Funktion \verb|callServer| zwei Parameter vom Typ \verb|String| nimmt
+  und einen Wert vom Typ \verb|String| zurückgibt. Sie könnte beispielsweise
+  eine URL auf einen Server, definiert im ersten Parameter, mit
+  einem bestimmten Header, definiert im zweiten Parameter, aufrufen und
+  den Inhalt der Seite zurückgeben.
+
+  \begin{figure}[h]
+
+    \begin{lstlisting}
+    callServer :: String -> String -> String
+    callServer url header = ...
+
+    apiCall :: String -> String
+    apiCall = callServer "https://api.example.com"
+
+    apiCallWithHeader :: String
+    apiCallWithHeader = apiCall "example header"
+    \end{lstlisting}
+    \caption{So binden Sie Code ein}%
+    \label{fig:curryingExample}
+  \end{figure}
+
+  Des weiteren kann man durch currying Funktionen höhere Ordnung
+  eleganter verwenden. Am Beispiel der Funktion \verb|map : (a -> b) -> [a] -> [b]|,
+  welche eine Funktion vom Typ \verb|a -> b| auf eine Liste vom Typ \verb|[a]| anwendet
+  und eine Liste vom Typ \verb|[b]| zurückgibt, können wir sehen, dass
+  das Currying in Anbetracht der Funktion \verb|+ : Num a => a -> a -> a| sehr nützlich ist.
+  Hierbei ist \verb|+| eine Funktion vom Typ \verb|Num a => a -> a -> a|,
+  was bedeutet, dass \verb|+| zwei Werte des Typs \verb|a| nimmt und einen Wert
+  des Typs \verb|a| zurückgibt, wobei \verb|a| ein Typ ist, der die Klasse \verb|Num| implementiert.
+  \verb|Num| ist eine Typenklasse, welche die Grundrechenarten implementiert.
+  Also sagen wir mit \verb|Num a => ...| aus, dass \verb|+| auf dem
+  Typen \verb|a| definiert sein muss.
+
+  \begin{figure}[h]
+
+    \begin{lstlisting}
+    increaseByOne :: [Int] -> [Int]
+    increaseByOne = map (+ 1)
+    \end{lstlisting}
+    \caption{Wir komponieren die map Funktion geschickt mit einer partiellen Anwendung der gecurryten Funktion + um eine Funktion zu erhalten, welche alle Elemente einer Liste von Zahlen um 1 zu erhöhen.}%
+    \label{fig:currying1}
+  \end{figure}
+
+  \subsubsection{Anwendung der Functor Typenklasse}
+
+  Nachdem wir nun das notwendige Wissen über currying haben um 
+  die Typensignaturen der Functor Typenklasse in \cref{fig:functorTypeClass}
+  zu verstehen, können wir uns nun mit der Implementierung der Functor Typenklasse
+  beschäftigen und herausfinden, warum diese so wichtig ist.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    fmap (\x -> x+1) [1..10]
+    \end{lstlisting}
+    \caption{Anwendung der kanonischen Funktor Instanz auf der Liste von ganzen Zahlen $z$ mit $0\le z < 10$, wobei jede Zahl in der Liste um eins erhöht wird.}%
+    \label{fig:fmapExample}
+  \end{figure}
+
+  Betrachten wir dafür \cref{fig:fmapExample}, wobei wir erkennen,
+  dass wir durch \verb|fmap| eine Funktion vom Typ \verb|a -> b| auf
+  eine Liste vom Typ \verb|[a]| anwenden können. Wir haben also unsere
+  Funktion vom Typ \verb|a -> b| auf einen Typen, welcher unseren
+  ursprünglichen Typen \verb|a| beinhaltet ''hochgehoben``.
+  Das wichtige hierbei ist, dass wir erkannt haben, dass Listen von einem
+  beliebigen Typen \verb|[a]| eine ''kanonische``, beziehungsweise offensichtliche,
+  Möglichkeit besitzen, Funktionen vom Typ \verb|a -> b| auf sich anzuwenden.
+
+  Dieses Konzept tritt überall in der Programmierung auf. Wir möchten
+  mit Strukturen arbeiten, indem wir ihre Bestandteile manipulieren.
+  Um dieses Konzept zu festigen, betrachten wir einen Weiteren Typen in
+  Haskell, welcher durch seine Nützlichkeit auch in der Programmiersprache
+  Rust anzutreffen ist. Dieser Typ wird in Haskell \verb|Maybe| genannt
+  und in Rust \verb|Option|.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+      data Maybe a = Nothing | Just a
+
+      meineDivision :: Int -> Int -> Maybe Int
+      meineDivision x y = if y == 0 then Nothing else Just (x `div` y)
+    \end{lstlisting}
+    \caption{Der Maybe Datentyp und wie man eine einfachere Funktion mit diesem schreibt.}%
+    \label{fig:maybeType}
+  \end{figure}
+
+  Der Maybe Typ, wie er in \cref{fig:maybeType} definiert ist, ist auch
+  Bestandteil des \verb|Prelude| Pakets und somit auch in jedem Haskell
+  Programm verfügbar. Er ist ein Typ, welcher entweder den Wert \verb|Nothing|
+  oder den Wert \verb|Just a| beinhaltet, wobei \verb|a| ein beliebiger Typ ist.
+  Diese Definition basiert auf dem algebraischen Typensystem von Haskell,
+  welches wir in der Einleitung kennengelernt haben.
+  Außerdem lernen wir nun die \verb|if| Anweisung kennen, welche
+  in Haskell durch \verb|if ... then ... else ...| verwendet wird.
+  Diese ist klar verständlich und ähnlich wie in anderen Programmiersprachen.
+  Die Funktion \verb|meineDivision| nimmt zwei Zahlen vom Typ \verb|Int| und
+  gibt entweder \verb|Nothing| oder \verb|Just Int| zurück,
+  je nachdem ob der zweite Parameter \verb|y| gleich $0$ ist oder nicht.
+  Dies erfasst die allgemein bekannte Idee, dass ''etwas schlimmes passiert,
+  wenn man durch $0$ teilt``.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    erhoeheMaybe :: Maybe Int -> Maybe Int
+    erhoeheMaybe Nothing = Nothing
+    erhoeheMaybe (Just x) = Just (x + 1)
+    \end{lstlisting}
+    \caption{}%
+    \label{fig:maybeTypeAnwenden1}
+  \end{figure}
+
+  Wir können nun die Funktion \verb|erhoeheMaybe| definieren, welche
+  eine Funktion vom Typ \verb|Maybe Int -> Maybe Int| ist. Diese
+  Funktion erhöht den Wert eines Wertes von Typ \verb|Maybe Int| um eins, falls
+  dieser nicht \verb|Nothing| ist, also \verb|Just Int| ist und somit
+  einen Wert vom Typ \verb|Int| beinhaltet.
+  Diese Funktion lässt somit \verb|+ 1| auf kanonische Weise
+  auf dem Typen \verb|Maybe Int| wirken, wobei dies ein Stichwort
+  dafür ist, dass \verb|Maybe| eine Instanz der Functor
+  Typenklasse ist. Sieht man in der Haskell-Dokumentation nach, so findet
+  man heraus, dass \verb|Maybe| eine Instanz der Functor Typenklasse ist,
+  und somit unser Instinkt richtig war, wodurch wir Funktionen wie \verb|(+ 1)|
+  vom Typ \verb|Int -> Int| auf \verb|Maybe Int| anwenden können.
+  Durch ein geschicktes Refactoring können wir die Funktion
+  \verb|erhoeheMaybe| somit in eine Zeile umschreiben, statt eine
+  Fallunterscheidung zu schreiben. Wir können dies in \cref{fig:maybeTypeAnwenden2}
+  sehen.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    erhoeheMaybe = fmap (+ 1)
+    \end{lstlisting}
+    \caption{}%
+    \label{fig:maybeTypeAnwenden2}
+  \end{figure}
+
+  Das interessante ist, dass wir hierbei durch unser Refactoring nicht
+  nur die Lesbarkeit verbessert haben, sondern auch deutlich weniger
+  Code geschrieben haben, sowie durch das Erkennen der unterliegenden
+  Struktur in der Lage sind, die Funktion \verb|erhoeheMaybe| statt
+  nur auf \verb|Maybe Int| zu definieren, allgemeiner zu definieren.
+  Indem wir die Funktion \verb|fmap| verwenden und somit die Funktorialität
+  von \verb|Maybe| ausnutzen, mussten wir gar keinen konkreten Bezug auf
+  den Typen Maybe mehr herstellen. Wir können also eine neue Typensignatur
+  für \verb|erhoeheMaybe| definieren, welche in \cref{fig:maybeTypeAnwenden3}
+  zu sehen ist.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    erhoeheMaybe :: (Functor f, Num b) => f b -> f b
+    erhoeheMaybe = fmap (+ 1)
+    \end{lstlisting}
+    \caption{Typensignatur von ''erhoeheMaybe`` nach einem Refactoring. ''erhoeheMaybe`` ist nun auf allen ''f`` anwendbar, welche Funktoren sind und einen Typen ''b``, welcher eine Zahl ist, im ersten Parameter haben. }%
+    \label{fig:maybeTypeAnwenden3}
+  \end{figure}
+
+  Hiermit haben wir eine enorme Verallgemeinerung erreicht, wodurch unsere
+  Funktion \verb|erhoeheMaybe| beispielsweise im Spezialfall von \verb|f| = \verb|[]|
+  und \verb|b| = \verb|Int|, also auf Listen von Integern, angewendet werden kann.
+  In diesem Spezialfall erhöht \verb|erhoeheMaybe| die Werte in einer Liste von Zahlen
+  jeweils um eins, was bedeutet, dass \verb|erhoeheMaybe| als Spezialfall
+  die Funktion \verb|increaseByOne| aus \cref{fig:curryingExample} ist.
+  Wir können dies in \cref{fig:maybeTypeAnwenden4} sehen.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    erhoeheMaybe [1, 2, 3] = [2, 3, 4]
+    erhoeheMaybe Just 1 = Just 2
+    \end{lstlisting}
+    \caption{Anwendung von ''erhoeheMaybe`` auf Listen von Zahlen und auf ''Maybe Int``.}%
+    \label{fig:maybeTypeAnwenden4}
+  \end{figure}
+
+  Wir können dieses Schema fortführen und beispielsweise einen Datentypen
+  für Bäume definieren, wobei ein Knoten jeweils einen Wert vom Typ \verb|a|
+  beinhalten kann. So könnten wir auch eine Funktorinstanz für diesen
+  Datentypen definieren, wodurch die Funktion \verb|erhoeheMaybe| auch auf
+  Bäume angewendet werden kann. Wir sehen also, dass die Funktorialität
+  von Datentypen ein sehr mächtiges Konzept ist.
+
+  \subsubsection{Funktoren von \textbf{Hask} in andere Kategorien}
+
+  Wichtig ist, dass wir bisher nur Funktoren von \textbf{Hask} in \textbf{Hask}
+  gesehen haben. Wir nennen solche Funktoren ''Endofunktoren``.
+  Interessant ist, dass wir jedoch die Ähnlichkeiten zwischen Haskell
+  und Rust auch durch Funktoren beschreiben können. Wir können allgemeiner
+  ''Ähnlichkeiten`` zwischen Haskell und anderen Programmiersprachen
+  mit den mathematischen Konzepten, welche das Fundament von Haskell
+  bilden, kurz und bündig beschreiben.
+
+  Wir nehmen dazu an, dass wir analog zu der Kategorie \textbf{Hask}
+  eine Kategorie \textbf{Rust} haben, welche analog zu \textbf{Hask}
+  definiert ist. Die Objekte der Kategorie \textbf{Rust} sind die
+  Typen und die Morphismen sind die Funktionen zwischen den Typen in
+  Rust. Im allgemeinen würde dies keine Kategorie im Sinne der Definition
+  von Kategorien aus der Einleitung sein, weshalb wir analog zu der
+  Definition von \textbf{Hask} beispielsweise nur terminierende Funktionen
+  in \textbf{Rust} zulassen. Die Konzepte, welche wir hier erschließen,
+  lassen sich jedoch auch auf nicht-terminierende Funktionen erweitern,
+  wobei wir darauf nicht weiter eingehen möchten.
+
+  Wir haben gesehen, dass für Typen, welche eine Funktor-Instanz sind
+  gilt, dass sie die Funktion \verb|fmap :: (a -> b) -> f a -> f b| haben,
+  welche eine Funktion vom Typ \verb|a -> b| auf einen Funktion vom Typ
+  \verb|f a -> f b| bis auf Currying schickt. Das wichtige dabei ist,
+  dass wir dies ''strukturerhaltend`` machen möchten. Betrachten wir
+  dazu das Beispiel aus \cref{fig:maybeTypeAnwenden2}. Wir möchten,
+  dass wenn \verb|x| ein Wert vom Typ \verb|Int| ist, dann soll
+  zuerst das Anwenden von \verb|(+ 1)| auf \verb|x| und dann das
+  Anwenden von \verb|Just| auf das Ergebnis das selbe sein, wie wenn
+  man zuerst \verb|Just| auf \verb|x| anwendet und dann \verb|fmap (+ 1)|
+  auf das Ergebnis. Wir können dies in \cref{fig:kommutativitaetFunktor}
+  sehen.
+
+  \begin{figure}[h]
+
+    \begin{lstlisting}
+    fmap (+ 1) (Just 1) = Just 2
+    Just ((+ 1) 1) = Just 2
+    \end{lstlisting}
+    \caption{Beispiel der grundlegenden Rechenregel für die Funktor-Instanz von ''Maybe``.}%
+    \label{fig:kommutativitaetFunktor}
+  \end{figure}
+
+  Eine andere Art diese ausschlaggebende Eigenschaft von Funktor-Instanzen
+  zu beschreiben, ist indem wir ein sogenanntes ''kommutatives Diagramm``
+  aufstellen. Wir können dies in \cref{fig:kommutativesDiagramm} sehen.
+  Was wir damit aussagen möchten ist, wenn ich zuerst rechts und dann runter
+  gehe, indem ich die entsprechenden Funktionen anwende, ist es das selbe,
+  wie wenn ich zuerst runter und dann rechts gehe.
+
+  \begin{figure}[h]
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdD2mAJwCMAPgDMABPUEgAvqXSZc+QijLFqdJq3ZceAwROmyQGbHgJFypVTQYs2iTtz5ChBuScXmKam5vvanIqIuUmowUADm8ESgwrwQALZIFiA4EEgATDQAFjD0UOyQYGwyMXGJiMmpSGQgOXlIYMyMjNYadg46QsKSJSCxCdU0VYgAzK22Wo66wvH0aKLhPYb95ZVpiOm9K0lD65nqE35TQouufWUZu0hjIIz0-DCMAArypkq3MMI4IOO+HQHdaSUKRAA
+    \[
+      \begin{tikzcd}
+        \verb|a| \arrow[r, "\text{g}"] \arrow[d, "\text{f}"] & \verb|b| \arrow[d, "\text{f}"] \\
+        \verb|f a| \arrow[r, "\text{fmap(g)}"]                   & \verb|f b|
+      \end{tikzcd}
+    \]
+    \caption{kommutatives Diagramm, welches die Eigenschaften von ''fmap`` darstellt.}%
+    \label{fig:kommutativesDiagramm}
+  \end{figure}
+  
+  Für Funktoren in \textbf{Hask} ist dies die einzige Eigenschaft, welche
+  sie erfüllen müssen. Allgemein ist dies sogar die kategorientheoretische
+  Definition eines Funktors. Ein Funktor $F$ von einer Kategorie $\mathcal{C}$ in
+  eine Kategorie $\mathcal{D}$ ordnet jedem Objekt $a \in \mathcal{C}$ ein
+  Objekt $F(a) \in \mathcal{D}$ zu und jedem Morphismus $f : a \to b$ in
+  $\mathcal{C}$ einen Morphismus $F(f) : F(a) \to F(b)$ in $\mathcal{D}$ zu,
+  sodass das folgende Diagramm kommutiert:
+
+  \[
+    \begin{tikzcd}
+      a \arrow[r, "f"] \arrow[d, "F"] & b \arrow[d, "F"] \\
+      F(a) \arrow[r, "F(f)"]                   & F(b)
+    \end{tikzcd}
+  \]
+
+  Besitzt ein Typ in \textbf{Hask} eine Funktor-Instanz, 
+  so sagen wir damit aus, dass die konstruieren dieses Typens Funktoren
+  im Sinne der Kategorientheorie sind
+
+  Dies erlaubt es uns nun auch einen abstrakteren Funktor $F$ von \textbf{Hask}
+  nach \textbf{Rust} zu definieren, indem wir jeden Typen $a$ in \textbf{Hask}
+  mit einem Typen $F(a)$ in \textbf{Rust} assoziieren. Beispielhaft könnte
+  der Typ \verb|Int| mit dem Typen \verb|u32| assoziiert werden und so weiter.
+  Insbesondere müsste dann auch $F(\verb|Maybe Int|)$ mit einem Typen
+  in \textbf{Rust} assoziiert werden, welcher die Funktionalität von
+  \verb|Just| erhält. Dafür bietet sich der Typ \verb|Option<u32>| in
+  \textbf{Rust} an. Der Typ \verb|Option<u32>| in Rust ist dadurch
+  definiert, dass er entweder den Wert \verb|None| oder den Wert
+  \verb|Some(u32)| annehmen kann. Wir können somit $F(\verb|Just x|)$
+  auf \verb|Some(x)| für ein beliebiges $x$ von Typ \verb|Int| in \textbf{Hask}
+  abbilden, sowie $F(\verb|Nothing|)$ auf \verb|None| abbilden.
+  Nun müssen wir nur noch für eine Abbildung \verb|g :: Int -> b| in \textbf{Hask}
+  die zugehörige Abbildung \verb|F(g)| in \textbf{Rust} finden.
+  Dies ist jedoch dadurch klar, indem wir durch Pattern-Matching auf
+  \verb|Some(x)| und \verb|None| unterscheiden und für beide Fälle
+  die entsprechende Abbildung \verb|g| anwenden. Dies ist in \cref{fig:OptionFunktor}
+  dargestellt.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    // result ist ein Option<u32>
+    match result {
+      Some(x) => F(h(x)),
+      None    => None
+      }
+    \end{lstlisting}
+    \caption{Implementation von $F(\text{g} :: \text{Maybe Int} \to \text{a})$, wobei h die eindeutig von f induzierte Funktion $\text{h} :: \text{Just Int} \to a$ ist.}%
+    \label{fig:OptionFunktor}
+  \end{figure}
+
+  Was dies bedeutet ist, dass wir mit den Konzepten, welche in Haskell
+  existieren vergleiche mit anderen Programmiersprachen ziehen können.
+  Insbesondere können wir sehen, das \textbf{Rust} Strukturen
+  besitzt, welche denen in \textbf{Hask} ähneln. Auch können wir sehen,
+  dass es in Haskell einfacher möglich ist mit verkapselten Typen zu
+  arbeiten, da wir auf dem \verb|Maybe| Typen eine Funktor-Instanz
+  besitzen. Diese fehlt jedoch in Rust, wodurch wir nur durch Pattern-Matching
+  ein ähnliches Verhalten auf den \verb|Option| Typen erreichen können.
+  Hier zeigt sich jedoch ein Muster, welches Haskell vollkommen durchzieht:
+  Konzepte, welche in Haskell zum eleganten Programmieren existieren
+  haben auch praktische Anwendung in anderen Bereichen, wie zum Beispiel
+  dem Vergleichen von Programmiersprachen. Haskell zu lernen trägt somit
+  dazu bei, generell besser Strukturen zu erkennen, was im Endeffekt
+  auch zu einem besseren Programmieren führt.
+
+  \section{Monaden}
+
+  \epigraph{
+    If you're approaching Haskell monads a little nervously, that's understandable. You've probably heard that monads are a very powerful code-structuring technique, but ... sometimes, with great power comes great (apparent) nonsensicality.
+  }{\textit{Haskell Wiki \\ All About Monads}}
+
+  Ein sehr Populäres Konzept in Haskell, woran viele Programmierer beim
+  Erlernen der Sprache scheitern, sind Monaden. Monaden sind ein
+  weiteres Konzept aus der Kategorientheorie, welches in Haskell
+  allgegenwärtig ist.
+  Monaden in Haskell sind ein weiterer Datentyp
+  $\verb|type Monad :: (* -> *) -> Constraint|$, welche eine Funktor-Instanz
+  besitzen, also auch Funktoren sind, und
+  zusätzlich eine Operation $\verb|return :: a -> m a|$ und eine
+  Operation \verb|>>= :: m a -> (a -> m b) -> m b|
+  besitzen. Die Operation \verb|return| ist eine sogenannte
+  ''natürliche Transformation'', welche ein Objekt in eine Monade
+  steckt. Wir werden nicht weiter darauf eingehen, was eine natürliche
+  Transformation ist, jedoch ist es nützlich zu wissen, dass diese
+  genau so wie Funktoren als eine Art von Abbildung zwischen Kategorien
+  (in unserem Fall von \textbf{Hask} nach \textbf{Hask}) definiert
+  werden können, welche gewisse Eigenschaften besitzen.
+  Die Operation \verb|>>=| ist eine sogenannte ''Bindung'', welche
+  es uns erlaubt ''gefangene Werte`` in einer Monade zu manipulieren.
+
+  Betrachten wir jedoch ein paar Beispiele, um uns diesem gefürchteten
+  Konzept zu nähern und zu sehen, dass es gar nicht so angsteinflößend
+  ist.
+
+  \subsection{Listen als Monade}
+
+  Wir haben bereits ein inniges Verständnis von Listen in Haskell
+  in den vorherigen Abschnitten aufgebaut. Wir wissen, dass Listen
+  eine Funktor-Instanz besitzen, welche uns erlaubt Listen zu
+  manipulieren, indem wir Funktionen für die Unterliegenden Datentypen
+  in der Liste definieren.
+
+  Wir möchten nun einen Schritt weiter gehen und uns anschauen, warum
+  Listen auch eine kanonische Monaden-Instanz in Haskell besitzen,
+  also eine Instanz, welche in der Standardbibliothek \verb|Prelude|
+  von Haskell definiert ist. Außerdem stellt sich die Frage, warum
+  wir überhaupt eine Monaden-Instanz für Listen brauchen.
+
+  Um Listen zu einer Monade zu machen, müssen wir uns zuerst genauer ansehen,
+  was eine Monade ist. Eine Monade ist ein Datentyp, dessen Definition
+  in \cref{fig:MonadeDef} dargestellt ist.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    type Monad :: (* -> *) -> Constraint
+    class Applicative m => Monad m where
+      (>>=) :: m a -> (a -> m b) -> m b
+      (>>) :: m a -> m b -> m b
+      return :: a -> m a
+      {-# MINIMAL (>>=) #-}
+      -- Defined in 'GHC.Base'
+    \end{lstlisting}
+    \caption{Definition der ''Monaden`` Typenklasse.}%
+    \label{fig:MonadeDef}
+  \end{figure}
+
+  Die Definition einer Monade ist hierbei genau so wie die in
+  \cref{fig:functorTypeClass} aufgeschrieben und sollte auch so
+  verstanden werden. Wir haben hier jedoch eine Einschränkung,
+  welche dadurch gegeben ist, dass hier \verb|Applicative m => Monad m|
+  steht. Dies stellt einen Type-Constraint da, welche
+  und bereits bekannt aus dem Abschnitt über Funktoren sind.
+  Dieser Type-Constraint besagt, dass ein Typ, welcher eine Monade
+  ist, nur dann eine Monade sein kann, wenn dieser auch ein ''Applicative`` ist.
+  Die Definition eines Applicatives ist in \cref{fig:ApplicativeDef}
+  auffindbar. Relevant ist hierbei nur, dass auch ein Applicative einen
+  Type-Constraint besitzt, welcher besagt, dass jeder Typ, welcher
+  eine Instanz von Applicative ist, auch eine Instanz von Functor
+  sein muss. Die Operationen \verb|<*>|, \verb|GHC.Base.liftA2|,  \verb|*>| 
+  und \verb|<*| sollten nach unserer Analyse der Funktor Typenklasse bereits
+  verständlich sein, wobei ihr Verständnis keine Anforderung
+  für das Verständnis von Monaden für den Rest dieses Abschnittes ist.
+
+  \begin{figure}[h]
+    \begin{lstlisting}
+    class Functor f => Applicative f where
+      pure :: a -> f a
+      (<*>) :: f (a -> b) -> f a -> f b
+      GHC.Base.liftA2 :: (a -> b -> c) -> f a -> f b -> f c
+      (*>) :: f a -> f b -> f b
+      (<*) :: f a -> f b -> f a
+      {-# MINIMAL pure, ((<*>) | liftA2) #-}
+        -- Defined in 'GHC.Base'
+    \end{lstlisting}
+    \caption{Definition der ''Applicative`` Typenklasse.}%
+    \label{fig:ApplicativeDef}
+  \end{figure}
+
+  Wir nehmen nun an, dass Listen eine Instanz von Applicative sind.
+  Dies ist auch der Fall, jedoch werden wir dies nicht beweisen. Der
+  Beweis, dass Listen eine Instanz von Monaden sind wird dadurch geführt,
+  indem wir konkrete Implementierungen für die Operationen
+  \verb|>>=| und \verb|return| definieren.
+
+  Betrachten wir zunächst die Operation \verb|return|, welche einen
+  Wert in eine Monade steckt. Was dies bedeutet, ist bei Listen relativ
+  selbsterklärend. Sei nun \verb|x| ein Wert vom Typ \verb|a|, dann
+  ist \verb|return x| eine Liste, welche nur den Wert \verb|x| enthält.
+  Dies stimmt auch mit der Typen-Signatur von \verb|return| überein,
+  welche \verb|return :: a -> m a| ist.
+
+  Nun müssen wir nur noch die Operation \verb|>>=| definieren. Diese
+  Operation soll uns erlauben, einen Wert aus einer Monade zu ziehen,
+  dann zu bearbeiten und dann zurück in die Monade zu legen.
+  Sei nun \verb|xs| eine Liste vom Typ \verb|[a]| und \verb|f| eine
+  Funktion vom Typ \verb|a -> b|. So können wir \verb|(>>=) xs f = fmap f xs|,
+  beziehungsweise kompakter \verb|>>= = fmap| definieren. Dies ist
+  uns bereits aus dem Abschnitt über Funktoren bekannt.
+
+  Wir sehen hiermit, dass Monaden es uns erlauben eine Art ''Gefängnis``
+  für unsere Werte zu schaffen, in welchem wir die Werte manipulieren
+  können. Jedoch gibt es keine Operation mit der Typen-Signatur
+  \verb|get :: m a -> a|, welche uns erlaubt, einen Wert aus der
+  Monade zu ziehen. Dies ist auch bei allgemeinen Monaden nicht möglich,
+  wobei wir eine solche Funktion bei Listen relativ leicht wie in
+  \cref{lst:listeget} definieren können. Wichtig ist in diesem Beispiel,
+  dass die Funktion nicht total ist, also nur für den Fall einer einelementigen
+  Liste definiert ist. Sollte man eine Liste mit mehr oder weniger als
+  einem Element übergeben, so wird eine Laufzeitfehler auftreten.
+
+  % \begin{figure}[h]
+  %   \begin{lstlisting}
+  %   get :: [a] -> a
+  %   get [x] = x
+  %   \end{lstlisting}
+  %   \caption{Eine Funktion, welche einen Wert aus einer Liste und somit aus einem Objekt, welches eine Monadenstruktur besitzt, herausnimmt.}%
+  %   \label{fig:listget}
+  % \end{figure}
+
+  \subsection{Die IO Monade}
+
+  % Die wohl wichtigste Monade ist die \verb|IO| Monade. Diese Monade
+  % erlaubt es uns, Eingaben und Ausgaben zu machen, woher auch der
+  % Name \verb|IO| kommt. Ein wichtiges Beispiele für die Verwendung der
+  % \verb|IO| Monade ist in \cref{lst:helloworld} zu finden. Hier definieren
+  % wir den Wert \verb|main :: IO ()|, welcher der Start eines jeden
+  % Haskell Programms ist. Der Klarheit halber sei erwähnt, dass \verb|IO|
+  % also mit dem Typen \verb|()| als Parameter verwendet wird, welcher
+  % den Typen \verb|Unit| in anderen Sprachen entspricht und lediglich
+  % ein leeres Tupel der Länge 0 darstellt.
+
+  % \begin{figure}[h]
+  %   \begin{lstlisting}
+  %   main :: IO ()
+  %   main = putStrLn "Hello World"
+  %   \end{lstlisting}
+  %   \caption{Hello World in Haskell}%
+  %   \label{fig:ioexamples}
+  % \end{figure}
+
+  % Zeigen wir eine Parallelität zwischen der \verb|IO| Monade und der
+  % \verb|[]| Monade, der Monade der Listen, auf um die Funktionalität
+  % der \verb|IO| Monade zu verstehen. Wir können uns vorstellen, dass
+  % \verb|IO| eine Art ''Gefängnis`` für Werte ist, in diesem Fall 
+  % von \verb|IO ()| für leere Tupel, genau so wie \verb|[a]| eine Art
+  % ''Gefängnis`` für Werte vom Typ \verb|a| ist. Allerdings gibt es einen
+  % bedeutenden Unterschied zwischen den beiden Monaden. Während wir
+  % in \verb|[a]| wissen, was genau in unserem ''Gefängnis`` ist, so
+  % wissen wir dies bei \verb|IO| nicht. In \verb|[Int]| befindet sich
+  % für ein Element \verb|[1,2,3]| beispielsweise nur die Zahl 1, die Zahl
+  % 2 und die Zahl 3 in dem Gefängnis. In dem Typen \verb|IO ()|
+  % gibt es konstruktionsgemäß, weil der Typ \verb|()| nur das Element \verb|()|
+  % besitzt, nur das Element \verb|IO ()|. Dieses Element kann jedoch
+  % neben sich in seinem ''\verb|IO| Gefängnis`` noch weitere Sachen sitzen haben.
+  % Das einzige was unser ''\verb|IO| Gefängnis`` garantieren muss ist, dass
+  % der Binding-Operator \verb|>>=| und der \verb|return| Operator
+  % ihre Rechenregeln beibehalten.
+
+  % \begin{figure}[h]
+  %   \begin{lstlisting}
+  %   main :: IO ()
+  %   main = print "Hello" >>= \x -> print "World"
+  %   \end{lstlisting}
+  %   \caption{Hello World in Haskell, indem wir die Monadenstruktur durch den Binding-Operator ausnutzen.}%
+  %   \label{fig:ioexamples}
+  % \end{figure}
+
+  \subsection{Unterthemen}.
   Unterthemen geben bereits eine Aufteilung in Abschnitte vor und jedes
   Unterthema sollte nicht mehr als einen Abschnitt umfassen.
   Dabei sollte nach dem Titel des Abschnitts je ein
@@ -365,12 +1181,30 @@ public class HelloWorld
 \end{document}
 
 % Quellen
-%
+
 % Why You’ll Probably Never Use Haskell in Production
 % https://henrydangprg.com/2019/05/27/why-youll-probably-never-use-haskell-in-production/
-%
+
 % Choosing Haskell isn’t a stand-in for good software design
 % https://ozataman.medium.com/choosing-haskell-isnt-a-stand-in-for-good-software-design-7d893882f963
-%
+
 % A History of Haskell: Being Lazy With Class
 % https://dl.acm.org/doi/10.1145/1238844.1238856
+
+% Funktionale Programmierung mit Haskell/ Typklassen
+% https://de.wikibooks.org/wiki/Funktionale_Programmierung_mit_Haskell/_Typklassen
+
+% Making Our Own Types
+% https://mmhaskell.com/liftoff/data-types
+
+% Functor
+% https://wiki.haskell.org/Functor
+
+% Kind
+% https://wiki.haskell.org/Kind
+
+% Type constructor
+% https://wiki.haskell.org/Constructor
+
+% Currying
+% https://de.wikipedia.org/wiki/Currying
