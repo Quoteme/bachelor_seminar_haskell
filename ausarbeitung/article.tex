@@ -983,62 +983,62 @@
   Liste definiert ist. Sollte man eine Liste mit mehr oder weniger als
   einem Element übergeben, so wird eine Laufzeitfehler auftreten.
 
-  % \begin{figure}[h]
-  %   \begin{lstlisting}
-  %   get :: [a] -> a
-  %   get [x] = x
-  %   \end{lstlisting}
-  %   \caption{Eine Funktion, welche einen Wert aus einer Liste und somit aus einem Objekt, welches eine Monadenstruktur besitzt, herausnimmt.}%
-  %   \label{fig:listget}
-  % \end{figure}
+  \begin{figure}[h]
+    \begin{lstlisting}
+    get :: [a] -> a
+    get [x] = x
+    \end{lstlisting}
+    \caption{Eine Funktion, welche einen Wert aus einer Liste und somit aus einem Objekt, welches eine Monadenstruktur besitzt, herausnimmt.}%
+    \label{fig:listget}
+  \end{figure}
 
   \subsection{Die IO Monade}
 
-  % Die wohl wichtigste Monade ist die \verb|IO| Monade. Diese Monade
-  % erlaubt es uns, Eingaben und Ausgaben zu machen, woher auch der
-  % Name \verb|IO| kommt. Ein wichtiges Beispiele für die Verwendung der
-  % \verb|IO| Monade ist in \cref{lst:helloworld} zu finden. Hier definieren
-  % wir den Wert \verb|main :: IO ()|, welcher der Start eines jeden
-  % Haskell Programms ist. Der Klarheit halber sei erwähnt, dass \verb|IO|
-  % also mit dem Typen \verb|()| als Parameter verwendet wird, welcher
-  % den Typen \verb|Unit| in anderen Sprachen entspricht und lediglich
-  % ein leeres Tupel der Länge 0 darstellt.
+  Die wohl wichtigste Monade ist die \verb|IO| Monade. Diese Monade
+  erlaubt es uns, Eingaben und Ausgaben zu machen, woher auch der
+  Name \verb|IO| kommt. Ein wichtiges Beispiele für die Verwendung der
+  \verb|IO| Monade ist in \cref{fig:helloworld} zu finden. Hier definieren
+  wir den Wert \verb|main :: IO ()|, welcher der Start eines jeden
+  Haskell Programms ist. Der Klarheit halber sei erwähnt, dass \verb|IO|
+  also mit dem Typen \verb|()| als Parameter verwendet wird, welcher
+  den Typen \verb|Unit| in anderen Sprachen entspricht und lediglich
+  ein leeres Tupel der Länge 0 darstellt.
 
-  % \begin{figure}[h]
-  %   \begin{lstlisting}
-  %   main :: IO ()
-  %   main = putStrLn "Hello World"
-  %   \end{lstlisting}
-  %   \caption{Hello World in Haskell}%
-  %   \label{fig:ioexamples}
-  % \end{figure}
+  \begin{figure}[h]
+    \begin{lstlisting}
+    main :: IO ()
+    main = putStrLn "Hello World"
+    \end{lstlisting}
+    \caption{Hello World in Haskell}%
+    \label{fig:helloworld}
+  \end{figure}
 
-  % Zeigen wir eine Parallelität zwischen der \verb|IO| Monade und der
-  % \verb|[]| Monade, der Monade der Listen, auf um die Funktionalität
-  % der \verb|IO| Monade zu verstehen. Wir können uns vorstellen, dass
-  % \verb|IO| eine Art ''Gefängnis`` für Werte ist, in diesem Fall 
-  % von \verb|IO ()| für leere Tupel, genau so wie \verb|[a]| eine Art
-  % ''Gefängnis`` für Werte vom Typ \verb|a| ist. Allerdings gibt es einen
-  % bedeutenden Unterschied zwischen den beiden Monaden. Während wir
-  % in \verb|[a]| wissen, was genau in unserem ''Gefängnis`` ist, so
-  % wissen wir dies bei \verb|IO| nicht. In \verb|[Int]| befindet sich
-  % für ein Element \verb|[1,2,3]| beispielsweise nur die Zahl 1, die Zahl
-  % 2 und die Zahl 3 in dem Gefängnis. In dem Typen \verb|IO ()|
-  % gibt es konstruktionsgemäß, weil der Typ \verb|()| nur das Element \verb|()|
-  % besitzt, nur das Element \verb|IO ()|. Dieses Element kann jedoch
-  % neben sich in seinem ''\verb|IO| Gefängnis`` noch weitere Sachen sitzen haben.
-  % Das einzige was unser ''\verb|IO| Gefängnis`` garantieren muss ist, dass
-  % der Binding-Operator \verb|>>=| und der \verb|return| Operator
-  % ihre Rechenregeln beibehalten.
+  Zeigen wir eine Parallelität zwischen der \verb|IO| Monade und der
+  \verb|[]| Monade, der Monade der Listen, auf um die Funktionalität
+  der \verb|IO| Monade zu verstehen. Wir können uns vorstellen, dass
+  \verb|IO| eine Art ''Gefängnis`` für Werte ist, in diesem Fall 
+  von \verb|IO ()| für leere Tupel, genau so wie \verb|[a]| eine Art
+  ''Gefängnis`` für Werte vom Typ \verb|a| ist. Allerdings gibt es einen
+  bedeutenden Unterschied zwischen den beiden Monaden. Während wir
+  in \verb|[a]| wissen, was genau in unserem ''Gefängnis`` ist, so
+  wissen wir dies bei \verb|IO| nicht. In \verb|[Int]| befindet sich
+  für ein Element \verb|[1,2,3]| beispielsweise nur die Zahl 1, die Zahl
+  2 und die Zahl 3 in dem Gefängnis. In dem Typen \verb|IO ()|
+  gibt es konstruktionsgemäß, weil der Typ \verb|()| nur das Element \verb|()|
+  besitzt, nur das Element \verb|IO ()|. Dieses Element kann jedoch
+  neben sich in seinem ''\verb|IO| Gefängnis`` noch weitere Sachen sitzen haben.
+  Das einzige was unser ''\verb|IO| Gefängnis`` garantieren muss ist, dass
+  der Binding-Operator \verb|>>=| und der \verb|return| Operator
+  ihre Rechenregeln beibehalten.
 
-  % \begin{figure}[h]
-  %   \begin{lstlisting}
-  %   main :: IO ()
-  %   main = print "Hello" >>= \x -> print "World"
-  %   \end{lstlisting}
-  %   \caption{Hello World in Haskell, indem wir die Monadenstruktur durch den Binding-Operator ausnutzen.}%
-  %   \label{fig:ioexamples}
-  % \end{figure}
+  \begin{figure}[h]
+    \begin{lstlisting}
+    main :: IO ()
+    main = print "Hello" >>= \x -> print "World"
+    \end{lstlisting}
+    \caption{Hello World in Haskell, indem wir die Monadenstruktur durch den Binding-Operator ausnutzen.}%
+    \label{fig:ioexamples}
+  \end{figure}
 
   \subsection{Unterthemen}.
   Unterthemen geben bereits eine Aufteilung in Abschnitte vor und jedes
