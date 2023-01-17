@@ -500,7 +500,7 @@
 
   Wir können noch viel mehr über diese Abbildung $\phi$ sagen, jedoch
   beschränken wir uns darauf, dass dies als Implikation bedeutet, dass
-  die Funktionen in \cref{eq:currying1} praktisch identisch sind.
+  die Funktionen in \cref{fig:currying1} praktisch identisch sind.
   Für den interessierten Leser bietet sich hierbei \cite[S. 53, Proposition 3.3.2]{CATEGORIES_TYPES_AND_STRUCTURES} an.
   Man kann also \verb|f| und \verb|g| als die gleiche Funktion
   betrachten, da man durch Anwenden von $\phi$ auf \verb|f| die Funktion
@@ -987,7 +987,7 @@
   \verb|get :: m a -> a|, welche uns erlaubt, einen Wert aus der
   Monade zu ziehen. Dies ist auch bei allgemeinen Monaden nicht möglich,
   wobei wir eine solche Funktion bei Listen relativ leicht wie in
-  \cref{lst:listeget} definieren können. Wichtig ist in diesem Beispiel,
+  \cref{fig:listeget} definieren können. Wichtig ist in diesem Beispiel,
   dass die Funktion nicht total ist, also nur für den Fall einer einelementigen
   Liste definiert ist. Sollte man eine Liste mit mehr oder weniger als
   einem Element übergeben, so wird eine Laufzeitfehler auftreten.
@@ -998,7 +998,7 @@
     get [x] = x
     \end{minted}
     \caption{Eine Funktion, welche einen Wert aus einer Liste und somit aus einem Objekt, welches eine Monadenstruktur besitzt, herausnimmt.}%
-    \label{fig:listget}
+    \label{fig:listeget}
   \end{figure}
 
   \subsection{Die IO Monade und Hello World in Haskell}
@@ -1075,8 +1075,8 @@
   \end{figure}
 
   Zuallerletzt können wir auch den \verb|return| Operator nutzen, um
-  unser Programm nichts machen zu lassen. In \cref{fig:ioexamples2} sehen
-  wir ein Beispiel dafür. Das Kontatinieren von Seiteneffekten 
+  unser Programm nichts machen zu lassen. In \cref{fig:ioexamples} sehen
+  wir ein Beispiel dafür. Das Konkatinieren von Seiteneffekten 
   zu neuen Seiteneffekten und die Existenz eines Seiteneffekts,
   welcher nichts macht, also der \glqq nichts-machende Seiteneffekt\glqq  \verb|return ()|
   vom Typen \verb|IO ()|, sind die Eigenschaften, welche
