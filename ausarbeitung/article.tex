@@ -149,7 +149,7 @@
   Funktionen verwendet, welche rekursiv aufgerufen werden, um
   die gewünschte Schleifenfunktionalität zu erreichen.
 
-  Statt der Objektorientierung, verwendet Haskell die funktionale
+  Statt der Objektorientierung verwendet Haskell die funktionale
   Programmierung, was durch die Reinheit bedeutet, dass Haskell
   sehr gut durch kategorientheoretische Konzepte betrachtbar ist.
   ``Kategorientheoretische Konzepte`` beziehen sich auf die
@@ -228,7 +228,7 @@
   und in ihrem Umfang eingeschränkt sind.
   Als Beispiel dafür werden wir den Typen \verb|Option<u32>| in
   Rust betrachten, welcher ähnlich dem Typen \verb|Maybe Int| in Haskell
-  ist, jedoch aufgrund seiner fehlenden Funktor Struktur unhandlicher
+  ist, jedoch aufgrund seiner fehlenden Funktor-Struktur unhandlicher
   ist und mehr Fallunterscheidungen erfordert.
 
   % Diese Eigenschaften machen Haskell zu einer sehr mächtigen Sprache, welche
@@ -257,7 +257,7 @@
   
   Wir möchten Haskell mit anderen Programmiersprachen vergleichen.
   Interessant ist, dass wir Konzepte, welche in Haskell verwendet werden
-  und aus der Kategorientheorie stammen dazu verwenden können, um dieses
+  und aus der Kategorientheorie stammen, dazu verwenden können, um dieses
   Ziel zu verwirklichen.
 
   \subsection{Typen und Typklassen}
@@ -290,7 +290,7 @@
   jedoch nicht gilt.
 
   Die Definition einer Typenklasse als Sammlung von Typen ist jedoch auf
-  den ersten Blick nicht sonderlich Aufschlussreich. Der Begriff ''Sammlung``
+  den ersten Blick nicht sonderlich aufschlussreich. Der Begriff ''Sammlung``
   bezieht sich in dem Kontext von Haskell auf eine Menge von Typen im
   Sinne der Mengenlehre. Wir können sogar weiter eingrenzen und stark davon
   ausgehen, dass die Menge von Typen, welche eine Typenklasse definiert,
@@ -393,7 +393,7 @@
   aus der Typentheorie \cite{kindHaskellWiki}, welches wir hier nicht näher betrachten.
   Das einzige wichtige für uns ist, dass die Art \verb|*->*|
   besagt, dass der Typenparameter $a$ ein Typenkonstruktor ist,
-  welcher einen Typen rein nimmt und einen Typen zurückgibt.
+  welcher einen Typen reinnimmt und einen Typen zurückgibt.
   Hierbei sind Typenkonstruktoren bereits aus \cref{fig:mytype} bekannt,
   wobei dort der Typenkonstruktor \verb|MyConstruktor| war. Dieser
   hätte die Art \verb|*|, da er keine freien Typenparameter gibt,
@@ -577,7 +577,7 @@
     \label{fig:curryingExample}
   \end{figure}
 
-  Des weiteren kann man durch currying Funktionen höhere Ordnung
+  Des Weiteren kann man durch currying Funktionen höhere Ordnung
   eleganter verwenden. Am Beispiel der Funktion \verb|map : (a -> b) -> [a] -> [b]|,
   welche eine Funktion vom Typ \verb|a -> b| auf eine Liste vom Typ \verb|[a]| anwendet
   und eine Liste vom Typ \verb|[b]| zurückgibt, können wir sehen, dass
@@ -625,7 +625,7 @@
 
   Dieses Konzept tritt überall in der Programmierung auf. Wir möchten
   mit Strukturen arbeiten, indem wir ihre Bestandteile manipulieren.
-  Um dieses Konzept zu festigen, betrachten wir einen Weiteren Typen in
+  Um dieses Konzept zu festigen, betrachten wir einen weiteren Typen in
   Haskell, welcher durch seine Nützlichkeit auch in der Programmiersprache
   Rust anzutreffen ist. Dieser Typ wird in Haskell \verb|Maybe| genannt
   und in Rust \verb|Option| \cite{rustOption}.
