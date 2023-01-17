@@ -4,10 +4,10 @@
 \usetikzlibrary{babel}
 \usepackage{minted}
 
-\title{Gestalten der schriftlichen Ausarbeitung}
+\title{Haskell - Angewandter \glqq abstract nonsense\grqq}
 
 % Vorlange von Jannik Dunkelau und Joshua Schmid
-\author{John Witulski} % keine Matrikelnummer eintragen
+\author{Luca Leon Happel} % keine Matrikelnummer eintragen
 
 \subject{Bachelorseminar: Programmiersprachen} % Optional.
 \semester{Wintersemester 2022}
@@ -123,13 +123,13 @@
   \section{Einleitung}
 
   Im September 1987 wurde die
-  ''Conference on Functional Programming Languages and Computer Architecture``
+  \glqq Conference on Functional Programming Languages and Computer Architecture\grqq 
   in Portland, Oregon, USA, abgehalten. Ziel war es, die zersplitterte
   funktionale Programmiersprachen-Community zu vereinen und eine
   gemeinsame Standardsprache zu entwickeln.
   Die Sprache sollte alle Vorteile der bis dahin existierenden
   funktionalen Sprachen, insbesondere der zu der Zeit populären Sprache
-  ''Miranda``, vereinen und gleichzeitig die Nachteile beseitigen.
+  \glqq Miranda\grqq , vereinen und gleichzeitig die Nachteile beseitigen.
   Die Sprache, welche dabei entstand, ist Haskell \cite{haskellHistory}.
 
   Während ihrer Entwicklung wurde Haskell stark von Akademikern beeinflusst,
@@ -152,10 +152,12 @@
   Statt der Objektorientierung verwendet Haskell die funktionale
   Programmierung, was durch die Reinheit bedeutet, dass Haskell
   sehr gut durch kategorientheoretische Konzepte betrachtbar ist.
-  ``Kategorientheoretische Konzepte`` beziehen sich auf die
+  \grqq Kategorientheoretische Konzepte\grqq  beziehen sich auf die
   Kategorientheorie, welche eine Theorie ist, welche
   eine alternative Grundlage für die Mathematik darstellt, im Gegensatz
   zu der klassischen Mengenlehre.
+  Oft werden Konzepte aus der Kategorientheorie auch als \glqq abstract nonsense \grqq
+  bezeichnet \cite{henderson2008generalized}.
   Diese besagt, dass es Kategorien gibt, in welchen es sogenannte Objekt
   gibt, welche durch Morphismen verbunden sind. Existieren
   Objekte $A$, $B$ und $C$ in einer Kategorie $\mathcal{C}$,
@@ -207,7 +209,7 @@
   wobei man nun die $n$-te Primzahl aus dieser Liste erhalten kann,
   ohne dass die Liste vollständig ausgewertet werden muss.
   Auch wird Code somit idiomatischer, da man analog zur natürlichen
-  Sprache ''die $n$-te Primzahl`` verwenden kann, statt diese
+  Sprache \glqq die $n$-te Primzahl\grqq  verwenden kann, statt diese
   durch eine Funktion zu erhalten, welche die $n$-te Primzahl zurückgibt.
 
   Diese Eigenschaften von Haskell machen es zu einer sehr ungewöhnlichen
@@ -272,11 +274,11 @@
 
   Nach der Einleitung wissen wir bereits, was ein Typ ist. Diese kommen
   aus der Typentheorie und ordnen Werten in unserer Programmiersprache
-  eine Eigenschaft genannt ''Typ`` zu. Allgemeiner bezeichnen wir als
-  ein ''Typensystem`` eine konsistente Theorie $T$, für welche zu jeder Aussage $\phi$
-  der Form ''$x$ hat den Typ $y$``, mit $x$ ein Wert und $y$ ein Typ,
-  entweder $\phi$ gilt in $T$, oder $\neg \phi$ gilt in $T$, wobei ''$\neg$``
-  die logische Negierung ist, gilt. Dabei bedeutet ''konsistente``, dass
+  eine Eigenschaft genannt \glqq Typ\grqq  zu. Allgemeiner bezeichnen wir als
+  ein \glqq Typensystem\grqq  eine konsistente Theorie $T$, für welche zu jeder Aussage $\phi$
+  der Form \glqq $x$ hat den Typ $y$\grqq , mit $x$ ein Wert und $y$ ein Typ,
+  entweder $\phi$ gilt in $T$, oder $\neg \phi$ gilt in $T$, wobei \glqq $\neg$\grqq 
+  die logische Negierung ist, gilt. Dabei bedeutet \glqq konsistente\grqq , dass
   es keine Kontradiktion in dieser Theorie gibt, also keine Aussage $\phi$
   existiert, für welche sowohl $\phi$ in $T$ als auch in $\neg \phi$ in $T$ gilt.
   Ein Beispiel für einen Typ ist der Typ $Bool$ welcher
@@ -285,12 +287,12 @@
   Ein Beispiel für eine Typentheorie ist die Typentheorie von Haskell,
   welche unter anderem die Typen $Bool$ und $Int$ enthält. Inkonsistent,
   also nicht konsistent, wäre die Typentheorie von Haskell, wenn
-  beispielsweise die Aussage ''$True$ hat den Typ $Int$`` in dieser Theorie
-  und die Aussage ''$True$ hat nicht den Typ $Int$`` gelten würde, was
+  beispielsweise die Aussage \glqq $True$ hat den Typ $Int$\grqq  in dieser Theorie
+  und die Aussage \glqq $True$ hat nicht den Typ $Int$\grqq  gelten würde, was
   jedoch nicht gilt.
 
   Die Definition einer Typenklasse als Sammlung von Typen ist jedoch auf
-  den ersten Blick nicht sonderlich aufschlussreich. Der Begriff ''Sammlung``
+  den ersten Blick nicht sonderlich aufschlussreich. Der Begriff \glqq Sammlung\grqq 
   bezieht sich in dem Kontext von Haskell auf eine Menge von Typen im
   Sinne der Mengenlehre. Wir können sogar weiter eingrenzen und stark davon
   ausgehen, dass die Menge von Typen, welche eine Typenklasse definiert,
@@ -301,14 +303,14 @@
   genauer betrachten. Wir können in \cref{fig:mytype} sehen, wie ein
   einfacher Typ in Haskell definiert wird und in \cref{fig:myfunction} eine
   Funktion, welche einen Typen als Parameter verwendet. Insbesondere
-  bezeichnen wir die erste Zeile \verb|f :: MyType -> Bool| als ''Typsignatur``
-  und die zweite Zeile \verb|f (MyConstruktor b i) = b| als ''Definition`` der Funktion.
+  bezeichnen wir die erste Zeile \verb|f :: MyType -> Bool| als \glqq Typsignatur\grqq 
+  und die zweite Zeile \verb|f (MyConstruktor b i) = b| als \glqq Definition\grqq  der Funktion.
   
   \begin{figure}[h]
     \begin{minted}[frame=single]{haskell}
     data MyType = MyConstruktor Bool Int
     \end{minted}
-    \caption{Definition eines Typens genannt ''MyType`` mit Konstruktor ''MyConstruktor``, welcher einen ''Bool`` und einen ''Int`` speichert \cite{constructorHaskellWiki}}%
+    \caption{Definition eines Typens genannt \glqq MyType\grqq  mit Konstruktor \glqq MyConstruktor\grqq , welcher einen \glqq Bool\grqq  und einen \glqq Int\grqq  speichert \cite{constructorHaskellWiki}}%
     \label{fig:mytype}
   \end{figure}
 
@@ -317,7 +319,7 @@
     f :: MyType -> Bool
     f (MyConstruktor b i) = b
     \end{minted}
-    \caption{Definition einer Abbildung, welche einen Wert von Typ ''MyType`` auf einen Wert von Typ ''Bool`` schickt.}%
+    \caption{Definition einer Abbildung, welche einen Wert von Typ \glqq MyType\grqq  auf einen Wert von Typ \glqq Bool\grqq  schickt.}%
     \label{fig:myfunction}
   \end{figure}
 
@@ -341,7 +343,7 @@
     class MyTypeClass a where
       myFunction :: a -> Bool
     \end{minted}
-    \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
+    \caption{Definition einer Typenklasse, welche einen Typen \glqq a\grqq  als Parameter besitzt.}%
     \label{fig:mytypeclass}
   \end{figure}
 
@@ -350,13 +352,13 @@
     instance MyTypeClass MyType where
       myFunction (MyConstruktor b i) = b
     \end{minted}
-    \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
+    \caption{Definition einer Typenklasse, welche einen Typen \glqq a\grqq  als Parameter besitzt.}%
     \label{fig:mytypeinstance}
   \end{figure}
 
   Als ein pathologisches Beispiel für eine Typenklasse, welche von jedem
-  Typen $a$ implementiert werden kann, wobei ''implementiert`` gleichzusetzen
-  mit ''$a$ ist ein Typ in der entsprechenden Typenklasse`` ist, ist die
+  Typen $a$ implementiert werden kann, wobei \glqq implementiert\grqq  gleichzusetzen
+  mit \glqq $a$ ist ein Typ in der entsprechenden Typenklasse\grqq  ist, ist die
   Typenklasse \verb|Trivial|, welche in \cref{fig:trivialTypeClass} definiert ist.
   Die entsprechende Implementation für den Typen \verb|MyType| ist in \cref{fig:trivialTypeClassInstance},
   wobei wir sehen, dass wir keine Implementationen
@@ -366,7 +368,7 @@
     \begin{minted}[frame=single]{haskell}
     class Trivial a
     \end{minted}
-    \caption{Definition einer pathologischen Typenklasse, welche für jeden Typen ''a`` als Parameter ohne Einschränkung implementiert werden kann.}%
+    \caption{Definition einer pathologischen Typenklasse, welche für jeden Typen \glqq a\grqq  als Parameter ohne Einschränkung implementiert werden kann.}%
     \label{fig:trivialTypeClass}
   \end{figure}
 
@@ -374,7 +376,7 @@
     \begin{minted}[frame=single]{haskell}
     instance Trivial MyType
     \end{minted}
-    \caption{Definition einer Typenklasse, welche einen Typen ''a`` als Parameter besitzt.}%
+    \caption{Definition einer Typenklasse, welche einen Typen \glqq a\grqq  als Parameter besitzt.}%
     \label{fig:trivialTypeClassInstance}
   \end{figure}
 
@@ -382,14 +384,14 @@
 
   Als besondere Typenklasse ist die \verb|Functor| Typenklasse \cite{functorHaskellWiki} zu
   erwähnen. Die \verb|Functor| Typenklasse ist eine Typenklasse, welche
-  im ''Prelude`` von Haskell
+  im \glqq Prelude\grqq  von Haskell
   \footnote{der Prelude ist gewissermaßen die Standartbibliothek von
   Haskell, welche automatisch in jedem Haskellprogramm eingebunden wird}
   definiert ist. Diese Definition können wir in
   \cref{fig:functorTypeClass} genauer betrachten.
-  Die erste Zeile ist ein ''Type-Constraint`` und besagt, dass
+  Die erste Zeile ist ein \glqq Type-Constraint\grqq  und besagt, dass
   nur Typen der Art \verb|*->*| in die \verb|Functor| Typenklasse
-  implementiert werden können. Die ''Art`` ist ein Konzept
+  implementiert werden können. Die \glqq Art\grqq  ist ein Konzept
   aus der Typentheorie \cite{kindHaskellWiki}, welches wir hier nicht näher betrachten.
   Das einzige wichtige für uns ist, dass die Art \verb|*->*|
   besagt, dass der Typenparameter $a$ ein Typenkonstruktor ist,
@@ -409,7 +411,7 @@
       {-# MINIMAL fmap #-}
         -- Defined in 'GHC.Base'
     \end{minted}
-    \caption{Definition der ''Functor`` Typenklasse.}%
+    \caption{Definition der \glqq Functor\grqq  Typenklasse.}%
     \label{fig:functorTypeClass}
   \end{figure}
 
@@ -424,7 +426,7 @@
   und einen Wert vom Typen \verb|f b| zurückgibt. Wichtig für das
   Verständnis dieser Typensignaturen, welche mehr als einen Pfeil besitzen,
   ist das sogenannte Konzept des Curryings
-  \footnote{Auch ''Schönfinkeln`` in dem Bereich der Linguistik gennant}.
+  \footnote{Auch \glqq Schönfinkeln\grqq  in dem Bereich der Linguistik gennant}.
 
   \subsubsection{Currying}
 
@@ -618,9 +620,9 @@
   dass wir durch \verb|fmap| eine Funktion vom Typ \verb|a -> b| auf
   eine Liste vom Typ \verb|[a]| anwenden können. Wir haben also unsere
   Funktion vom Typ \verb|a -> b| auf einen Typen, welcher unseren
-  ursprünglichen Typen \verb|a| beinhaltet ''hochgehoben``.
+  ursprünglichen Typen \verb|a| beinhaltet \glqq hochgehoben\grqq .
   Das wichtige hierbei ist, dass wir erkannt haben, dass Listen von einem
-  beliebigen Typen \verb|[a]| eine ''kanonische``, beziehungsweise offensichtliche,
+  beliebigen Typen \verb|[a]| eine \glqq kanonische\grqq , beziehungsweise offensichtliche,
   Möglichkeit besitzen, Funktionen vom Typ \verb|a -> b| auf sich anzuwenden.
 
   Dieses Konzept tritt überall in der Programmierung auf. Wir möchten
@@ -653,8 +655,8 @@
   Die Funktion \verb|meineDivision| nimmt zwei Zahlen vom Typ \verb|Int| und
   gibt entweder \verb|Nothing| oder \verb|Just Int| zurück,
   je nachdem ob der zweite Parameter \verb|y| gleich $0$ ist oder nicht.
-  Dies erfasst die allgemein bekannte Idee, dass ''etwas schlimmes passiert,
-  wenn man durch $0$ teilt``.
+  Dies erfasst die allgemein bekannte Idee, dass \glqq etwas schlimmes passiert,
+  wenn man durch $0$ teilt\grqq .
 
   \begin{figure}[h]
     \begin{minted}[frame=single]{haskell}
@@ -662,7 +664,7 @@
     erhoeheMaybe Nothing = Nothing
     erhoeheMaybe (Just x) = Just (x + 1)
     \end{minted}
-    \caption{Naive Definition von ''erhoeheMaybe``}%
+    \caption{Naive Definition von \glqq erhoeheMaybe\grqq }%
     \label{fig:maybeTypeAnwenden1}
   \end{figure}
 
@@ -687,7 +689,7 @@
     \begin{minted}[frame=single]{haskell}
     erhoeheMaybe = fmap (+ 1)
     \end{minted}
-    \caption{Durchdachtere Definition von ''erhoeheMaybe``}%
+    \caption{Durchdachtere Definition von \glqq erhoeheMaybe\grqq }%
     \label{fig:maybeTypeAnwenden2}
   \end{figure}
 
@@ -707,7 +709,7 @@
     erhoeheMaybe :: (Functor f, Num b) => f b -> f b
     erhoeheMaybe = fmap (+ 1)
     \end{minted}
-    \caption{Typensignatur von ''erhoeheMaybe`` nach einem Refactoring. ''erhoeheMaybe`` ist nun auf allen ''f`` anwendbar, welche Funktoren sind und einen Typen ''b``, welcher eine Zahl ist, im ersten Parameter haben. }%
+    \caption{Typensignatur von \glqq erhoeheMaybe\grqq  nach einem Refactoring. \glqq erhoeheMaybe\grqq  ist nun auf allen \glqq f\grqq  anwendbar, welche Funktoren sind und einen Typen \glqq b\grqq , welcher eine Zahl ist, im ersten Parameter haben. }%
     \label{fig:maybeTypeAnwenden3}
   \end{figure}
 
@@ -724,7 +726,7 @@
     erhoeheMaybe [1, 2, 3] = [2, 3, 4]
     erhoeheMaybe Just 1 = Just 2
     \end{minted}
-    \caption{Anwendung von ''erhoeheMaybe`` auf Listen von Zahlen und auf ''Maybe Int``.}%
+    \caption{Anwendung von \glqq erhoeheMaybe\grqq  auf Listen von Zahlen und auf \glqq Maybe Int\grqq .}%
     \label{fig:maybeTypeAnwenden4}
   \end{figure}
 
@@ -738,10 +740,10 @@
   \subsubsection{Funktoren von \textbf{Hask} in andere Kategorien}
 
   Wichtig ist, dass wir bisher nur Funktoren von \textbf{Hask} in \textbf{Hask}
-  gesehen haben. Wir nennen solche Funktoren ''Endofunktoren``.
+  gesehen haben. Wir nennen solche Funktoren \glqq Endofunktoren\grqq .
   Interessant ist, dass wir jedoch die Ähnlichkeiten zwischen Haskell
   und Rust auch durch Funktoren beschreiben können. Wir können allgemeiner
-  ''Ähnlichkeiten`` zwischen Haskell und anderen Programmiersprachen
+  \glqq Ähnlichkeiten\grqq  zwischen Haskell und anderen Programmiersprachen
   mit den mathematischen Konzepten, welche das Fundament von Haskell
   bilden, kurz und bündig beschreiben.
 
@@ -760,7 +762,7 @@
   gilt, dass sie die Funktion \verb|fmap :: (a -> b) -> f a -> f b| haben,
   welche eine Funktion vom Typ \verb|a -> b| auf einen Funktion vom Typ
   \verb|f a -> f b| bis auf Currying schickt. Das wichtige dabei ist,
-  dass wir dies ''strukturerhaltend`` machen möchten. Betrachten wir
+  dass wir dies \glqq strukturerhaltend\grqq  machen möchten. Betrachten wir
   dazu das Beispiel aus \cref{fig:maybeTypeAnwenden2}. Wir möchten,
   dass wenn \verb|x| ein Wert vom Typ \verb|Int| ist, dann soll
   zuerst das Anwenden von \verb|(+ 1)| auf \verb|x| und dann das
@@ -775,12 +777,12 @@
     fmap (+ 1) (Just 1) = Just 2
     Just ((+ 1) 1) = Just 2
     \end{minted}
-    \caption{Beispiel der grundlegenden Rechenregel für die Funktor-Instanz von ''Maybe``.}%
+    \caption{Beispiel der grundlegenden Rechenregel für die Funktor-Instanz von \glqq Maybe\grqq .}%
     \label{fig:kommutativitaetFunktor}
   \end{figure}
 
   Eine andere Art diese ausschlaggebende Eigenschaft von Funktor-Instanzen
-  zu beschreiben, ist indem wir ein sogenanntes ''kommutatives Diagramm``
+  zu beschreiben, ist indem wir ein sogenanntes \glqq kommutatives Diagramm\grqq 
   aufstellen. Wir können dies in \cref{fig:kommutativesDiagramm} sehen.
   Was wir damit aussagen möchten ist, wenn ich zuerst rechts und dann runter
   gehe, indem ich die entsprechenden Funktionen anwende, ist es das selbe,
@@ -794,7 +796,7 @@
         \verb|f a| \arrow[r, "\text{fmap(g)}"]                   & \verb|f b|
       \end{tikzcd}
     \]
-    \caption{kommutatives Diagramm, welches die Eigenschaften von ''fmap`` darstellt.}%
+    \caption{kommutatives Diagramm, welches die Eigenschaften von \glqq fmap\grqq  darstellt.}%
     \label{fig:kommutativesDiagramm}
   \end{figure}
   
@@ -881,14 +883,14 @@
   zusätzlich eine Operation $\verb|return :: a -> m a|$ und eine
   Operation \verb|>>= :: m a -> (a -> m b) -> m b|
   besitzen. Die Operation \verb|return| ist eine sogenannte
-  ''natürliche Transformation'', welche ein Objekt in eine Monade
+  \glqq natürliche Transformation\glqq , welche ein Objekt in eine Monade
   steckt. Wir werden nicht weiter darauf eingehen, was eine natürliche
   Transformation ist, jedoch ist es nützlich zu wissen, dass diese
   genau so wie Funktoren als eine Art von Abbildung zwischen Kategorien
   (in unserem Fall von \textbf{Hask} nach \textbf{Hask}) definiert
   werden können, welche gewisse Eigenschaften besitzen.
-  Die Operation \verb|>>=| ist eine sogenannte ''Bindung'', welche
-  es uns erlaubt ''gefangene Werte`` in einer Monade zu manipulieren.
+  Die Operation \verb|>>=| ist eine sogenannte \glqq Bindung\glqq , welche
+  es uns erlaubt \glqq gefangene Werte\grqq  in einer Monade zu manipulieren.
 
   Betrachten wir jedoch ein paar Beispiele, um uns diesem gefürchteten
   Konzept zu nähern und zu sehen, dass es gar nicht so angsteinflößend
@@ -922,7 +924,7 @@
       {-# MINIMAL (>>=) #-}
       -- Defined in 'GHC.Base'
     \end{minted}
-    \caption{Definition der ''Monaden`` Typenklasse.}%
+    \caption{Definition der \glqq Monaden\grqq  Typenklasse.}%
     \label{fig:MonadeDef}
   \end{figure}
 
@@ -933,7 +935,7 @@
   steht. Dies stellt einen Type-Constraint da, welche
   und bereits bekannt aus dem Abschnitt über Funktoren sind.
   Dieser Type-Constraint besagt, dass ein Typ, welcher eine Monade
-  ist, nur dann eine Monade sein kann, wenn dieser auch ein ''Applicative`` ist.
+  ist, nur dann eine Monade sein kann, wenn dieser auch ein \glqq Applicative\grqq  ist.
   Die Definition eines Applicatives ist in \cref{fig:ApplicativeDef}
   auffindbar. Relevant ist hierbei nur, dass auch ein Applicative einen
   Type-Constraint besitzt, welcher besagt, dass jeder Typ, welcher
@@ -954,7 +956,7 @@
       {-# MINIMAL pure, ((<*>) | liftA2) #-}
         -- Defined in 'GHC.Base'
     \end{minted}
-    \caption{Definition der ''Applicative`` Typenklasse.}%
+    \caption{Definition der \glqq Applicative\grqq  Typenklasse.}%
     \label{fig:ApplicativeDef}
   \end{figure}
 
@@ -979,7 +981,7 @@
   beziehungsweise kompakter \verb|>>= = fmap| definieren. Dies ist
   uns bereits aus dem Abschnitt über Funktoren bekannt.
 
-  Wir sehen hiermit, dass Monaden es uns erlauben eine Art ''Gefängnis``
+  Wir sehen hiermit, dass Monaden es uns erlauben eine Art \glqq Gefängnis\grqq 
   für unsere Werte zu schaffen, in welchem wir die Werte manipulieren
   können. Jedoch gibt es keine Operation mit der Typen-Signatur
   \verb|get :: m a -> a|, welche uns erlaubt, einen Wert aus der
@@ -1023,32 +1025,32 @@
   Zeigen wir eine Parallelität zwischen der \verb|IO| Monade und der
   \verb|[]| Monade, der Monade der Listen, auf um die Funktionalität
   der \verb|IO| Monade zu verstehen. Wir können uns vorstellen, dass
-  \verb|IO| eine Art ''Gefängnis`` für Werte ist, in diesem Fall 
+  \verb|IO| eine Art \glqq Gefängnis\grqq  für Werte ist, in diesem Fall 
   von \verb|IO ()| für leere Tupel, genau so wie \verb|[a]| eine Art
-  ''Gefängnis`` für Werte vom Typ \verb|a| ist. Allerdings gibt es einen
+  \glqq Gefängnis\grqq  für Werte vom Typ \verb|a| ist. Allerdings gibt es einen
   bedeutenden Unterschied zwischen den beiden Monaden. Während wir
-  in \verb|[a]| wissen, was genau in unserem ''Gefängnis`` ist, so
+  in \verb|[a]| wissen, was genau in unserem \glqq Gefängnis\grqq  ist, so
   wissen wir dies bei \verb|IO| nicht. In \verb|[Int]| befindet sich
   für ein Element \verb|[1,2,3]| beispielsweise nur die Zahl 1, die Zahl
   2 und die Zahl 3 in dem Gefängnis. In dem Typen \verb|IO ()|
   gibt es konstruktionsgemäß, weil der Typ \verb|()| nur das Element \verb|()|
   besitzt, nur das Element \verb|IO ()|. Dieses Element kann jedoch
-  neben sich in seinem ''\verb|IO| Gefängnis`` noch weitere Sachen sitzen haben.
-  Das einzige was unser ''\verb|IO| Gefängnis`` garantieren muss ist, dass
+  neben sich in seinem \glqq \verb|IO| Gefängnis\grqq  noch weitere Sachen sitzen haben.
+  Das einzige was unser \glqq \verb|IO| Gefängnis\grqq  garantieren muss ist, dass
   der Binding-Operator \verb|>>=| und der \verb|return| Operator
   ihre Rechenregeln beibehalten müssen. An dem Beispiel von Hello World
   in \cref{fig:helloworld} können wir uns dies gut vorstellen. Lässt man
   dieses Programm laufen, so wird die Ausgabe \verb|Hello World| auf
   dem Bildschirm erscheinen. Wir haben somit einen Seiteneffekt beim
-  ausführend unseres Programmes, also beim ''Aufrufen des Wertes \verb|main|`` erzeugt.
+  ausführend unseres Programmes, also beim \glqq Aufrufen des Wertes \verb|main|\grqq  erzeugt.
 
   Nun gibt es verschiedene philosophische Herangehensweisen, wie wir
   dies Interpretieren können. Wir können uns beispielsweise vorstellen,
-  dass in unserem ''\verb|IO| Gefängnis`` der Wert \verb|()| nun zusammen mit
-  dem Seiteneffekt, welcher ''\verb|Hello World|`` auf dem
+  dass in unserem \glqq \verb|IO| Gefängnis\grqq  der Wert \verb|()| nun zusammen mit
+  dem Seiteneffekt, welcher \glqq \verb|Hello World|\grqq  auf dem
   Bildschirm ausgibt, sitzt.
   Dies bedeutet, wenn der Wert \verb|main| aufgerufen wird, so wird
-  das gesamte ''\verb|IO| Gefängnis`` betrachtet, was den Seiteneffekt
+  das gesamte \glqq \verb|IO| Gefängnis\grqq  betrachtet, was den Seiteneffekt
   anzeigt.
 
   Das wichtige hierbei ist jedoch, dass wir nun eine rigorose Theorie
@@ -1076,7 +1078,7 @@
   unser Programm nichts machen zu lassen. In \cref{fig:ioexamples2} sehen
   wir ein Beispiel dafür. Das Kontatinieren von Seiteneffekten 
   zu neuen Seiteneffekten und die Existenz eines Seiteneffekts,
-  welcher nichts macht, also der ''nichts-machende Seiteneffekt'' \verb|return ()|
+  welcher nichts macht, also der \glqq nichts-machende Seiteneffekt\glqq  \verb|return ()|
   vom Typen \verb|IO ()|, sind die Eigenschaften, welche
   intuitiv für Seiteneffekte klar sind und Seiteneffekte ausmachen.
   Und diese sind genau die Eigenschaften, welche wir mit der Monadenstruktur
@@ -1107,12 +1109,12 @@
   einfache Typen zu erstellen. Stets waren wir bemüht, die Theorie, welche
   wir aufbauen rigoros und wohldefiniert zu halten. Haben wir eine
   Struktur gefunden, so haben wir versucht dieser einen Namen zu geben und
-  diese zu verallgemeinern, ganz im Sinne der ''Modularität`` und
-  ''Ausdrucksfähigkeit``, so wie es in \cite{abelson1996StructureAndInterpretationOfComputerPrograms}
+  diese zu verallgemeinern, ganz im Sinne der \glqq Modularität\grqq  und
+  \glqq Ausdrucksfähigkeit\grqq , so wie es in \cite{abelson1996StructureAndInterpretationOfComputerPrograms}
   empfohlen wird.
   Speziell haben wir dies bei der \verb|Functor|
-  Typenklasse gesehen, welche das Konzept ''Abbildungen zwischen Strukturen
-  können auf ähnliche Abbildungen auf ähnlichen Strukturen geschickt werden''
+  Typenklasse gesehen, welche das Konzept \glqq Abbildungen zwischen Strukturen
+  können auf ähnliche Abbildungen auf ähnlichen Strukturen geschickt werden\glqq 
   darstellt. Nun war es am Ende eigentlich nur ein glücklicher
   Zufall, dass unsere Struktur der Monaden genau die Eigenschaften,
   welche Seiteneffekte ausmachen, besitzt.
@@ -1131,10 +1133,10 @@
   wir eine Typensignatur angeben, die Funktion auch genau diesen Typ
   hat\footnote{außer bei partiellen Funktionen, welche Definitionslückene aufweisen, oder nicht-terminierenden Funktionen}.
 
-  Genau so, wie wir sagen könnten ''uns ist egal was ein 'Körper` ist,
-  hauptsache wir wissen was 1,2,3, \dots sind'', könnten wir auch sagen
-  ''uns ist egal was eine Monade ist, hauptsache wir wissen dass es
-  Seiteneffekte gibt''. Wir können auch ohne das nötige Hintergrundwissen
+  Genau so, wie wir sagen könnten \glqq uns ist egal was ein 'Körper` ist,
+  hauptsache wir wissen was 1,2,3, \dots sind\glqq , könnten wir auch sagen
+  \glqq uns ist egal was eine Monade ist, hauptsache wir wissen dass es
+  Seiteneffekte gibt\glqq . Wir können auch ohne das nötige Hintergrundwissen
   Programmieren, jedoch können wir deutlich eleganteren und präziseren Code
   schreiben, wenn wir die den Problemen grundlegenden Strukturen kennen.
 
@@ -1143,7 +1145,7 @@
   Hier können wir nun auch sehen, warum Haskell zwar sehr eleganten
   und effizienten Code erzeugen kann, jedoch in der Industrie nicht
   weit verbreitet ist. Oft ist es einfacher und schneller, eine
-  ''quick and dirty`` Lösung zu finden welche ''einfach funktioniert``,
+  \glqq quick and dirty\grqq  Lösung zu finden welche \glqq einfach funktioniert\grqq ,
   als sich mit den Grundlagen seiner Probleme auseinanderzusetzen.
   Insbesondere ist die Hürde für die Einarbeitung in Haskell sehr hoch,
   was bei anderen populären Sprachen wie Python oder JavaScript nicht der Fall ist.
@@ -1192,7 +1194,7 @@
 
   % Der \texttt{\textbackslash cref}-Befehl entstammt hierbei dem
   % \texttt{cleveref}-Paket und setzt automatisch den korrekten Bezeichner
-  % vor die Referenz, in diesem Beispiel ``Abbildung''.
+  % vor die Referenz, in diesem Beispiel \grqq Abbildung\glqq .
   % Zum Vergleich: \texttt{\textbackslash ref} setzt nur die
   % Nummer \ref{fig:initial-draft}, die der Abbildung zugeteilt wurde.
 
@@ -1256,10 +1258,10 @@
   % und gehören in den Satz hinein.
   % Beachten Sie folgendes Beispiel:
   % \begin{itemize}
-  %   \item In ``Artificial Intelligence: A Modern Approach''~\cite{russell2002artificial}
+  %   \item In \grqq Artificial Intelligence: A Modern Approach\glqq ~\cite{russell2002artificial}
   %     werden moderne Ansätze und Techniken
   %     der künstlichen Intelligenz vorgestellt.
-  %   \item bei direkten Zitationen wir zusätzlich die Seite angegeben wo das Zitat zu finden ist, z.B. ``...''~\cite[p.1]{russell2002artificial}
+  %   \item bei direkten Zitationen wir zusätzlich die Seite angegeben wo das Zitat zu finden ist, z.B. \grqq ...\glqq ~\cite[p.1]{russell2002artificial}
   % \end{itemize}
 
   % Am Ende der Ausarbeitung werden die referenzierten Quellen automatisch
@@ -1271,7 +1273,7 @@
   % müssen die entsprechenden Einträge in der Datei \texttt{references.bib}
   % stehen.
   % Sie finden in der Vorlage bereits den beispielhaften Eintrag für
-  % ``Artificial Intelligence: A Modern Approach''~\cite{russell2002artificial}.
+  % \grqq Artificial Intelligence: A Modern Approach\glqq ~\cite{russell2002artificial}.
 
   % Für Literaturquellen empfiehlt es sich in aller Regel
   % \url{https://scholar.google.com} zu nutzen.
@@ -1279,10 +1281,10 @@
   % angeben lassen und muss diesen so nicht selbst zusammenstellen.
 
   % Beachten Sie auch den Artikel
-  % ``Common Errors in Bibliographies''
+  % \grqq Common Errors in Bibliographies\glqq 
   % von John Owens.\footnote{%
   %   \url{https://www.ece.ucdavis.edu/~jowens/biberrors.html}}
-  % Des Weiteren ist der Vortrag von Simon Peyton Jones \href{https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/}{``How to write a great research paper''} zu empfehlen.
+  % Des Weiteren ist der Vortrag von Simon Peyton Jones \href{https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/}{\grqq How to write a great research paper\glqq } zu empfehlen.
 
   \appendix
   % \section{Beispielhafter Anhang}
